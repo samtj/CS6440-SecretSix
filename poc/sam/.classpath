@@ -2,5 +2,38 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="src/imports/annotations-2.0.3.jar"/>
+	<classpathentry kind="lib" path="src/imports/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="src/imports/commons-io-2.4.jar"/>
+	<classpathentry kind="lib" path="src/imports/commons-lang3-3.1.jar"/>
+	<classpathentry kind="lib" path="src/imports/commons-lang3-3.3.2.jar"/>
+	<classpathentry kind="lib" path="src/imports/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="src/imports/commons-logging-api-1.1.jar"/>
+	<classpathentry kind="lib" path="src/imports/cors-filter-1.0.1.jar"/>
+	<classpathentry kind="lib" path="src/imports/gson-2.3.jar"/>
+	<classpathentry kind="lib" path="src/imports/hapi-fhir-base-0.8.jar"/>
+	<classpathentry kind="lib" path="src/imports/hapi-fhir-structures-dev-0.8.jar"/>
+	<classpathentry kind="lib" path="src/imports/hapi-fhir-structures-dstu-0.8.jar"/>
+	<classpathentry kind="lib" path="src/imports/httpclient-4.2.3.jar"/>
+	<classpathentry kind="lib" path="src/imports/httpclient-4.3.3.jar"/>
+	<classpathentry kind="lib" path="src/imports/httpcore-4.2.2.jar"/>
+	<classpathentry kind="lib" path="src/imports/httpcore-4.3.2.jar"/>
+	<classpathentry kind="lib" path="src/imports/javassist-3.16.1-GA.jar"/>
+	<classpathentry kind="lib" path="src/imports/javax.json-1.0.4.jar"/>
+	<classpathentry kind="lib" path="src/imports/javax.json-api-1.0.jar"/>
+	<classpathentry kind="lib" path="src/imports/jcl-over-slf4j-1.7.7.jar"/>
+	<classpathentry kind="lib" path="src/imports/logback-classic-1.1.2.jar"/>
+	<classpathentry kind="lib" path="src/imports/logback-core-1.1.2.jar"/>
+	<classpathentry kind="lib" path="src/imports/ognl-3.0.6.jar"/>
+	<classpathentry kind="lib" path="src/imports/phloc-commons-4.3.3.jar"/>
+	<classpathentry kind="lib" path="src/imports/phloc-schematron-2.7.1.jar"/>
+	<classpathentry kind="lib" path="src/imports/Saxon-HE-9.5.1-5.jar"/>
+	<classpathentry kind="lib" path="src/imports/slf4j-api-1.7.7.jar"/>
+	<classpathentry kind="lib" path="src/imports/stax-api-1.0-2.jar"/>
+	<classpathentry kind="lib" path="src/imports/stax2-api-3.1.4.jar"/>
+	<classpathentry kind="lib" path="src/imports/thymeleaf-2.1.3.RELEASE.jar"/>
+	<classpathentry kind="lib" path="src/imports/unbescape-1.0.jar"/>
+	<classpathentry kind="lib" path="src/imports/woodstox-core-asl-4.4.0.jar"/>
+	<classpathentry kind="lib" path="src/imports/xpp3-1.1.4c.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
