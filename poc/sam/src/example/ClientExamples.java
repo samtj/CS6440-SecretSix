@@ -20,9 +20,10 @@ public class ClientExamples {
    public void createProxy() {
       // START SNIPPET: proxy
       FhirContext ctx = new FhirContext();
-      ctx.getRestfulClientFactory().setProxy("example.com", 8888);
+      ctx.getRestfulClientFactory().setProxy("127.0.0.1", 8888);
 
-      IGenericClient genericClient = ctx.newRestfulGenericClient("http://localhost:9999/fhir");
+      //IGenericClient genericClient = ctx.newRestfulGenericClient("http://localhost:9999/fhir");
+      IGenericClient genericClient = ctx.newRestfulGenericClient("http://fhirtest.uhn.ca/baseDstu1");
       // END SNIPPET: proxy
    }
 

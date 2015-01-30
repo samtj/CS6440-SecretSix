@@ -13,6 +13,8 @@ import ca.uhn.fhir.rest.annotation.RequiredParam;
 import ca.uhn.fhir.rest.annotation.Search;
 import ca.uhn.fhir.rest.client.api.IRestfulClient;
 
+import javax.servlet.http.HttpServletRequest;
+
 public class CompleteExampleClient {
 
    /**
@@ -40,7 +42,8 @@ public class CompleteExampleClient {
       FhirContext ctx = new FhirContext();
 
       // Create the client
-      String serverBase = "http://fhir.healthintersections.com.au/open";
+      String serverBase = "http://fhir.uhn.ca/open";
+      //String serverBase = "http://fhir.healthintersections.com.au/open";
       ClientInterface client = ctx.newRestfulClient(ClientInterface.class, serverBase);
 
       // Invoke the client to search for patient

@@ -3,10 +3,10 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container/restful-server-example"/>
 	<classpathentry kind="lib" path="src/imports/annotations-2.0.3.jar"/>
 	<classpathentry kind="lib" path="src/imports/commons-codec-1.9.jar"/>
 	<classpathentry kind="lib" path="src/imports/commons-io-2.4.jar"/>
-	<classpathentry kind="lib" path="src/imports/commons-lang3-3.1.jar"/>
 	<classpathentry kind="lib" path="src/imports/commons-lang3-3.3.2.jar"/>
 	<classpathentry kind="lib" path="src/imports/commons-logging-1.1.1.jar"/>
 	<classpathentry kind="lib" path="src/imports/commons-logging-api-1.1.jar"/>
@@ -15,9 +15,7 @@
 	<classpathentry kind="lib" path="src/imports/hapi-fhir-base-0.8.jar"/>
 	<classpathentry kind="lib" path="src/imports/hapi-fhir-structures-dev-0.8.jar"/>
 	<classpathentry kind="lib" path="src/imports/hapi-fhir-structures-dstu-0.8.jar"/>
-	<classpathentry kind="lib" path="src/imports/httpclient-4.2.3.jar"/>
 	<classpathentry kind="lib" path="src/imports/httpclient-4.3.3.jar"/>
-	<classpathentry kind="lib" path="src/imports/httpcore-4.2.2.jar"/>
 	<classpathentry kind="lib" path="src/imports/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="src/imports/javassist-3.16.1-GA.jar"/>
 	<classpathentry kind="lib" path="src/imports/javax.json-1.0.4.jar"/>
@@ -36,5 +34,14 @@
 	<classpathentry kind="lib" path="src/imports/unbescape-1.0.jar"/>
 	<classpathentry kind="lib" path="src/imports/woodstox-core-asl-4.4.0.jar"/>
 	<classpathentry kind="lib" path="src/imports/xpp3-1.1.4c.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Samuel_Tjokrosoesilo/.m2/repository/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar">
+		<attributes>
+			<attribute name="maven.pomderived" value="true"/>
+			<attribute name="maven.groupId" value="javax.servlet"/>
+			<attribute name="maven.artifactId" value="javax.servlet-api"/>
+			<attribute name="maven.version" value="3.1.0"/>
+			<attribute name="maven.scope" value="test"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
