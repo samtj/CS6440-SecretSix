@@ -1,0 +1,22 @@
+@(message: String)
+
+@main("Secret Six Dashboard") {
+
+    <!-- @play20.welcome(message, style = "Java")-->
+    <div ng-controller="dashboardController">
+        12 {{test}}  34
+
+        <button type="button" ng-click="loadSamplejson()">click</button>
+        <button ng-click="loadSamplejsonWP(temptext)">click to show text</button>
+
+
+
+        <input ng-model="temptext">
+
+        <br>
+        start <div ng-repeat="item in passedtext">{{item}}</div>  stop
+
+
+    </div>
+
+}
