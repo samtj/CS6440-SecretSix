@@ -3,32 +3,43 @@ package model;
 import javax.persistence.*;
 
 /**
- * Created by Samuel_Tjokrosoesilo on 2/26/2015.
+ * Created by Samuel_Tjokrosoesilo on 3/10/2015.
  */
 @Entity
 @Table(name = "Patient", schema = "", catalog = "")
 public class PatientEntity {
-    private int id;
+    private Integer patientId;
     private String name;
+    private Integer type;
 
     @Id
-    @Column(name = "Id", nullable = false, insertable = true, updatable = true)
-    public int getId() {
-        return id;
+    @Column(name = "PatientId", nullable = true, insertable = true, updatable = true)
+    public Integer getPatientId() {
+        return patientId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setPatientId(Integer patientId) {
+        this.patientId = patientId;
     }
 
     @Basic
-    @Column(name = "Name", nullable = false, insertable = true, updatable = true, length = 2000000000)
+    @Column(name = "Name", nullable = true, insertable = true, updatable = true, length = 2000000000)
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Basic
+    @Column(name = "Type", nullable = true, insertable = true, updatable = true)
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 
     @Override
@@ -38,16 +49,18 @@ public class PatientEntity {
 
         PatientEntity that = (PatientEntity) o;
 
-        if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (patientId != null ? !patientId.equals(that.patientId) : that.patientId != null) return false;
+        if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
         return true;
     }
 
     @Override
     public int hashCode() {
-        int result = id;
+        int result = patientId != null ? patientId.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (type != null ? type.hashCode() : 0);
         return result;
     }
 }

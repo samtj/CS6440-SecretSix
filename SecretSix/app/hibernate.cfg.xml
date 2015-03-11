@@ -4,9 +4,13 @@
         "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
     <session-factory>
+        <property name="show_sql">true</property>
+        <property name="format_sql">true</property>
+        <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
         <property name="connection.url">jdbc:sqlite:</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
         <mapping class="model.PatientEntity"/>
+        <mapping class="model.UserEntity"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>
