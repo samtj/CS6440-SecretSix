@@ -14,14 +14,14 @@ import views.html.index;
  */
 public class UserController extends Controller {
     public static Result index() {
-        return ok(index.render("Your Patient Controller is ready."));
+        return ok(index.render("Your User Controller is ready."));
     }
 
     //use http://localhost:9000/user?id=<user_Id>
     public static Result GetUser(int userId) {
         ObjectNode result = Json.newObject();
 
-        // TODO: get from patient repository
+        // TODO: get from user repository
         UserRepository repository = new UserRepository();
         UserEntity user = repository.GetUser(userId);
 
