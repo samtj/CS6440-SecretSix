@@ -15,8 +15,24 @@
 
         <br>
         start <div ng-repeat="item in passedtext">{{item}}</div>  stop
-
-
+<hr/>
+        <button ng-click="loadPatients()">load Patients</button>
+        <table ng-repeat="patient in allAvailablePatients.entry">
+            <tl><td>patient link: </td><td>{{patient.id}}</td><td><button ng-click="patientData(patient.id)">load Patients Detail</button></td></tl>
+        </table>
+<hr/>
+        <button ng-click="loadObservations()">load Observations</button>
+        <table ng-repeat="observation in allAvailableObservations.entry">
+            <tl><td>observation link: </td><td>{{observation.id}}</td><td><button ng-click="observationData(observation.id)">load observation Detail</button></td></tl>
+        </table>
+<hr/>
+        <button ng-click="loadConditionsByCode()">load Conditions</button>
+        <table ng-repeat="condition in allAvailableConditions.entry">
+            <tl><td>condition link: </td><td>{{condition.id}}</td><td><button ng-click="conditionData(condition.id)">load observation Detail</button></td></tl>
+        </table>
+<hr/>
+            <input ng-model="system" placeholder="System">,<input ng-model="code" placeholder="Code"> Try http://hl7.org/fhir/sid/icd-9 and 590.80
+            <button ng-click="loadConditionsByCode(system,code)">load Conditions by code</button>
     </div>
 
 }

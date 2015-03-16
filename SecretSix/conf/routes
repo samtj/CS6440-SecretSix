@@ -10,7 +10,7 @@ GET        /assets/*file                 controllers.Assets.at(path="/public", f
 #GET        /assets/*file                 controllers.Assets.at(path="/app",file)
 #GET        /assets/*file                 controllers.Assets.at(path="/app/controller",file)
 
-# my test sample json get function
+# my test sample json ? get function
 GET        /mysamplejson                 controllers.Application.mysamplejson()
 GET        /mysamplejsonWithParms        controllers.Application.mysamplejsonWithParms(text: String)
 
