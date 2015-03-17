@@ -16,6 +16,25 @@
         $scope.allAvailableObservations = [];
         $scope.allAvailableConditions = [];
 
+
+//Dictionary
+        $scope.myDictionary = {
+            'ICD9System':'http://hl7.org/fhir/sid/icd-9',
+            'LOINCSystem':'http://loinc.org',
+            'PatientLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient',
+            'ObservationLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation',
+            'ConditionLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition'
+        };
+
+
+
+//Get All Available Condition Codes and Count
+
+
+
+
+
+//Loading Data
         function loadSamplejsonWP(input){
             console.log("in here");
             return dashboardService.getDataWithInput({text:input}).
@@ -64,8 +83,11 @@
         function loadConditions(){
             return dashboardService.getAllConditions().
                 then(function(result){
-                    $scope.allAvailableConditions = result.data;
-                    console.log("allAvailableConditions: ", $scope.allAvailableConditions);
+                    //$scope.allAvailableConditions = result.data;
+                    //console.log("allAvailableConditions: ", $scope.allAvailableConditions);
+                    angular.forEach(result.data["entry"], function(condition){
+
+                    });
 
                 });
         }
