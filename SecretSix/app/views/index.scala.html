@@ -26,7 +26,7 @@
             <tl><td>observation link: </td><td>{{observation.id}}</td><td><button ng-click="observationData(observation.id)">load observation Detail</button></td></tl>
         </table>
 <hr/>
-        <button ng-click="loadConditionsByCode()">load Conditions</button>
+        <button ng-click="loadAllConditions()">load Conditions</button>
         <table ng-repeat="condition in allAvailableConditions.entry">
             <tl><td>condition link: </td><td>{{condition.id}}</td><td><button ng-click="conditionData(condition.id)">load observation Detail</button></td></tl>
         </table>
