@@ -42,7 +42,7 @@
             return $http.get(idlink);
         }
         function getAllConditions(){
-            return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?_count=50');
+            return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?_count=200');
         }
         function getConditionDetail(idlink){
             return $http.get(idlink);

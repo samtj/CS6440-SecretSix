@@ -15,6 +15,8 @@
         $scope.allAvailablePatients = [];
         $scope.allAvailableObservations = [];
         $scope.allAvailableConditions = [];
+        $scope.allAvailableConditionCodes = [];
+        $scope.objectOfConditionswithPatientData = {};
 
 
 //Dictionary
@@ -81,14 +83,50 @@
                 });
         }
         function loadConditions(){
+            var exists = false;
             return dashboardService.getAllConditions().
                 then(function(result){
-                    //$scope.allAvailableConditions = result.data;
-                    //console.log("allAvailableConditions: ", $scope.allAvailableConditions);
+                    $scope.allAvailableConditions = result.data;
+                    console.log("allAvailableConditions: ", $scope.allAvailableConditions);
                     angular.forEach(result.data["entry"], function(condition){
+                        //Make a unique list of all available codes
+                        if(condition.content.code.coding[0].code != null) {
+                            if ($scope.allAvailableConditionCodes.indexOf(condition.content.code.coding[0].code) == -1)
+                                $scope.allAvailableConditionCodes.push(condition.content.code.coding[0].code);
+
+                            //Make a list of unique Codes with Display, System, and number of Patients, and PatientIDs
+                            if (Object.keys($scope.objectOfConditionswithPatientData).length == 0)
+                                $scope.objectOfConditionswithPatientData[Object.keys($scope.objectOfConditionswithPatientData).length] = {
+                                    'code': condition.content.code.coding[0].code,
+                                    'display': condition.content.code.coding[0].display,
+                                    'system': condition.content.code.coding[0].system,
+                                    'patientList': [condition.content.subject.reference],
+                                    'patientCount': 1
+                                };
+                            else {
+                                for (var i = 0; i < Object.keys($scope.objectOfConditionswithPatientData).length; i++) {
+                                    if ($scope.objectOfConditionswithPatientData[i].code == condition.content.code.coding[0].code) {
+                                        $scope.objectOfConditionswithPatientData[i].patientCount++;
+                                        $scope.objectOfConditionswithPatientData[i].patientList.push(condition.content.subject.reference);
+                                        exists = true;
+                                    }
+                                }
+                                if (!exists) {
+                                    $scope.objectOfConditionswithPatientData[Object.keys($scope.objectOfConditionswithPatientData).length] = {
+                                        'code': condition.content.code.coding[0].code,
+                                        'display': condition.content.code.coding[0].display,
+                                        'system': condition.content.code.coding[0].system,
+                                        'patientList': [condition.content.subject.reference],
+                                        'patientCount': 1
+                                    };
+                                }
+                                exists = false;
+                            }
+                        }
 
                     });
-
+                    console.log("allAvailableConditionCode: ", $scope.allAvailableConditionCodes);
+                    console.log("objectOfConditionswithPatientData: ", $scope.objectOfConditionswithPatientData);
                 });
         }
         $scope.conditionData = function(idlink){
