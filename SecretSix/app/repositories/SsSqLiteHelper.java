@@ -12,4 +12,10 @@ public class SsSqLiteHelper {
     public static final String COLUMN_USERTYPE = "Type";
     public static final String COLUMN_PASSWORD = "Password";
     public static final String COLUMN_ACTIVE = "Active";
+
+    public static final String COLUMN_PATIENTID = "PatientId";
+    public static final String COLUMN_PATIENTTYPE = "Type";
+    public static final String COLUMN_PATIENTFIRSTNAME = "FirstName";
+    public static final String COLUMN_PATIENTLASTNAME = "LastName";
+
 }

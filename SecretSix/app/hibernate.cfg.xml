@@ -9,8 +9,7 @@
         <property name="dialect">org.hibernate.dialect.SQLiteDialect</property>
         <property name="connection.url">jdbc:sqlite:</property>
         <property name="connection.driver_class">org.sqlite.JDBC</property>
-        <mapping class="model.PatientEntity"/>
-        <mapping class="model.UserEntity"/>
+        <mapping class="models.Observation"/>
         <!-- DB schema will be updated if needed -->
         <!-- <property name="hbm2ddl.auto">update</property> -->
     </session-factory>
