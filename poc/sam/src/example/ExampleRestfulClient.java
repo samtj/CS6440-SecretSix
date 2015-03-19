@@ -20,7 +20,7 @@ public static void main(String[] args) {
    FhirContext ctx = new FhirContext();
    //String serverBase = "http://fhirtest.uhn.ca/fhirServerBase";
    String serverBase = "http://fhirtest.uhn.ca/baseDstu1";
-   ctx.getRestfulClientFactory().setProxy("127.0.0.1", 8888);
+   //ctx.getRestfulClientFactory().setProxy("127.0.0.1", 8888);
 
    // Create the client
    IRestfulClient client = ctx.newRestfulClient(IRestfulClient.class, serverBase);

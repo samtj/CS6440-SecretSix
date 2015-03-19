@@ -4,8 +4,8 @@
     <persistence-unit name="NewPersistenceUnit">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>model.ExamEntity</class>
+        <class>model.ObservationEntity</class>
         <class>model.PatientEntity</class>
-        <class>model.TodoEntity</class>
         <class>model.UserEntity</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:sqlite:C:/Git/CS6440-SecretSix/SecretSix/db/secretsix.db"/>

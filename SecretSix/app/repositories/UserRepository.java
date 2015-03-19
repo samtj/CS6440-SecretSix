@@ -35,19 +35,6 @@ public class UserRepository {
     {
         Connection connection = null;
         UserEntity user = null;
-/*
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            user = (UserEntity)session.load(UserEntity.class,userId);
-            Hibernate.initialize(user);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            if (session != null && session.isOpen()) {
-                session.close();
-            }
-        }
-*/
         try
         {
             // create a database connection
