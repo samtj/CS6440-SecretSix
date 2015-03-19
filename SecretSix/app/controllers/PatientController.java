@@ -20,34 +20,15 @@ public class PatientController extends Controller {
     }
 
     //use http://localhost:9000/patient?id=<patient_Id>
-    public static Result GetPatient(String patientId) {
+    public static Result GetPatient(int patientId) {
         ObjectNode result = Json.newObject();
 
+        // TODO: get from patient repository
         PatientRepository repository = new PatientRepository();
         PatientEntity patient = repository.GetPatient(patientId);
 
-        return ok(Json.toJson(patient));
-    }
+        result.put("content", patient.getName());
 
-    public static Result CreatePatient() {
-        ObjectNode result = Json.newObject();
-
-        PatientEntity patient = Json.fromJson(request().body().asJson(), PatientEntity.class);
-        PatientRepository repository = new PatientRepository();
-        boolean isSaved = repository.CreatePatient(patient);
-
-        result.put("content", isSaved);
-        return ok(result);
-    }
-
-    public static Result UpdatePatient(String patientId) {
-        ObjectNode result = Json.newObject();
-        PatientEntity patient = Json.fromJson(request().body().asJson(), PatientEntity.class);
-
-        PatientRepository repository = new PatientRepository();
-        boolean isSaved = repository.SavePatient(patient);
-
-        result.put("content", isSaved);
         return ok(result);
     }
 

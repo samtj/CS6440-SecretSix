@@ -3,20 +3,18 @@
 # ~~~~
 
 # Home page
-GET         /                             controllers.Application.index
+GET        /                             controllers.Application.index
 
 # Map static resources from the /public folder to the /assets URL path
-GET         /assets/*file                 controllers.Assets.at(path="/public", file)
+GET        /assets/*file                 controllers.Assets.at(path="/public", file)
 #GET        /assets/*file                 controllers.Assets.at(path="/app",file)
 #GET        /assets/*file                 controllers.Assets.at(path="/app/controller",file)
 
 # my test sample json ? get function
-GET         /mysamplejson                 controllers.Application.mysamplejson()
-GET         /mysamplejsonWithParms        controllers.Application.mysamplejsonWithParms(text: String)
+GET        /mysamplejson                 controllers.Application.mysamplejson()
+GET        /mysamplejsonWithParms        controllers.Application.mysamplejsonWithParms(text: String)
 
-GET         /patient/:id                  controllers.PatientController.GetPatient(id: String)
-POST        /patient                      controllers.PatientController.CreatePatient
-PUT         /patient/:id                  controllers.PatientController.UpdatePatient(id: String)
-GET         /patient/all                  controllers.PatientController.GetAllPatients()
+GET        /patient/:id					 controllers.PatientController.GetPatient(id: Int)
+GET        /patient/all					 controllers.PatientController.GetAllPatients()
 
-GET         /user/:id                     controllers.UserController.GetUser(id: Int)
+GET        /user/:id					 controllers.UserController.GetUser(id: Int)

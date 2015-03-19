@@ -3,29 +3,29 @@ package model;
 import javax.persistence.*;
 
 /**
- * Created by Samuel_Tjokrosoesilo on 3/19/2015.
+ * Created by Samuel_Tjokrosoesilo on 3/10/2015.
  */
 @Entity
 @Table(name = "User", schema = "", catalog = "")
 public class UserEntity {
-    private Integer userId;
+    private int userId;
     private String userName;
-    private Integer type;
+    private int type;
     private String password;
-    private Integer active;
+    private int active;
 
     @Id
-    @Column(name = "UserId", nullable = true, insertable = true, updatable = true)
-    public Integer getUserId() {
+    @Column(name = "UserId", nullable = false, insertable = true, updatable = true)
+    public int getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(int userId) {
         this.userId = userId;
     }
 
     @Basic
-    @Column(name = "UserName", nullable = true, insertable = true, updatable = true, length = 2000000000)
+    @Column(name = "UserName", nullable = false, insertable = true, updatable = true, length = 2000000000)
     public String getUserName() {
         return userName;
     }
@@ -35,17 +35,17 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Type", nullable = true, insertable = true, updatable = true)
-    public Integer getType() {
+    @Column(name = "Type", nullable = false, insertable = true, updatable = true)
+    public int getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(int type) {
         this.type = type;
     }
 
     @Basic
-    @Column(name = "Password", nullable = true, insertable = true, updatable = true, length = 2000000000)
+    @Column(name = "Password", nullable = false, insertable = true, updatable = true, length = 2000000000)
     public String getPassword() {
         return password;
     }
@@ -55,12 +55,12 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Active", nullable = true, insertable = true, updatable = true)
-    public Integer getActive() {
+    @Column(name = "Active", nullable = false, insertable = true, updatable = true)
+    public int getActive() {
         return active;
     }
 
-    public void setActive(Integer active) {
+    public void setActive(int active) {
         this.active = active;
     }
 
@@ -71,10 +71,10 @@ public class UserEntity {
 
         UserEntity that = (UserEntity) o;
 
-        if (active != null ? !active.equals(that.active) : that.active != null) return false;
+        if (active != that.active) return false;
+        if (type != that.type) return false;
+        if (userId != that.userId) return false;
         if (password != null ? !password.equals(that.password) : that.password != null) return false;
-        if (type != null ? !type.equals(that.type) : that.type != null) return false;
-        if (userId != null ? !userId.equals(that.userId) : that.userId != null) return false;
         if (userName != null ? !userName.equals(that.userName) : that.userName != null) return false;
 
         return true;
@@ -82,11 +82,11 @@ public class UserEntity {
 
     @Override
     public int hashCode() {
-        int result = userId != null ? userId.hashCode() : 0;
+        int result = userId;
         result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (type != null ? type.hashCode() : 0);
+        result = 31 * result + type;
         result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (active != null ? active.hashCode() : 0);
+        result = 31 * result + active;
         return result;
     }
 }
