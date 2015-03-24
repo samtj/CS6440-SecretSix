@@ -18,4 +18,15 @@ public class SsSqLiteHelper {
     public static final String COLUMN_PATIENTFIRSTNAME = "FirstName";
     public static final String COLUMN_PATIENTLASTNAME = "LastName";
 
+    public static final String COLUMN_OBSID = "ObservationId";
+    public static final String COLUMN_EXAMID = "ExamId";
+    public static final String COLUMN_CODE = "Code";
+    public static final String COLUMN_DISPLAY = "Display";
+    public static final String COLUMN_SYSTEM = "System";
+    public static final String COLUMN_QTY = "Quantity";
+    public static final String COLUMN_UNIT = "Unit";
+    public static final String COLUMN_COMMENT = "Comment";
+    public static final String COLUMN_SUBJECT = "Subject";
+    public static final String COLUMN_OBSDATE = "DateObserved";
+
 }

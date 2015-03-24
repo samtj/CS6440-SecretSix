@@ -20,3 +20,8 @@ PUT         /patient/:id                  controllers.PatientController.UpdatePa
 GET         /patient/all                  controllers.PatientController.GetAllPatients()
 
 GET         /user/:id                     controllers.UserController.GetUser(id: Int)
+
+GET         /observation/:id                  controllers.ObservationController.GetObservation(id: String)
+POST        /observation                      controllers.ObservationController.CreateObservation
+PUT         /observation/:id                  controllers.ObservationController.UpdateObservation(id: String)
+GET         /observation/all                  controllers.ObservationController.GetAllObservations()
