@@ -2,12 +2,11 @@ package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.PatientEntity;
-import play.*;
 import play.libs.Json;
-import play.mvc.*;
-
+import play.mvc.Controller;
+import play.mvc.Result;
 import repositories.PatientRepository;
-import views.html.*;
+import views.html.index;
 
 /**
  * Created by Samuel_Tjokrosoesilo on 3/1/2015.
@@ -52,6 +51,7 @@ public class PatientController extends Controller {
     }
 
     public static Result GetAllPatients() {
+
         return null;
     }
 }

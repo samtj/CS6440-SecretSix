@@ -5,6 +5,8 @@
     'use strict';
 
 angular.module('app',[
-    //'ui.bootstrap'
+    'ngSanitize',
+    'ui.bootstrap'
+
 ]);
 })();

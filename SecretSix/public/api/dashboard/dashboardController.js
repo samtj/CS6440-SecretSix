@@ -12,13 +12,14 @@
         $scope.loadPatients = loadPatients;
         $scope.loadObservations = loadObservations;
         $scope.loadConditions = loadConditions;
+        $scope.action = action;
         $scope.allAvailablePatients = [];
         $scope.allAvailableObservations = [];
         $scope.allAvailableConditions = [];
         $scope.allAvailableConditionCodes = [];
         $scope.objectOfConditionswithPatientData = {};
-
-
+        $scope.patientObservations=[];
+        action();
 //Dictionary
         $scope.myDictionary = {
             'ICD9System':'http://hl7.org/fhir/sid/icd-9',
@@ -32,7 +33,9 @@
 
 //Get All Available Condition Codes and Count
 
-
+        function action(){
+            loadPatients();
+        }
 
 
 
@@ -80,6 +83,13 @@
             return dashboardService.getObservationDetail(idlink).
                 then(function(result){
                     console.log("observation Data: ", result.data);
+                });
+        }
+        $scope.observationByPatientID = function(id){
+            return dashboardService.getObservationByPatientID(id).
+                then(function(result){
+                    $scope.patientObservations = result.data;
+                    console.log("patientObservations: ", $scope.patientObservations);
                 });
         }
         function loadConditions(){

@@ -1,38 +1,208 @@
 @(message: String)
 
 @main("Secret Six Dashboard") {
-
-    <!-- @play20.welcome(message, style = "Java")-->
     <div ng-controller="dashboardController">
-        12 {{test}}  34
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" ng-click="navbarCollapsed = !navbarCollapsed">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Secret<i class="fa fa-connectdevelop fa-lg"></i>Six </a>
+            </div>
+            <div class="collapse navbar-collapse" collapse="!navbarCollapsed">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Dashboard</a></li>
+                    <li><a href="#about">About</a></li>
+                </ul>
+            </div>
+            @*<div id="navbar" class="navbar-collapse collapse">*@
+                @*<ul class="nav navbar-nav">*@
+                    @*<li class="active"><a href="#">Home</a></li>*@
+                    @*<li><a href="#about">About</a></li>*@
 
-        <button type="button" ng-click="loadSamplejson()">click</button>
-        <button ng-click="loadSamplejsonWP(temptext)">click to show text</button>
+                @*</ul>*@
+            @*</div><!--/.nav-collapse -->*@
+        </div>
+    </nav>
+
+    <div class="container" role="main">
+
+        <div class="row">
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-university fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">3</div>
+                                <div>Studies</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">View Studies</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-green">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-tasks fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">12</div>
+                                <div>Todo List Items</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">View Items</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-yellow">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-bed fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">{{allAvailablePatients.totalResults}}</div>
+                                <div>Available Patients</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#" ng-click="loadPatients()">
+                        <div class="panel-footer" >
+                            <span class="pull-left">View Patients</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <div class="panel panel-red">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-3">
+                                <i class="fa fa-users fa-5x"></i>
+                            </div>
+                            <div class="col-xs-9 text-right">
+                                <div class="huge">18</div>
+                                <div>Study Patients</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">
+                        <div class="panel-footer">
+                            <span class="pull-left">View Patients</span>
+                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                            <div class="clearfix"></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+        <div class="col-md-6">
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-list"></i> {{allAvailablePatients.totalResults}} Available Patients</h3>
+            </div>
+            <table class="table">
+                <thead><tr><th>Action</th><th>Patient ID</th><th>First Name</th><th>Last Name</th></tr></thead>
+                <tbody><tr ng-repeat="items in allAvailablePatients.entry | limitTo:10">
+                    <td>
+                    <div class="btn-group " dropdown>
+                        <button type="button" class="btn btn-danger btn-xs" ng-click="observationByPatientID(items.content.identifier[0].value)">Select</button>
+                        <button type="button" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Add to study</a></li>
+                            <li><a href="#">Ignore</a></li>
+
+                        </ul>
+                    </div>
+                </td>
+                    <td>{{items.content.identifier[0].value}}</td><td>{{items.content.name[0].given[0]}}</td><td>{{items.content.name[0].family[0]}}</td>
+                </tr>
+
+                </tbody>
+            </table>
+        </div>
+        </div>
+            <div class="col-md-6">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title"><i class="fa fa-list"></i> {{patientObservations.totalResults}} Patient Observations</h3>
+                    </div>
+                    <div style="max-height: 400px;overflow: auto">
+                    <ul class="list-group">
+                        <li class="list-group-item" ng-repeat="items in patientObservations.entry "><span ng-bind-html="items.content.text.div"></span></li>
+
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
 
-        <input ng-model="temptext">
 
-        <br>
-        start <div ng-repeat="item in passedtext">{{item}}</div>  stop
-<hr/>
-        <button ng-click="loadPatients()">load Patients</button>
-        <table ng-repeat="patient in allAvailablePatients.entry">
-            <tl><td>patient link: </td><td>{{patient.id}}</td><td><button ng-click="patientData(patient.id)">load Patients Detail</button></td></tl>
-        </table>
-<hr/>
-        <button ng-click="loadObservations()">load Observations</button>
-        <table ng-repeat="observation in allAvailableObservations.entry">
-            <tl><td>observation link: </td><td>{{observation.id}}</td><td><button ng-click="observationData(observation.id)">load observation Detail</button></td></tl>
-        </table>
-<hr/>
-        <button ng-click="loadConditions()">load Conditions</button>
-        <table ng-repeat="condition in allAvailableConditions.entry">
-            <tl><td>condition link: </td><td>{{condition.id}}</td><td><button ng-click="conditionData(condition.id)">load observation Detail</button></td></tl>
-        </table>
-<hr/>
-            <input ng-model="system" placeholder="System">,<input ng-model="code" placeholder="Code"> Try http://hl7.org/fhir/sid/icd-9 and 590.80
-            <button ng-click="loadConditionsByCode(system,code)">load Conditions by code</button>
+
+
+    </div>
+
+
+
+        @*12 {{test}}  34*@
+
+        @*<button type="button" ng-click="loadSamplejson()">click</button>*@
+        @*<button ng-click="loadSamplejsonWP(temptext)">click to show text</button>*@
+
+
+
+        @*<input ng-model="temptext">*@
+
+        @*<br>*@
+        @*start <div ng-repeat="item in passedtext">{{item}}</div>  stop*@
+@*<hr/>*@
+        @*<button ng-click="loadPatients()">load Patients</button>*@
+        @*<table ng-repeat="patient in allAvailablePatients.entry">*@
+            @*<tl><td>patient link: </td><td>{{patient.id}}</td><td><button ng-click="patientData(patient.id)">load Patients Detail</button></td></tl>*@
+        @*</table>*@
+@*<hr/>*@
+        @*<button ng-click="loadObservations()">load Observations</button>*@
+        @*<table ng-repeat="observation in allAvailableObservations.entry">*@
+            @*<tl><td>observation link: </td><td>{{observation.id}}</td><td><button ng-click="observationData(observation.id)">load observation Detail</button></td></tl>*@
+        @*</table>*@
+@*<hr/>*@
+        @*<button ng-click="loadConditions()">load Conditions</button>*@
+        @*<table ng-repeat="condition in allAvailableConditions.entry">*@
+            @*<tl><td>condition link: </td><td>{{condition.id}}</td><td><button ng-click="conditionData(condition.id)">load observation Detail</button></td></tl>*@
+        @*</table>*@
+@*<hr/>*@
+            @*<input ng-model="system" placeholder="System">,<input ng-model="code" placeholder="Code"> Try http://hl7.org/fhir/sid/icd-9 and 590.80*@
+            @*<button ng-click="loadConditionsByCode(system,code)">load Conditions by code</button>*@
     </div>
 
 }

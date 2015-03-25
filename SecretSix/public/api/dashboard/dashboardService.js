@@ -17,7 +17,8 @@
             getObservationDetail:getObservationDetail,
             getAllConditions:getAllConditions,
             getConditionDetail:getConditionDetail,
-            getAllConditionsByCode:getAllConditionsByCode
+            getAllConditionsByCode:getAllConditionsByCode,
+            getObservationByPatientID:getObservationByPatientID
         };
         return service;
         function getData(){
@@ -40,6 +41,9 @@
         }
         function getObservationDetail(idlink){
             return $http.get(idlink);
+        }
+        function getObservationByPatientID(id){
+            return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?subject:Patient="+id)
         }
         function getAllConditions(){
             return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?_count=200');
