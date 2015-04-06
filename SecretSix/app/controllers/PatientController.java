@@ -8,6 +8,8 @@ import play.mvc.Result;
 import repositories.PatientRepository;
 import views.html.index;
 
+import java.util.ArrayList;
+
 /**
  * Created by Samuel_Tjokrosoesilo on 3/1/2015.
 */
@@ -17,6 +19,8 @@ public class PatientController extends Controller {
     public static Result index() {
         return ok(index.render("Your Patient Controller is ready."));
     }
+
+
 
     //use http://localhost:9000/patient?id=<patient_Id>
     public static Result GetPatient(String patientId) {
@@ -52,6 +56,20 @@ public class PatientController extends Controller {
 
     public static Result GetAllPatients() {
 
-        return null;
+        ObjectNode result = Json.newObject();
+
+        PatientRepository repository = new PatientRepository();
+        ArrayList<PatientEntity> patients = repository.GetPatients();
+
+        return ok(Json.toJson(patients));
+    }
+    public static Result GetCount() {
+
+        ObjectNode result = Json.newObject();
+
+        PatientRepository repository = new PatientRepository();
+        ArrayList<PatientEntity> patients = repository.GetPatients();
+
+        return ok(Json.toJson(patients.size()));
     }
 }

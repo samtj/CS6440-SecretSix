@@ -17,8 +17,8 @@ GET         /mysamplejsonWithParms        controllers.Application.mysamplejsonWi
 GET         /patient/:id                  controllers.PatientController.GetPatient(id: String)
 POST        /patient                      controllers.PatientController.CreatePatient
 PUT         /patient/:id                  controllers.PatientController.UpdatePatient(id: String)
-GET         /patient/all                  controllers.PatientController.GetAllPatients()
-
+GET         /patient                      controllers.PatientController.GetAllPatients()
+GET         /patientCount                 controllers.PatientController.GetCount()
 GET         /user/:id                     controllers.UserController.GetUser(id: Int)
 
 GET         /observation/:id                  controllers.ObservationController.GetObservation(id: String)

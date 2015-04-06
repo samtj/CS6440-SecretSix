@@ -3,6 +3,7 @@ package repositories;
 import model.PatientEntity;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Samuel_Tjokrosoesilo on 3/19/2015.
@@ -17,7 +18,49 @@ public class PatientRepository {
     };
 
     Connection connection = null;
+    public ArrayList<PatientEntity> GetPatients()
+    {
+        PatientEntity patient = null;
+        ArrayList<PatientEntity> patients = new ArrayList<PatientEntity>();
+        Connection connection = null;
+        try
+        {
+            // create a database connection
 
+            connection = DriverManager.getConnection("jdbc:sqlite:" + SsSqLiteHelper.DB_LOCATION);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+            ResultSet rs = statement.executeQuery("select * from " + TABLE_Patient );
+
+            while(rs.next()) {
+                patient = resultToPatient(rs);
+                patients.add(patient);
+            }
+
+
+        }
+        catch(SQLException e)
+        {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
+        return patients;
+    }
     public PatientEntity GetPatient(String patientId)
     {
         PatientEntity patient = null;
