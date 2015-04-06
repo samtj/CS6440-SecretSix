@@ -13,6 +13,7 @@
         $scope.loadObservations = loadObservations;
         $scope.loadConditions = loadConditions;
         $scope.createNewPatient = createNewPatient;
+
         $scope.action = action;
         $scope.allAvailablePatients = [];
         $scope.allAvailableObservations = [];
@@ -20,6 +21,7 @@
         $scope.allAvailableConditionCodes = [];
         $scope.objectOfConditionswithPatientData = {};
         $scope.patientObservations=[];
+        $scope.patientCount;
         action();
 //Dictionary
         $scope.myDictionary = {
@@ -36,16 +38,34 @@
 
         function action(){
             loadPatients();
+            patientCount();
         }
 
 //post/put data
         function createNewPatient(patientData){
             console.log("creating new patient");
-            return dashboardService.createPatient({'patientId':patientData.identifier[0].value,'firstName':patientData.name[0].given[0],'lastName':patientData.name[0].family[0],'type':1});
+            return dashboardService.createPatient({'patientId':patientData.identifier[0].value,'firstName':patientData.name[0].given[0],'lastName':patientData.name[0].family[0],'type':1})
+                .then(function(result){
+                    if(result.data.content){
+                        patientCount();
+                    }else{
+                        //not successful toast
+                    }
+
+
+                    //
+                });
         }
 //post/put data END
 
 //Loading Data
+        function patientCount(){
+            return dashboardService.getCount('patientCount').then(function(result){
+                $scope.patientCount = result.data;
+                console.log($scope.patientCount);
+            });
+
+        }
         function loadSamplejsonWP(input){
             console.log("in here");
             return dashboardService.getDataWithInput({text:input}).

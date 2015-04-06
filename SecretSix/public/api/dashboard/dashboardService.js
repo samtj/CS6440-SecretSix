@@ -19,7 +19,8 @@
             getConditionDetail:getConditionDetail,
             getAllConditionsByCode:getAllConditionsByCode,
             getObservationByPatientID:getObservationByPatientID,
-            createPatient:createPatient
+            createPatient:createPatient,
+            getCount:getCount
         };
         return service;
         function getData(){
@@ -39,6 +40,9 @@
         }
         function getPatientDetail(idlink){
             return $http.get(idlink);
+        }
+        function getCount(countLink){
+            return $http.get(countLink);
         }
         function getAllObservations(){
             return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?_count=50');
