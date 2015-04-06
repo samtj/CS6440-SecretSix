@@ -12,6 +12,7 @@
         $scope.loadPatients = loadPatients;
         $scope.loadObservations = loadObservations;
         $scope.loadConditions = loadConditions;
+        $scope.createNewPatient = createNewPatient;
         $scope.action = action;
         $scope.allAvailablePatients = [];
         $scope.allAvailableObservations = [];
@@ -37,7 +38,12 @@
             loadPatients();
         }
 
-
+//post/put data
+        function createNewPatient(patientData){
+            console.log("creating new patient");
+            return dashboardService.createPatient({'patientId':patientData.identifier[0].value,'firstName':patientData.name[0].given[0],'lastName':patientData.name[0].family[0],'type':1});
+        }
+//post/put data END
 
 //Loading Data
         function loadSamplejsonWP(input){

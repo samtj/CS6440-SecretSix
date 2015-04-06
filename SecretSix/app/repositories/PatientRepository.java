@@ -1,12 +1,6 @@
 package repositories;
 
 import model.PatientEntity;
-import model.UserEntity;
-import org.hibernate.*;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.metadata.ClassMetadata;
-import org.hibernate.service.ServiceRegistry;
-import org.hibernate.service.ServiceRegistryBuilder;
 
 import java.sql.*;
 
@@ -21,6 +15,7 @@ public class PatientRepository {
             SsSqLiteHelper.COLUMN_PATIENTLASTNAME,
             SsSqLiteHelper.COLUMN_PATIENTTYPE,
     };
+
     Connection connection = null;
 
     public PatientEntity GetPatient(String patientId)
@@ -30,6 +25,7 @@ public class PatientRepository {
         try
         {
             // create a database connection
+
             connection = DriverManager.getConnection("jdbc:sqlite:" + SsSqLiteHelper.DB_LOCATION);
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
@@ -119,10 +115,17 @@ public class PatientRepository {
             //preparedStmt.setDate   (3, startDate);
             //preparedStmt.setBoolean(4, false);
             //preparedStmt.setInt    (5, 5000);
-            preparedStmt.execute();
-            connection.commit();
-            preparedStmt.close();
-            connection.close();
+            try{
+                preparedStmt.execute();
+                connection.commit();
+                preparedStmt.close();
+                connection.close();
+            }catch(SQLException e1){
+                preparedStmt.close();
+                connection.close();
+                e1.printStackTrace();
+                return false;
+            }
         } catch ( Exception e ) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage() );
             return false;
