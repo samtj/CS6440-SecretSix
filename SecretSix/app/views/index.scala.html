@@ -17,6 +17,10 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Dashboard</a></li>
                     <li><a href="#about">About</a></li>
+
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li  ng-hide="!loggedin"><a href="#logout" ng-click="loggedin=false">Logout</a></li>
                 </ul>
             </div>
             @*<div id="navbar" class="navbar-collapse collapse">*@
@@ -30,7 +34,31 @@
     </nav>
 
     <div class="container" role="main">
+        <div class="row" collapse="loggedin">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please Sign In</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form role="form">
+                            <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Username" name="username" type="username" autofocus="">
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                </div>
 
+                                    <!-- Change this to a button or input when using this as a form -->
+                                <a href="#" ng-click="loggedin=true" class="btn btn-lg btn-success btn-block">Login</a>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div collapse="!loggedin">
         <div class="row">
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="panel panel-primary">
@@ -203,8 +231,8 @@
             </div>
 
             </div>
-
         </div>
+    </div>
 
 
 

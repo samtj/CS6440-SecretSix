@@ -25,6 +25,7 @@
         $scope.patientObservations=[];
         $scope.patientConditions=[];
         $scope.patientCount;
+        $scope.loggedin = false;
         action();
 //Dictionary
         $scope.myDictionary = {
