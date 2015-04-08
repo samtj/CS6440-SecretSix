@@ -21,6 +21,7 @@
         $scope.allAvailableConditionCodes = [];
         $scope.objectOfConditionswithPatientData = {};
         $scope.patientObservations=[];
+        $scope.patientConditions=[];
         $scope.patientCount;
         action();
 //Dictionary
@@ -96,7 +97,7 @@
                 then(function(result){
                     console.log("patient Data: ", result.data);
                 });
-        }
+        };
         function loadObservations(){
             return dashboardService.getAllObservations().
                 then(function(result){
@@ -110,14 +111,14 @@
                 then(function(result){
                     console.log("observation Data: ", result.data);
                 });
-        }
+        };
         $scope.observationByPatientID = function(id){
             return dashboardService.getObservationByPatientID(id).
                 then(function(result){
                     $scope.patientObservations = result.data;
                     console.log("patientObservations: ", $scope.patientObservations);
                 });
-        }
+        };
         function loadConditions(){
             var exists = false;
             return dashboardService.getAllConditions().
@@ -170,16 +171,22 @@
                 then(function(result){
                     console.log("condition Data: ", result.data);
                 });
-        }
+        };
 
         $scope.loadConditionsByCode = function(system,code){
             return dashboardService.getAllConditionsByCode(system,code).
                 then(function(result){
                     console.log("conditions by code: ", result.data);
                 });
-        }
+        };
 
-
+        $scope.conditionsByPatientID = function(id){
+            return dashboardService.getConditionsByPatientID(id).
+                then(function(result) {
+                    $scope.patientConditions = result.data;
+                    console.log("conditions by id", result.data);
+                });
+        };
 
 
 

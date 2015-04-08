@@ -19,6 +19,7 @@
             getConditionDetail:getConditionDetail,
             getAllConditionsByCode:getAllConditionsByCode,
             getObservationByPatientID:getObservationByPatientID,
+            getConditionsByPatientID:getConditionsByPatientID,
             createPatient:createPatient,
             getCount:getCount
         };
@@ -62,6 +63,9 @@
         //https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?code=http://hl7.org/fhir/sid/icd-9|590.80
         function getAllConditionsByCode(system,code){
             return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?code='+system+'|'+code);
+        }
+        function getConditionsByPatientID(id) {
+            return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?subject:Patient=" + id);
         }
     }
 })();
