@@ -61,6 +61,7 @@ public class PatientRepository {
         }
         return patients;
     }
+
     public PatientEntity GetPatient(String patientId)
     {
         PatientEntity patient = null;

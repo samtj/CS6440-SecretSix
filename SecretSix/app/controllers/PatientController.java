@@ -63,6 +63,7 @@ public class PatientController extends Controller {
 
         return ok(Json.toJson(patients));
     }
+
     public static Result GetCount() {
 
         ObjectNode result = Json.newObject();

@@ -19,9 +19,16 @@ POST        /patient                      controllers.PatientController.CreatePa
 PUT         /patient/:id                  controllers.PatientController.UpdatePatient(id: String)
 GET         /patient                      controllers.PatientController.GetAllPatients()
 GET         /patientCount                 controllers.PatientController.GetCount()
+
 GET         /user/:id                     controllers.UserController.GetUser(id: Int)
 
-GET         /observation/:id                  controllers.ObservationController.GetObservation(id: String)
-POST        /observation                      controllers.ObservationController.CreateObservation
-PUT         /observation/:id                  controllers.ObservationController.UpdateObservation(id: String)
-GET         /observation/all                  controllers.ObservationController.GetAllObservations()
+GET         /observation/:id              controllers.ObservationController.GetObservation(id: String)
+POST        /observation                  controllers.ObservationController.CreateObservation
+PUT         /observation/:id              controllers.ObservationController.UpdateObservation(id: String)
+GET         /observation/all              controllers.ObservationController.GetAllObservations()
+
+GET         /study/:id                    controllers.StudyController.GetStudy(id: Int)
+POST        /study                      controllers.StudyController.CreateStudy
+PUT         /study/:id                  controllers.StudyController.UpdateStudy(id: Int)
+GET         /study                      controllers.StudyController.GetAllStudies()
+GET         /studyCount                 controllers.StudyController.GetCount()
