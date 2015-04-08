@@ -102,6 +102,7 @@ public class PatientRepository {
     public boolean SavePatient(PatientEntity patient)
     {
         Connection connection = null;
+        PreparedStatement preparedStmt = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -117,7 +118,7 @@ public class PatientRepository {
             sql += SsSqLiteHelper.COLUMN_PATIENTTYPE + " = ? ";
             sql += " where " + SsSqLiteHelper.COLUMN_PATIENTID + " = ?";
 
-            PreparedStatement preparedStmt = connection.prepareStatement(sql);
+            preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString (1, patient.getFirstName());
             preparedStmt.setString(2, patient.getLastName());
             preparedStmt.setInt(3, patient.getType());
@@ -131,13 +132,28 @@ public class PatientRepository {
             System.err.println(e.getClass().getName() + ": " + e.getMessage() );
             return false;
         }
-
+        finally
+        {
+            try
+            {
+                if(preparedStmt != null)
+                    preparedStmt.close();
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
         return true;
     }
 
     public boolean CreatePatient(PatientEntity patient)
     {
         Connection connection = null;
+        PreparedStatement preparedStmt = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -151,7 +167,7 @@ public class PatientRepository {
                     + "," + SsSqLiteHelper.COLUMN_PATIENTTYPE + ")"
                     + " values (?, ?, ?, ?)";
 
-            PreparedStatement preparedStmt = connection.prepareStatement(sql);
+            preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString (1, patient.getPatientId());
             preparedStmt.setString(2, patient.getFirstName());
             preparedStmt.setString(3, patient.getLastName());
@@ -159,22 +175,27 @@ public class PatientRepository {
             //preparedStmt.setDate   (3, startDate);
             //preparedStmt.setBoolean(4, false);
             //preparedStmt.setInt    (5, 5000);
-            try{
-                preparedStmt.execute();
-                connection.commit();
-                preparedStmt.close();
-                connection.close();
-            }catch(SQLException e1){
-                preparedStmt.close();
-                connection.close();
-                e1.printStackTrace();
-                return false;
-            }
+            preparedStmt.execute();
+            connection.commit();
         } catch ( Exception e ) {
-            System.err.println(e.getClass().getName() + ": " + e.getMessage() );
+            System.err.println(e.getClass().getName() + ": " + e.getMessage());
             return false;
         }
-
+        finally
+        {
+            try
+            {
+                if(preparedStmt != null)
+                    preparedStmt.close();
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
         return true;
     }
 

@@ -61,6 +61,7 @@ public class StudyRepository {
     public boolean SaveStudy(StudyEntity study)
     {
         Connection connection = null;
+        PreparedStatement preparedStmt = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -77,7 +78,7 @@ public class StudyRepository {
             sql += SsSqLiteHelper.COLUMN_ACTIVE + " = ? ";
             sql += " where " + SsSqLiteHelper.COLUMN_STUDYID + " = ?";
 
-            PreparedStatement preparedStmt = connection.prepareStatement(sql);
+            preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString (1, study.getDescription());
             preparedStmt.setInt(2, study.getAssignedTo());
             preparedStmt.setString(3, study.getObservationCodes());
@@ -92,13 +93,28 @@ public class StudyRepository {
             System.err.println(e.getClass().getName() + ": " + e.getMessage() );
             return false;
         }
-
+        finally
+        {
+            try
+            {
+                if(preparedStmt != null)
+                    preparedStmt.close();
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
         return true;
     }
 
     public boolean CreateStudy(StudyEntity study)
     {
         Connection connection = null;
+        PreparedStatement preparedStmt = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -115,7 +131,7 @@ public class StudyRepository {
                     + ")"
                     + " values (?, ?, ?, ?, ?)";
 
-            PreparedStatement preparedStmt = connection.prepareStatement(sql);
+            preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setInt(1, study.getStudyId());
             preparedStmt.setString (2, study.getDescription());
             preparedStmt.setInt(3, study.getAssignedTo());
@@ -130,7 +146,21 @@ public class StudyRepository {
             System.err.println(e.getClass().getName() + ": " + e.getMessage() );
             return false;
         }
-
+        finally
+        {
+            try
+            {
+                if(preparedStmt != null)
+                    preparedStmt.close();
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
         return true;
     }
 
@@ -152,8 +182,6 @@ public class StudyRepository {
                 study = resultToStudy(rs);
                 studies.add(study);
             }
-
-
         }
         catch(SQLException e)
         {
