@@ -132,12 +132,11 @@
                         <tbody><tr ng-repeat="items in allAvailablePatients.entry | limitTo:10">
                             <td>
                             <div class="btn-group " dropdown>
-                                <button type="button" class="btn btn-danger btn-xs" ng-click="observationByPatientID(items.content.identifier[0].value)">Select</button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-click="selectPatientData(items.content.identifier[0].value)">Select</button>
                                 <button type="button" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#" ng-click="conditionsByPatientID(items.content.identifier[0].value)">Patient Conditions</a></li>
                                     <li><a href="#" ng-click="createNewPatient(items.content)">Add to study</a></li>
                                     <li><a href="#">Ignore</a></li>
 
@@ -167,7 +166,7 @@
             <div class="col-md-6">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-list"></i> {{patientObservations.totalResults}} Patient Conditions</h3>
+                        <h3 class="panel-title"><i class="fa fa-list"></i> {{patientConditions.totalResults}} Patient Conditions</h3>
                     </div>
                     <div style="max-height: 400px;overflow: auto">
                         <ul class="list-group">

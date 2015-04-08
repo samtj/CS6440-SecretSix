@@ -188,7 +188,9 @@
                 });
         };
 
-
-
+        $scope.selectPatientData = function(id){
+          $scope.conditionsByPatientID(id);
+          $scope.observationByPatientID(id);
+        };
     }
 })();
