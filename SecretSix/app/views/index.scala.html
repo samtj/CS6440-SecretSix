@@ -32,7 +32,7 @@
     <div class="container" role="main">
 
         <div class="row">
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <div class="row">
@@ -54,7 +54,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="panel panel-green">
                     <div class="panel-heading">
                         <div class="row">
@@ -76,7 +76,7 @@
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="panel panel-yellow">
                     <div class="panel-heading">
                         <div class="row">
@@ -89,16 +89,16 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" ng-click="loadPatients()">
+                    <a href="#" ng-click="setShowListDefault('availablePatients');loadPatients();">
                         <div class="panel-footer" >
-                            <span class="pull-left">View Patients</span>
+                            <span class="pull-left">Research Patients</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                             <div class="clearfix"></div>
                         </div>
                     </a>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="panel panel-red">
                     <div class="panel-heading">
                         <div class="row">
@@ -111,9 +111,9 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#">
+                    <a href="#" ng-click="setShowListDefault('studyPatients');loadStudyPatients();">
                         <div class="panel-footer">
-                            <span class="pull-left">View Patients</span>
+                            <span class="pull-left">View Study Patients</span>
                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                             <div class="clearfix"></div>
                         </div>
@@ -121,64 +121,90 @@
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row" ng-hide="!showList.availablePatients">
             <div class="col-md-6">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
                         <h3 class="panel-title"><i class="fa fa-list"></i> {{allAvailablePatients.totalResults}} Available Patients</h3>
                     </div>
-                    <table class="table">
+                    <table class="table table-striped">
                         <thead><tr><th>Action</th><th>Patient ID</th><th>First Name</th><th>Last Name</th></tr></thead>
-                        <tbody><tr ng-repeat="items in allAvailablePatients.entry | limitTo:10">
-                            <td>
-                            <div class="btn-group " dropdown>
-                                <button type="button" class="btn btn-danger btn-xs" ng-click="selectPatientData(items.content.identifier[0].value)">Select</button>
-                                <button type="button" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#" ng-click="createNewPatient(items.content)">Add to study</a></li>
-                                    <li><a href="#">Ignore</a></li>
 
-                                </ul>
-                            </div>
-                        </td>
-                            <td>{{items.content.identifier[0].value}}</td><td>{{items.content.name[0].given[0]}}</td><td>{{items.content.name[0].family[0]}}</td>
-                        </tr>
+                            <tbody >
+                                <tr ng-repeat="items in allAvailablePatients.entry | limitTo:50">
+                                <td>
+                                <div class="btn-group " dropdown>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="setShowListDefault('availablePatients');selectPatientData(items.content.identifier[0].value);showList.availablePatientsObservations=true;">Select</button>
+                                    <button type="button" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
+                                        <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="#" ng-click="createNewPatient(items.content)">Add to study</a></li>
+                                        <li><a href="#">Ignore</a></li>
 
-                        </tbody>
+                                    </ul>
+                                </div>
+                            </td>
+                                <td><span class="small">{{items.content.identifier[0].value}}</span></td><td> {{items.content.name[0].given[0]}}</td><td> {{items.content.name[0].family[0]}}</td>
+                            </tr>
+
+                            </tbody>
+
                     </table>
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" ng-hide="!(showList.availablePatientsObservations || showList.availablePatientsConditions || showList.availablePatientsMedications)">
                 <div class="panel panel-warning">
                     <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-list"></i> {{patientObservations.totalResults}} Patient Observations</h3>
+                        <h3 class="panel-title"><i class="fa fa-list"></i>
+                            <a href="#" ng-class="showList.availablePatientsObservations ? 'label label-success' : 'label label-normal'" ng-click="showList.availablePatientsObservations=true;showList.availablePatientsConditions = false; showList.availablePatientsMedications = false">{{patientObservations.totalResults}} Observations</a>
+                            <a href="#" ng-class="showList.availablePatientsConditions ? 'label label-success' : 'label label-normal'" ng-click="showList.availablePatientsObservations=false;showList.availablePatientsConditions = true; showList.availablePatientsMedications = false">{{patientConditions.totalResults}} Conditions</a>
+                            <a href="#" ng-class="showList.availablePatientsMedications ? 'label label-success' : 'label label-normal'" ng-click="showList.availablePatientsObservations=false;showList.availablePatientsConditions = false; showList.availablePatientsMedications = true">{{patientMedicationPrescription.totalResults}} Medications</a></h3>
                     </div>
-                    <div style="max-height: 400px;overflow: auto">
+                    <div style="min-height: 400px;max-height: 400px;overflow: auto">
                     <ul class="list-group">
-                        <li class="list-group-item" ng-repeat="items in patientObservations.entry "><span ng-bind-html="items.content.text.div"></span></li>
-
+                        <li ng-show="showList.availablePatientsObservations" class="list-group-item" ng-repeat="items in patientObservations.entry "><span ng-bind-html="items.content.text.div"></span></li>
+                        <li ng-show="showList.availablePatientsConditions" class="list-group-item" ng-repeat="items in patientConditions.entry "><span ng-bind-html="items.content.text.div"></span></li>
+                        <li ng-show="showList.availablePatientsMedications" class="list-group-item" ng-repeat="items in patientMedicationPrescription.entry ">Med: <span ng-bind="items.content.medication.display"></span> Dosage: <span ng-bind-html="items.content.dosageInstruction[0].text"></span> Dose Quantity: <span ng-bind="items.content.dosageInstruction[0].doseQuantity.value"></span><span ng-bind="items.content.dosageInstruction[0].doseQuantity.units"></span> Prescribed by: {{items.content.prescriber.display}}</li>
                     </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="panel panel-warning">
-                    <div class="panel-heading">
-                        <h3 class="panel-title"><i class="fa fa-list"></i> {{patientConditions.totalResults}} Patient Conditions</h3>
-                    </div>
-                    <div style="max-height: 400px;overflow: auto">
-                        <ul class="list-group">
-                            <li class="list-group-item" ng-repeat="items in patientConditions.entry "><span ng-bind-html="items.content.text.div"></span></li>
-
-                        </ul>
                     </div>
                 </div>
             </div>
         </div>
 
+        <div class="row" ng-hide="!showList.studyPatients">
+            <div class="col-lg-12">
+                <div class="well well-sm">This is where my filters will go</div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-4" ng-repeat="item in allStudyPatients">
+                <div class="pricing">
+                    <div class="float-top-left-corner">
+                        <span class="label label-default">{{item.firstName}} {{item.lastName}}</span>
+                    </div>
+                    <div class="unit price-success ">
+                        <div class="price-title">
+                            <h3><i class="fa fa-user fa-2x"></i></h3>
+                            <p>Active</p>
+                        </div>
+                        <div class="price-body">
+                            <h5>Current Study</h5>
+                            <p>Not Assigned</p>
+                            <ul>
+                                <li>Some data</li>
+                                <li>More data</li>
+                                <li>123 Data</li>
+                            </ul>
+                        </div>
+                        <div class="price-foot">
+                            <button type="button" class="btn btn-success">Do Something</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            </div>
+
+        </div>
 
 
 

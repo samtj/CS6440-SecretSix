@@ -12,6 +12,7 @@
             getData: getData,
             getDataWithInput: getDataWithInput,
             getAllPatients:getAllPatients,
+            getAllStudyPatients:getAllStudyPatients,
             getPatientDetail:getPatientDetail,
             getAllObservations:getAllObservations,
             getObservationDetail:getObservationDetail,
@@ -20,6 +21,7 @@
             getAllConditionsByCode:getAllConditionsByCode,
             getObservationByPatientID:getObservationByPatientID,
             getConditionsByPatientID:getConditionsByPatientID,
+            getMedicationByPatientID:getMedicationByPatientID,
             createPatient:createPatient,
             getCount:getCount
         };
@@ -38,6 +40,9 @@
         }
         function getAllPatients(){
             return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_count=50');
+        }
+        function getAllStudyPatients(){
+            return $http.get('patient');
         }
         function getPatientDetail(idlink){
             return $http.get(idlink);
@@ -66,6 +71,9 @@
         }
         function getConditionsByPatientID(id) {
             return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?subject:Patient=" + id);
+        }
+        function getMedicationByPatientID(id){
+            return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/MedicationPrescription?subject:Patient=" + id);
         }
     }
 })();

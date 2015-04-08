@@ -13,9 +13,11 @@
         $scope.loadObservations = loadObservations;
         $scope.loadConditions = loadConditions;
         $scope.createNewPatient = createNewPatient;
+        $scope.loadStudyPatients = loadStudyPatients;
 
         $scope.action = action;
         $scope.allAvailablePatients = [];
+        $scope.allStudyPatients = [];
         $scope.allAvailableObservations = [];
         $scope.allAvailableConditions = [];
         $scope.allAvailableConditionCodes = [];
@@ -32,7 +34,25 @@
             'ObservationLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation',
             'ConditionLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition'
         };
+        $scope.showList = {
+            'availablePatients':false,
+            'availablePatientsObservations':false,
+            'availablePatientsConditions':false,
+            'availablePatientsMedications':false,
+            'studyPatients':false
+        };
 
+        $scope.setShowListDefault = function(incoming){
+            $scope.showList = {
+                'availablePatients':false,
+                'availablePatientsObservations':false,
+                'availablePatientsConditions':false,
+                'availablePatientsMedications':false,
+                'studyPatients':false
+            }
+            $scope.showList[incoming] = true;
+
+        };
 
 
 //Get All Available Condition Codes and Count
@@ -89,6 +109,14 @@
                 then(function(result){
                     $scope.allAvailablePatients = result.data;
                     console.log("allAvailablePatients: ", $scope.allAvailablePatients);
+
+                });
+        }
+        function loadStudyPatients(){
+            return dashboardService.getAllStudyPatients().
+                then(function(result){
+                    $scope.allStudyPatients = result.data;
+                    console.log("allStudyPatients: ", $scope.allStudyPatients);
 
                 });
         }
@@ -187,10 +215,19 @@
                     console.log("conditions by id", result.data);
                 });
         };
+        $scope.medicationByPatientID = function(id){
+            return dashboardService.getMedicationByPatientID(id).
+                then(function(result) {
+                    $scope.patientMedicationPrescription = result.data;
+                    console.log("medication by id", result.data);
+                });
+        };
 
         $scope.selectPatientData = function(id){
-          $scope.conditionsByPatientID(id);
-          $scope.observationByPatientID(id);
+            $scope.conditionsByPatientID(id);
+            $scope.observationByPatientID(id);
+            $scope.medicationByPatientID(id);
+
         };
     }
 })();
