@@ -63,6 +63,7 @@ public class ObservationRepository {
     public boolean SaveObservation(ObservationEntity obs)
     {
         Connection connection = null;
+        PreparedStatement preparedStmt = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -86,7 +87,7 @@ public class ObservationRepository {
             sql += SsSqLiteHelper.COLUMN_OBSDATE + " = ? ";
             sql += " where " + SsSqLiteHelper.COLUMN_OBSID + " = ?";
 
-            PreparedStatement preparedStmt = connection.prepareStatement(sql);
+            preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setInt(1, obs.getExamId());
             preparedStmt.setString(2, obs.getCode());
             preparedStmt.setString(3, obs.getDisplay());
@@ -106,13 +107,28 @@ public class ObservationRepository {
             System.err.println(e.getClass().getName() + ": " + e.getMessage() );
             return false;
         }
-
+        finally
+        {
+            try
+            {
+                if(preparedStmt != null)
+                    preparedStmt.close();
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
         return true;
     }
 
     public boolean CreateObservation(ObservationEntity obs)
     {
         Connection connection = null;
+        PreparedStatement preparedStmt = null;
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -134,7 +150,7 @@ public class ObservationRepository {
                     + ")"
                     + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement preparedStmt = connection.prepareStatement(sql);
+            preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString (1, obs.getObservationId());
             preparedStmt.setInt(2, obs.getExamId());
             preparedStmt.setString(3, obs.getCode());
@@ -154,7 +170,21 @@ public class ObservationRepository {
             System.err.println(e.getClass().getName() + ": " + e.getMessage() );
             return false;
         }
-
+        finally
+        {
+            try
+            {
+                if(preparedStmt != null)
+                    preparedStmt.close();
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
         return true;
     }
 
