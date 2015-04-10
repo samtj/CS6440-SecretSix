@@ -10,6 +10,7 @@
         $scope.loadSamplejsonWP = loadSamplejsonWP;
         $scope.loadSamplejson = loadSamplejson;
         $scope.loadPatients = loadPatients;
+        $scope.loadStudies = loadStudies;
         $scope.loadObservations = loadObservations;
         $scope.loadConditions = loadConditions;
         $scope.createNewPatient = createNewPatient;
@@ -17,6 +18,7 @@
 
         $scope.action = action;
         $scope.allAvailablePatients = [];
+        $scope.allStudies = [];
         $scope.allStudyPatients = [];
         $scope.allAvailableObservations = [];
         $scope.allAvailableConditions = [];
@@ -50,7 +52,7 @@
                 'availablePatientsConditions':false,
                 'availablePatientsMedications':false,
                 'studyPatients':false
-            }
+            };
             $scope.showList[incoming] = true;
 
         };
@@ -61,6 +63,7 @@
         function action(){
             loadPatients();
             patientCount();
+            loadStudies();
         }
 
 //post/put data
@@ -113,6 +116,15 @@
 
                 });
         }
+
+        function loadStudies(){
+            return dashboardService.getAllStudies().
+                then(function(result){
+                    $scope.allStudies = result.data;
+                    //console.log("allStudies: ", $scope.allStudies);
+            })
+        }
+
         function loadStudyPatients(){
             return dashboardService.getAllStudyPatients().
                 then(function(result){
