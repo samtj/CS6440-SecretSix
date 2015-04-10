@@ -34,6 +34,7 @@ public class SsSqLiteHelper {
     public static final String COLUMN_DESCRIPTION = "Description";
     public static final String COLUMN_ASSIGNEDTO = "AssignedTo";
     public static final String COLUMN_OBSERVATIONCODES = "ObservationCodes";
+    public static final String COLUMN_FREQUENCY = "Frequency";
 
 
 }

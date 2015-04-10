@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 /**
- * Created by Samuel_Tjokrosoesilo on 4/7/2015.
+ * Created by Samuel_Tjokrosoesilo on 4/9/2015.
  */
 @Entity
 @Table(name = "Study", schema = "", catalog = "")
@@ -12,6 +12,7 @@ public class StudyEntity {
     private String description;
     private Integer assignedTo;
     private String observationCodes;
+    private Integer frequency;
     private Integer active;
 
     @Id
@@ -55,6 +56,16 @@ public class StudyEntity {
     }
 
     @Basic
+    @Column(name = "Frequency", nullable = true, insertable = true, updatable = true)
+    public Integer getFrequency() {
+        return frequency;
+    }
+
+    public void setFrequency(Integer frequency) {
+        this.frequency = frequency;
+    }
+
+    @Basic
     @Column(name = "Active", nullable = true, insertable = true, updatable = true)
     public Integer getActive() {
         return active;
@@ -74,6 +85,7 @@ public class StudyEntity {
         if (active != null ? !active.equals(that.active) : that.active != null) return false;
         if (assignedTo != null ? !assignedTo.equals(that.assignedTo) : that.assignedTo != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (frequency != null ? !frequency.equals(that.frequency) : that.frequency != null) return false;
         if (observationCodes != null ? !observationCodes.equals(that.observationCodes) : that.observationCodes != null)
             return false;
         if (studyId != null ? !studyId.equals(that.studyId) : that.studyId != null) return false;
@@ -87,6 +99,7 @@ public class StudyEntity {
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (assignedTo != null ? assignedTo.hashCode() : 0);
         result = 31 * result + (observationCodes != null ? observationCodes.hashCode() : 0);
+        result = 31 * result + (frequency != null ? frequency.hashCode() : 0);
         result = 31 * result + (active != null ? active.hashCode() : 0);
         return result;
     }
