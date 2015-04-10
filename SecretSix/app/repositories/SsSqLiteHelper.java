@@ -5,7 +5,8 @@ package repositories;
  */
 public class SsSqLiteHelper {
 
-    public static final String DB_LOCATION = "db/secretsix.db";
+    //public static final String DB_LOCATION = "db/secretsix.db";
+    public static final String DB_LOCATION = "../SecretSix/db/secretsix.db";
 
     public static final String COLUMN_USERID = "UserId";
     public static final String COLUMN_USERNAME = "UserName";
@@ -29,4 +30,9 @@ public class SsSqLiteHelper {
     public static final String COLUMN_SUBJECT = "Subject";
     public static final String COLUMN_OBSDATE = "DateObserved";
 
+    public static final String COLUMN_STUDYID = "StudyId";
+    public static final String COLUMN_DESCRIPTION = "Description";
+    public static final String COLUMN_ASSIGNEDTO = "AssignedTo";
+    public static final String COLUMN_OBSERVATIONCODES = "ObservationCodes";
+    public static final String COLUMN_FREQUENCY = "Frequency";
 }
