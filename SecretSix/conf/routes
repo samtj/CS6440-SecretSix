@@ -28,7 +28,9 @@ PUT         /observation/:id              controllers.ObservationController.Upda
 GET         /observation/all              controllers.ObservationController.GetAllObservations()
 
 GET         /study/:id                    controllers.StudyController.GetStudy(id: Int)
-POST        /study                      controllers.StudyController.CreateStudy
-PUT         /study/:id                  controllers.StudyController.UpdateStudy(id: Int)
-GET         /study                      controllers.StudyController.GetAllStudies()
-GET         /studyCount                 controllers.StudyController.GetCount()
+POST        /study                        controllers.StudyController.CreateStudy
+PUT         /study/:id                    controllers.StudyController.UpdateStudy(id: Int)
+GET         /study                        controllers.StudyController.GetAllStudies()
+GET         /studyCount                   controllers.StudyController.GetCount()
+
+GET         /todo                         controllers.TodoController.GetTodos()
