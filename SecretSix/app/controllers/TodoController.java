@@ -1,6 +1,7 @@
 package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import model.TodoEntity;
 import model.UserEntity;
 import play.libs.Json;
 import play.mvc.Controller;
@@ -8,6 +9,8 @@ import play.mvc.Result;
 import repositories.TodoRepository;
 import repositories.UserRepository;
 import views.html.index;
+
+import java.util.ArrayList;
 
 /**
  * Created by Samuel_Tjokrosoesilo on 4/9/2015.
@@ -23,7 +26,7 @@ public class TodoController extends Controller {
 
         // TODO: Add the right SQL query join here
         TodoRepository repository = new TodoRepository();
-        //UserEntity user = repository.GetTodos(userId);
+        ArrayList<TodoEntity> todos = repository.GetTodos();
 
         result.put("content", "Todo List Here!");
 
