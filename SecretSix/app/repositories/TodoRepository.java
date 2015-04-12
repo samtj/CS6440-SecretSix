@@ -34,7 +34,8 @@ public class TodoRepository {
                     + "JOIN (SELECT subject, max(dateobserved) as dateObserved "
                     + "FROM OBSERVATION "
                     + "GROUP BY subject) as obs ON PATIENT.PatientId = obs.subject "
-                    + "WHERE NOT ((julianday('now') - julianday(obs.dateObserved)) < STUDY.frequency)");
+                    + "WHERE NOT ((julianday('now') - julianday(obs.dateObserved)) < STUDY.frequency) "
+                    + "ORDER BY lastDateObserved ASC ");
 
             while(rs.next()) {
                 todo = resultToTodo(rs);
