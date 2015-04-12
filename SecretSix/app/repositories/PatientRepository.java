@@ -115,14 +115,16 @@ public class PatientRepository {
             String sql = "UPDATE " + TABLE_Patient + " set ";
             sql += SsSqLiteHelper.COLUMN_PATIENTFIRSTNAME + " = ?, ";
             sql += SsSqLiteHelper.COLUMN_PATIENTLASTNAME + " = ?, ";
-            sql += SsSqLiteHelper.COLUMN_PATIENTTYPE + " = ? ";
+            sql += SsSqLiteHelper.COLUMN_PATIENTTYPE + " = ?, ";
+            sql += SsSqLiteHelper.COLUMN_STUDYID + " = ? ";
             sql += " where " + SsSqLiteHelper.COLUMN_PATIENTID + " = ?";
 
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString (1, patient.getFirstName());
             preparedStmt.setString(2, patient.getLastName());
             preparedStmt.setInt(3, patient.getType());
-            preparedStmt.setString(4, patient.getPatientId());
+            preparedStmt.setInt(4, patient.getStudyId());
+            preparedStmt.setString(5, patient.getPatientId());
 
             preparedStmt.executeUpdate();
             connection.commit();
@@ -164,14 +166,17 @@ public class PatientRepository {
 
             String sql = " insert into " + TABLE_Patient + " (" + SsSqLiteHelper.COLUMN_PATIENTID + "," + SsSqLiteHelper.COLUMN_PATIENTFIRSTNAME
                     + "," + SsSqLiteHelper.COLUMN_PATIENTLASTNAME
-                    + "," + SsSqLiteHelper.COLUMN_PATIENTTYPE + ")"
-                    + " values (?, ?, ?, ?)";
+                    + "," + SsSqLiteHelper.COLUMN_PATIENTTYPE
+                    + "," + SsSqLiteHelper.COLUMN_STUDYID
+                    + ")"
+                    + " values (?, ?, ?, ?, ?)";
 
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString (1, patient.getPatientId());
             preparedStmt.setString(2, patient.getFirstName());
             preparedStmt.setString(3, patient.getLastName());
             preparedStmt.setInt(4, patient.getType());
+            preparedStmt.setInt(5, patient.getStudyId());
             //preparedStmt.setDate   (3, startDate);
             //preparedStmt.setBoolean(4, false);
             //preparedStmt.setInt    (5, 5000);
@@ -206,6 +211,7 @@ public class PatientRepository {
         patient.setFirstName(rs.getString(2));
         patient.setLastName(rs.getString(3));
         patient.setType(rs.getInt(4));
+        patient.setStudyId(rs.getInt(5));
         return patient;
     }
 }
