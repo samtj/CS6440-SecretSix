@@ -20,6 +20,7 @@ public class StudyRepository {
             SsSqLiteHelper.COLUMN_OBSERVATIONCODES,
             SsSqLiteHelper.COLUMN_FREQUENCY,
             SsSqLiteHelper.COLUMN_ACTIVE,
+            SsSqLiteHelper.COLUMN_STATUS,
     };
     Connection connection = null;
 
@@ -76,8 +77,9 @@ public class StudyRepository {
             sql += SsSqLiteHelper.COLUMN_DESCRIPTION + " = ?, ";
             sql += SsSqLiteHelper.COLUMN_ASSIGNEDTO + " = ?, ";
             sql += SsSqLiteHelper.COLUMN_OBSERVATIONCODES + " = ?, ";
-            sql += SsSqLiteHelper.COLUMN_FREQUENCY + " = ? ";
-            sql += SsSqLiteHelper.COLUMN_ACTIVE + " = ? ";
+            sql += SsSqLiteHelper.COLUMN_FREQUENCY + " = ?, ";
+            sql += SsSqLiteHelper.COLUMN_ACTIVE + " = ?, ";
+            sql += SsSqLiteHelper.COLUMN_STATUS + " = ? ";
             sql += " where " + SsSqLiteHelper.COLUMN_STUDYID + " = ?";
 
             preparedStmt = connection.prepareStatement(sql);
@@ -86,7 +88,8 @@ public class StudyRepository {
             preparedStmt.setString(3, study.getObservationCodes());
             preparedStmt.setInt(4, study.getFrequency());
             preparedStmt.setInt(5, study.getActive());
-            preparedStmt.setInt(6, study.getStudyId());
+            preparedStmt.setInt(6, study.getStatus());
+            preparedStmt.setInt(7, study.getStudyId());
 
             preparedStmt.executeUpdate();
             connection.commit();
@@ -132,8 +135,9 @@ public class StudyRepository {
                     + "," + SsSqLiteHelper.COLUMN_OBSERVATIONCODES
                     + "," + SsSqLiteHelper.COLUMN_FREQUENCY
                     + "," + SsSqLiteHelper.COLUMN_ACTIVE
+                    + "," + SsSqLiteHelper.COLUMN_STATUS
                     + ")"
-                    + " values (?, ?, ?, ?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?, ?, ?)";
 
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setInt(1, study.getStudyId());
@@ -142,6 +146,7 @@ public class StudyRepository {
             preparedStmt.setString(4, study.getObservationCodes());
             preparedStmt.setInt(5, study.getFrequency());
             preparedStmt.setInt(6, study.getActive());
+            preparedStmt.setInt(7, study.getStatus());
 
             preparedStmt.execute();
             connection.commit();
@@ -219,6 +224,7 @@ public class StudyRepository {
         study.setObservationCodes(rs.getString(4));
         study.setFrequency(rs.getInt(5));
         study.setActive(rs.getInt(6));
+        study.setStatus(rs.getInt(7));
         return study;
     }
 }

@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 /**
- * Created by Samuel_Tjokrosoesilo on 3/19/2015.
+ * Created by Samuel_Tjokrosoesilo on 4/13/2015.
  */
 @Entity
 @Table(name = "Observation", schema = "", catalog = "")
@@ -18,6 +18,7 @@ public class ObservationEntity {
     private String comment;
     private String subject;
     private String dateObserved;
+    private Integer status;
 
     @Id
     @Column(name = "ObservationId", nullable = true, insertable = true, updatable = true, length = 2000000000)
@@ -119,6 +120,16 @@ public class ObservationEntity {
         this.dateObserved = dateObserved;
     }
 
+    @Basic
+    @Column(name = "Status", nullable = true, insertable = true, updatable = true)
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -134,6 +145,7 @@ public class ObservationEntity {
         if (observationId != null ? !observationId.equals(that.observationId) : that.observationId != null)
             return false;
         if (quantity != null ? !quantity.equals(that.quantity) : that.quantity != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (subject != null ? !subject.equals(that.subject) : that.subject != null) return false;
         if (system != null ? !system.equals(that.system) : that.system != null) return false;
         if (unit != null ? !unit.equals(that.unit) : that.unit != null) return false;
@@ -153,6 +165,7 @@ public class ObservationEntity {
         result = 31 * result + (comment != null ? comment.hashCode() : 0);
         result = 31 * result + (subject != null ? subject.hashCode() : 0);
         result = 31 * result + (dateObserved != null ? dateObserved.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 }

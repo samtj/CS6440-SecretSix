@@ -21,6 +21,7 @@ public class ObservationRepository {
             SsSqLiteHelper.COLUMN_COMMENT,
             SsSqLiteHelper.COLUMN_SUBJECT,
             SsSqLiteHelper.COLUMN_OBSDATE,
+            SsSqLiteHelper.COLUMN_STATUS,
     };
     Connection connection = null;
 
@@ -84,7 +85,8 @@ public class ObservationRepository {
             sql += SsSqLiteHelper.COLUMN_UNIT + " = ?, ";
             sql += SsSqLiteHelper.COLUMN_COMMENT + " = ?, ";
             sql += SsSqLiteHelper.COLUMN_SUBJECT + " = ?, ";
-            sql += SsSqLiteHelper.COLUMN_OBSDATE + " = ? ";
+            sql += SsSqLiteHelper.COLUMN_OBSDATE + " = ?, ";
+            sql += SsSqLiteHelper.COLUMN_STATUS + " = ? ";
             sql += " where " + SsSqLiteHelper.COLUMN_OBSID + " = ?";
 
             preparedStmt = connection.prepareStatement(sql);
@@ -97,7 +99,8 @@ public class ObservationRepository {
             preparedStmt.setString(7, obs.getComment());
             preparedStmt.setString(8, obs.getSubject());
             preparedStmt.setString(9, obs.getDateObserved());
-            preparedStmt.setString(10, obs.getObservationId());
+            preparedStmt.setInt(10, obs.getStatus());
+            preparedStmt.setString(11, obs.getObservationId());
 
             preparedStmt.executeUpdate();
             connection.commit();
@@ -147,8 +150,9 @@ public class ObservationRepository {
                     + "," + SsSqLiteHelper.COLUMN_COMMENT
                     + "," + SsSqLiteHelper.COLUMN_SUBJECT
                     + "," + SsSqLiteHelper.COLUMN_OBSDATE
+                    + "," + SsSqLiteHelper.COLUMN_STATUS
                     + ")"
-                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setString (1, obs.getObservationId());
@@ -161,6 +165,7 @@ public class ObservationRepository {
             preparedStmt.setString(8, obs.getComment());
             preparedStmt.setString(9, obs.getSubject());
             preparedStmt.setString(10, obs.getDateObserved());
+            preparedStmt.setInt(11, obs.getStatus());
 
             preparedStmt.execute();
             connection.commit();
@@ -201,6 +206,7 @@ public class ObservationRepository {
         obs.setComment(rs.getString(8));
         obs.setSubject(rs.getString(9));
         obs.setDateObserved(rs.getString(10));
+        obs.setStatus(rs.getInt(11));
         return obs;
     }
 }

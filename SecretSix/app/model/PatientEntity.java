@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 /**
- * Created by Samuel_Tjokrosoesilo on 4/12/2015.
+ * Created by Samuel_Tjokrosoesilo on 4/13/2015.
  */
 @Entity
 @Table(name = "Patient", schema = "", catalog = "")
@@ -13,6 +13,7 @@ public class PatientEntity {
     private String lastName;
     private Integer type;
     private Integer studyId;
+    private Integer status;
 
     @Id
     @Column(name = "PatientId", nullable = true, insertable = true, updatable = true, length = 2000000000)
@@ -64,6 +65,16 @@ public class PatientEntity {
         this.studyId = studyId;
     }
 
+    @Basic
+    @Column(name = "Status", nullable = true, insertable = true, updatable = true)
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -74,6 +85,7 @@ public class PatientEntity {
         if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
         if (patientId != null ? !patientId.equals(that.patientId) : that.patientId != null) return false;
+        if (status != null ? !status.equals(that.status) : that.status != null) return false;
         if (studyId != null ? !studyId.equals(that.studyId) : that.studyId != null) return false;
         if (type != null ? !type.equals(that.type) : that.type != null) return false;
 
@@ -87,6 +99,7 @@ public class PatientEntity {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         result = 31 * result + (type != null ? type.hashCode() : 0);
         result = 31 * result + (studyId != null ? studyId.hashCode() : 0);
+        result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
     }
 }
