@@ -17,19 +17,26 @@ import java.util.ArrayList;
  */
 public class TodoController extends Controller {
     public static Result index() {
-        return ok(index.render("Your User Controller is ready."));
+        return ok(index.render("Your Todo Controller is ready."));
     }
 
-    //use http://localhost:9000/user?id=<user_Id>
     public static Result GetTodos() {
         ObjectNode result = Json.newObject();
 
-        // TODO: Add the right SQL query join here
+        boolean includeAll = false;
         TodoRepository repository = new TodoRepository();
-        ArrayList<TodoEntity> todos = repository.GetTodos();
+        ArrayList<TodoEntity> todos = repository.GetTodos(includeAll);
 
-        result.put("content", "Todo List Here!");
+        return ok(Json.toJson(todos));
+    }
 
-        return ok(result);
+    public static Result GetAllTodos() {
+        ObjectNode result = Json.newObject();
+
+        boolean includeAll = true;
+        TodoRepository repository = new TodoRepository();
+        ArrayList<TodoEntity> todos = repository.GetTodos(includeAll);
+
+        return ok(Json.toJson(todos));
     }
 }

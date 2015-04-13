@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * Created by Samuel_Tjokrosoesilo on 4/10/2015.
+ * Created by Samuel_Tjokrosoesilo on 4/12/2015.
  */
 @Entity
 @Table(name = "Todo", schema = "", catalog = "")
@@ -19,6 +19,8 @@ public class TodoEntity {
     private String subjectLastName;
     private String observationCodes;
     private String lastDateObserved;
+    private Integer pastDueDays;
+    private Integer isPast;
 
     @Basic
     @Column(name = "TodoId", nullable = true, insertable = true, updatable = true)
@@ -100,6 +102,26 @@ public class TodoEntity {
         this.lastDateObserved = lastDateObserved;
     }
 
+    @Basic
+    @Column(name = "PastDueDays", nullable = true, insertable = true, updatable = true)
+    public Integer getPastDueDays() {
+        return pastDueDays;
+    }
+
+    public void setPastDueDays(Integer pastDueDays) {
+        this.pastDueDays = pastDueDays;
+    }
+
+    @Basic
+    @Column(name = "IsPast", nullable = true, insertable = true, updatable = true)
+    public Integer getIsPast() {
+        return isPast;
+    }
+
+    public void setIsPast(Integer isPast) {
+        this.isPast = isPast;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -108,10 +130,12 @@ public class TodoEntity {
         TodoEntity that = (TodoEntity) o;
 
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (isPast != null ? !isPast.equals(that.isPast) : that.isPast != null) return false;
         if (lastDateObserved != null ? !lastDateObserved.equals(that.lastDateObserved) : that.lastDateObserved != null)
             return false;
         if (observationCodes != null ? !observationCodes.equals(that.observationCodes) : that.observationCodes != null)
             return false;
+        if (pastDueDays != null ? !pastDueDays.equals(that.pastDueDays) : that.pastDueDays != null) return false;
         if (studyId != null ? !studyId.equals(that.studyId) : that.studyId != null) return false;
         if (subject != null ? !subject.equals(that.subject) : that.subject != null) return false;
         if (subjectFirstName != null ? !subjectFirstName.equals(that.subjectFirstName) : that.subjectFirstName != null)
@@ -133,6 +157,8 @@ public class TodoEntity {
         result = 31 * result + (subjectLastName != null ? subjectLastName.hashCode() : 0);
         result = 31 * result + (observationCodes != null ? observationCodes.hashCode() : 0);
         result = 31 * result + (lastDateObserved != null ? lastDateObserved.hashCode() : 0);
+        result = 31 * result + (pastDueDays != null ? pastDueDays.hashCode() : 0);
+        result = 31 * result + (isPast != null ? isPast.hashCode() : 0);
         return result;
     }
 }

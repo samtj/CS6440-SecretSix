@@ -34,3 +34,5 @@ GET         /study                        controllers.StudyController.GetAllStud
 GET         /studyCount                   controllers.StudyController.GetCount()
 
 GET         /todo                         controllers.TodoController.GetTodos()
+GET         /todoall                      controllers.TodoController.GetAllTodos()
+
