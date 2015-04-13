@@ -23,7 +23,9 @@
         $scope.allAvailableObservations = [];
         $scope.allAvailableConditions = [];
         $scope.allAvailableConditionCodes = [];
+        $scope.allAvailableobservationCodes = [];
         $scope.objectOfConditionswithPatientData = {};
+        $scope.objectOfobservationswithPatientData = {};
         $scope.patientObservations=[];
         $scope.patientConditions=[];
         $scope.patientCount;
@@ -42,7 +44,9 @@
             'availablePatientsObservations':false,
             'availablePatientsConditions':false,
             'availablePatientsMedications':false,
-            'studyPatients':false
+            'studyPatients':false,
+            'availableTodos':false,
+            'availableStudies':false
         };
 
         $scope.setShowListDefault = function(incoming){
@@ -51,7 +55,9 @@
                 'availablePatientsObservations':false,
                 'availablePatientsConditions':false,
                 'availablePatientsMedications':false,
-                'studyPatients':false
+                'studyPatients':false,
+                'availableTodos':false,
+                'availableStudies':false
             };
             $scope.showList[incoming] = true;
 
@@ -64,6 +70,7 @@
             loadPatients();
             patientCount();
             loadStudies();
+            loadObservations();
         }
 
 //post/put data
@@ -140,11 +147,50 @@
                 });
         };
         function loadObservations(){
+            var exists = false;
             return dashboardService.getAllObservations().
                 then(function(result){
                     $scope.allAvailableObservations = result.data;
                     console.log("allAvailableObservations: ", $scope.allAvailableObservations);
+                    angular.forEach(result.data["entry"], function(observation){
+                        //Make a unique list of all available codes
+                        if(observation.content.name.coding[0].code != null) {
+                            if ($scope.allAvailableobservationCodes.indexOf(observation.content.name.coding[0].code) == -1)
+                                $scope.allAvailableobservationCodes.push(observation.content.name.coding[0].code);
 
+                            //Make a list of unique Codes with Display, System, and number of Patients, and PatientIDs
+                            if (Object.keys($scope.objectOfobservationswithPatientData).length == 0)
+                                $scope.objectOfobservationswithPatientData[Object.keys($scope.objectOfobservationswithPatientData).length] = {
+                                    'code': observation.content.name.coding[0].code,
+                                    'display': observation.content.name.coding[0].display,
+                                    'system': observation.content.name.coding[0].system,
+                                    'patientList': [observation.content.subject.reference],
+                                    'patientCount': 1
+                                };
+                            else {
+                                for (var i = 0; i < Object.keys($scope.objectOfobservationswithPatientData).length; i++) {
+                                    if ($scope.objectOfobservationswithPatientData[i].code == observation.content.name.coding[0].code) {
+                                        $scope.objectOfobservationswithPatientData[i].patientCount++;
+                                        $scope.objectOfobservationswithPatientData[i].patientList.push(observation.content.subject.reference);
+                                        exists = true;
+                                    }
+                                }
+                                if (!exists) {
+                                    $scope.objectOfobservationswithPatientData[Object.keys($scope.objectOfobservationswithPatientData).length] = {
+                                        'code': observation.content.name.coding[0].code,
+                                        'display': observation.content.name.coding[0].display,
+                                        'system': observation.content.name.coding[0].system,
+                                        'patientList': [observation.content.subject.reference],
+                                        'patientCount': 1
+                                    };
+                                }
+                                exists = false;
+                            }
+                        }
+
+                    });
+                    console.log("allAvailableobservationCode: ", $scope.allAvailableobservationCodes);
+                    console.log("objectOfobservationswithPatientData: ", $scope.objectOfobservationswithPatientData);
                 });
         }
         $scope.observationData = function(idlink){

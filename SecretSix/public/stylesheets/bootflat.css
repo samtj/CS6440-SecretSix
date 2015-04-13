@@ -1081,7 +1081,7 @@ blockquote {
   margin: 0;
   vertical-align: middle;
   cursor: pointer;
-  background: url("../bootflat/img/check_flat/default.png") no-repeat;
+  background: url("../images/check_flat/default.png") no-repeat;
   border: none;
 
   *display: inline;
@@ -2617,4 +2617,4 @@ a.list-group-item-danger.active, a.list-group-item-danger:hover, a.list-group-it
      -moz-border-radius: 4px 0 4px 4px;
 }
 
-/*# sourceMappingURL=bootflat.css.map */
+
