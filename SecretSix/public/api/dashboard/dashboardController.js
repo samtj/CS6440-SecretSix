@@ -15,6 +15,7 @@
         $scope.loadConditions = loadConditions;
         $scope.createNewPatient = createNewPatient;
         $scope.loadStudyPatients = loadStudyPatients;
+        $scope.testAddStudy = testAddStudy;
 
         $scope.action = action;
         $scope.allAvailablePatients = [];
@@ -74,6 +75,25 @@
         }
 
 //post/put data
+        function testAddStudy()
+        {
+            var newStudy = {
+                'studyId': 3,
+                'description': "Test Add Study",
+                'assignedTo': 1,
+                'observationCodes': "123ABC",
+                'frequency': 30,
+                'active': 1,
+                'status': 0
+            };
+
+            return dashboardService.addStudy(newStudy).then(function(result){
+                console.log(result);
+                loadStudies();
+            });
+        }
+
+
         function createNewPatient(patientData){
             console.log("creating new patient");
             return dashboardService.createPatient({'patientId':patientData.identifier[0].value,'firstName':patientData.name[0].given[0],'lastName':patientData.name[0].family[0],'type':1})
@@ -128,7 +148,7 @@
             return dashboardService.getAllStudies().
                 then(function(result){
                     $scope.allStudies = result.data;
-                    //console.log("allStudies: ", $scope.allStudies);
+                    //console.log("allStudies: ", $scope.allStudies[0]);
             })
         }
 

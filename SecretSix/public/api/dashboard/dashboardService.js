@@ -24,7 +24,8 @@
             getMedicationByPatientID:getMedicationByPatientID,
             createPatient:createPatient,
             getCount:getCount,
-            getAllStudies:getAllStudies
+            getAllStudies:getAllStudies,
+            addStudy:addStudy
         };
         return service;
         function getData(){
@@ -45,6 +46,10 @@
         function getAllStudies(){
             return $http.get('study');
         }
+        function addStudy(studyJson){
+            return $http.post('study', studyJson);
+        }
+
         function getAllStudyPatients(){
             return $http.get('patient');
         }
