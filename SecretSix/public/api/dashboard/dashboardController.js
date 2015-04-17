@@ -49,7 +49,15 @@
             'availableTodos':false,
             'availableStudies':false
         };
-
+        $scope.observationCodesDictionary = {
+            'Diastolic BP':'8462-4',
+            'Systolic BP':'8480-6',
+            'Heart Beat':'8867-4',
+            'Respiration Rate':'9279-1',
+            'Cholesterol':'2093-3',
+            'Body Height':'8302-2',
+            'Body Temperature':'8310-5'
+        };
         $scope.setShowListDefault = function(incoming){
             $scope.showList = {
                 'availablePatients':false,
