@@ -2,10 +2,12 @@ package controllers;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.PatientEntity;
+import model.StudyEntity;
 import model.UserEntity;
 import play.libs.Json;
 import play.mvc.Controller;
 import play.mvc.Result;
+import repositories.StudyRepository;
 import repositories.UserRepository;
 import views.html.index;
 
@@ -25,8 +27,17 @@ public class UserController extends Controller {
         UserRepository repository = new UserRepository();
         UserEntity user = repository.GetUser(userId);
 
-        result.put("content", user.getUserName());
+        return ok(Json.toJson(user));
+    }
 
+    public static Result CreateUser() {
+        ObjectNode result = Json.newObject();
+
+        UserEntity user = Json.fromJson(request().body().asJson(), UserEntity.class);
+        UserRepository repository = new UserRepository();
+        boolean isSaved = repository.CreateUser(user);
+
+        result.put("content", isSaved);
         return ok(result);
     }
 }

@@ -21,6 +21,7 @@ GET         /patient                      controllers.PatientController.GetAllPa
 GET         /patientCount                 controllers.PatientController.GetCount()
 
 GET         /user/:id                     controllers.UserController.GetUser(id: Int)
+POST        /user                         controllers.UserController.CreateUser
 
 GET         /observation/:id              controllers.ObservationController.GetObservation(id: String)
 POST        /observation                  controllers.ObservationController.CreateObservation

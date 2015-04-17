@@ -129,6 +129,8 @@ public class StudyRepository {
             connection.setAutoCommit(false);
             System.out.println("Opened database successfully");
 
+            int newId = getNewIdentity(connection);
+
             String sql = " insert into " + TABLE_Study + " (" + SsSqLiteHelper.COLUMN_STUDYID
                     + "," + SsSqLiteHelper.COLUMN_DESCRIPTION
                     + "," + SsSqLiteHelper.COLUMN_ASSIGNEDTO
@@ -140,7 +142,7 @@ public class StudyRepository {
                     + " values (?, ?, ?, ?, ?, ?, ?)";
 
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setInt(1, study.getStudyId());
+            preparedStmt.setInt(1, newId);
             preparedStmt.setString(2, study.getDescription());
             preparedStmt.setInt(3, study.getAssignedTo());
             preparedStmt.setString(4, study.getObservationCodes());
@@ -214,6 +216,22 @@ public class StudyRepository {
         }
         return studies;
     }
+
+    private int getNewIdentity(Connection connection) throws SQLException {
+        int id = 0;
+
+        Statement statement = connection.createStatement();
+        statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+        ResultSet rs = statement.executeQuery("SELECT max(" + SsSqLiteHelper.COLUMN_STUDYID + ") as maxid FROM " + TABLE_Study);
+        if(rs.next()){
+            id = rs.getInt("maxid");
+        }
+        statement.close();
+        id++;
+        return id;
+    }
+
 
     private StudyEntity resultToStudy(ResultSet rs) throws SQLException {
         StudyEntity study = new StudyEntity();
