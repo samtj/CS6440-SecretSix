@@ -3,9 +3,46 @@
  */
 (function(){
     'use strict';
+    //angular.module('app').controller('ModalDemoCtrl', function ($scope, $modal, $log) {
+    //
+    //    $scope.items = ['item1', 'item2', 'item3'];
+    //
+    //    $scope.open = function (size) {
+    //
+    //        var modalInstance = $modal.open({
+    //            templateUrl: 'myModalContent.html',
+    //            controller: 'dashboardController',
+    //            size: size,
+    //            resolve: {
+    //                items: function () {
+    //                    return $scope.items;
+    //                }
+    //            }
+    //        });
+    //
+    //        modalInstance.result.then(function (selectedItem) {
+    //            $scope.selected = selectedItem;
+    //        }, function () {
+    //            $log.info('Modal dismissed at: ' + new Date());
+    //        });
+    //    };
+    //});
 
-    angular.module('app').controller('dashboardController',['$scope','$log','dashboardService',dashboardController]);
-    function dashboardController($scope,$log,dashboardService){
+    angular.module('app').controller('dashboardController',['$scope','$log','dashboardService', 'toastr', dashboardController]);
+    function dashboardController($scope,$log,dashboardService,toastr){
+        //$scope.items = items;
+        //$scope.selected = {
+        //    item: $scope.items[0]
+        //};
+        //
+        //$scope.ok = function () {
+        //    $modalInstance.close($scope.selected.item);
+        //};
+        //
+        //$scope.cancel = function () {
+        //    $modalInstance.dismiss('cancel');
+        //};
+
         $scope.test = "testing to see this";
         $scope.loadSamplejsonWP = loadSamplejsonWP;
         $scope.loadSamplejson = loadSamplejson;
@@ -16,6 +53,7 @@
         $scope.createNewPatient = createNewPatient;
         $scope.loadStudyPatients = loadStudyPatients;
         $scope.testAddStudy = testAddStudy;
+        $scope.loadTodos = loadTodos;
 
         $scope.action = action;
         $scope.allAvailablePatients = [];
@@ -50,13 +88,13 @@
             'availableStudies':false
         };
         $scope.observationCodesDictionary = {
-            'Diastolic BP':'8462-4',
-            'Systolic BP':'8480-6',
-            'Heart Beat':'8867-4',
-            'Respiration Rate':'9279-1',
-            'Cholesterol':'2093-3',
-            'Body Height':'8302-2',
-            'Body Temperature':'8310-5'
+            '8462-4':'Diastolic BP',
+            '8480-6':'Systolic BP',
+            '8867-4':'Heart Beat',
+            '9279-1':'Respiration Rate',
+            '2093-3':'Cholesterol',
+            '8302-2':'Body Height',
+            '8310-5':'Body Temperature'
         };
         $scope.setShowListDefault = function(incoming){
             $scope.showList = {
@@ -71,11 +109,17 @@
             $scope.showList[incoming] = true;
 
         };
-
+        $scope.getObservationName = function(code){
+            if($scope.observationCodesDictionary[code])
+                return $scope.observationCodesDictionary[code]
+            else
+                return code;
+        }
 
 //Get All Available Condition Codes and Count
 
         function action(){
+            toastr.success('Hello world!', 'Toastr fun!');
             loadPatients();
             patientCount();
             loadStudies();
@@ -127,7 +171,6 @@
 
         }
         function loadSamplejsonWP(input){
-            console.log("in here");
             return dashboardService.getDataWithInput({text:input}).
                 then(function(result){
                     $scope.passedtext = result.data;
@@ -139,8 +182,60 @@
                 then(function(result){
                     $scope.passedtext = result.data;
 
+
+                });
+        }
+        function getDistinctStudies(list){
+            $scope.distinctStudies = [];
+            angular.forEach(list, function(item) {
+                if ($scope.distinctStudies.indexOf(item.studyId) == -1)
+                    $scope.distinctStudies.push(item.studyId);
+            });
+            angular.forEach($scope.distinctStudies, function(item,val) {
+                var temp = [];
+                $scope.distinctStudies[val] = {studyId:item ,count:0,description:''};
+                angular.forEach(list, function(listItem) {
+                    if(listItem.studyId == $scope.distinctStudies[val].studyId) {
+                        $scope.distinctStudies[val].count++;
+                        $scope.distinctStudies[val].description = listItem.description;
+                        temp.push(listItem);
+                    }
+                });
+                $scope.distinctStudies[val].todos = temp;
+                temp = $scope.distinctStudies[val].todos[0].observationCodes.split('|');
+                $scope.distinctStudies[val].observationCodesObj = temp;
+                temp = '';
+                angular.forEach($scope.distinctStudies[val].observationCodesObj, function(item) {
+                    temp = temp +" " +  $scope.getObservationName(item);
+                });
+                angular.forEach($scope.distinctStudies[val].todos, function(item,key) {
+                    $scope.distinctStudies[val].todos[key].search = '' + temp;
+
+                    if(item.pastDueDays > 0)
+                        $scope.distinctStudies[val].todos[key].search = $scope.distinctStudies[val].todos[key].search + " pastdue";
+                    if(!item.lastDateObserved )
+                        $scope.distinctStudies[val].todos[key].search = $scope.distinctStudies[val].todos[key].search + " new patient";
+                });
+
+            });
+
+
+            console.log($scope.distinctStudies);
+        }
+        function loadTodos(all){
+            if(all)
+                return dashboardService.getAllTodos().then(function(result){
+                    $scope.allAvailableTodos = result.data;
+                    getDistinctStudies($scope.allAvailableTodos);
                     console.log("in here 2",result.data);
                 });
+            else{
+                return dashboardService.getTodos().then(function(result){
+                    $scope.allAvailableTodos = result.data;
+                    getDistinctStudies($scope.allAvailableTodos);
+                    console.log("in here 3",result.data);
+                });
+            }
         }
 
         function loadPatients(){
@@ -157,7 +252,7 @@
                 then(function(result){
                     $scope.allStudies = result.data;
                     //console.log("allStudies: ", $scope.allStudies[0]);
-            })
+            });
         }
 
         function loadStudyPatients(){

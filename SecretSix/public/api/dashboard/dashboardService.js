@@ -25,7 +25,9 @@
             createPatient:createPatient,
             getCount:getCount,
             getAllStudies:getAllStudies,
-            addStudy:addStudy
+            addStudy:addStudy,
+            getTodos:getTodos,
+            getAllTodos:getAllTodos
         };
         return service;
         function getData(){
@@ -52,6 +54,12 @@
 
         function getAllStudyPatients(){
             return $http.get('patient');
+        }
+        function getTodos(){
+            return $http.get('todo');
+        }
+        function getAllTodos(){
+            return $http.get('todoall');
         }
         function getPatientDetail(idlink){
             return $http.get(idlink);

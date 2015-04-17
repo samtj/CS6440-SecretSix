@@ -6,7 +6,10 @@
 
 angular.module('app',[
     'ngSanitize',
-    'ui.bootstrap'
+    'ngAnimate',
+    'ngRoute',
+    'ui.bootstrap',
+    'toastr'
 
 ]);
 })();

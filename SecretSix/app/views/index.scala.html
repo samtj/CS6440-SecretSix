@@ -1,6 +1,30 @@
 @(message: String)
 
 @main("Secret Six Dashboard") {
+    @*<div ng-controller="ModalDemoCtrl">*@
+        @*<script type="text/ng-template" id="myModalContent.html">*@
+        @*<div class="modal-header">*@
+        @*<h3 class="modal-title">I'm a modal!</h3>*@
+        @*</div>*@
+        @*<div class="modal-body">*@
+        @*<ul>*@
+        @*<li ng-repeat="item in items">*@
+        @*<a ng-click="selected.item = item">{{ item }}</a>*@
+        @*</li>*@
+        @*</ul>*@
+        @*Selected: <b>{{ selected.item }}</b>*@
+        @*</div>*@
+        @*<div class="modal-footer">*@
+        @*<button class="btn btn-primary" ng-click="ok()">OK</button>*@
+        @*<button class="btn btn-warning" ng-click="cancel()">Cancel</button>*@
+        @*</div>*@
+        @*</script>*@
+
+        @*<button class="btn btn-default" ng-click="open()">Open me!</button>*@
+        @*<button class="btn btn-default" ng-click="open('lg')">Large modal</button>*@
+        @*<button class="btn btn-default" ng-click="open('sm')">Small modal</button>*@
+        @*<div ng-show="selected">Selection from a modal: {{ selected }}</div>*@
+        @*</div>*@
     <div ng-controller="dashboardController">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -204,7 +228,7 @@
                 <div class="col-lg-12">
                     <div class="well well-sm">This is where my filters will go</div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-4" ng-repeat="item in allStudyPatients">
+                <div class="col-lg-2 col-md-3 col-sm-4 animate-repeat" ng-repeat="item in allStudyPatients">
                     <div class="pricing">
                         <div class="float-top-left-corner">
                             <span class="label label-default">{{item.firstName}} {{item.lastName}}</span>
@@ -234,30 +258,41 @@
             <div class="row" ng-hide="!showList.availableTodos">
 
                 <div class="col-lg-12">
-                    <accordion close-others="true" class="panel-group panel-group-lists">
-                        <accordion-group class="panel panel-success" is-open="false">
+                    <div class="well well-sm">
+                        <form class="form-inline">
+                            <div class="form-group"> <label>Search:</label>
+                                <div class="input-group">
+                                    <input type="text" ng-model="searchTodo"
+                                    class="form-control" placeholder="Enter text to search">
+                                    <div class="input-group-addon" ng-click="searchTodo=''" style="cursor: pointer;"><span class="fa fa-close"></span></div>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger" ng-click="searchTodo = 'pastdue'">Past Due Observations Only</button>
+                            <button class="btn btn-info" ng-click="searchTodo = 'new patient'">New Patients Only</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <accordion close-others="true" class="panel-group panel-group-lists" >
+                        <accordion-group class="panel panel-success" is-open="false" ng-repeat="study in x = (distinctStudies|filter:searchTodo)">
                             <accordion-heading >
                                 <h3 class="panel-title">
-                                    <span class="badge badge-default">3</span> Pending Items for Study:
-                                    <span class="label label-default">Study 1</span>
+                                    <span class="badge badge-default">{{y.length}}</span> Pending Items for Study:
+                                    <span class="label label-default" ng-if="!study.description">ID: {{study.studyId}}</span> <i class="fa fa-warning fa-lg text-warning" tooltip="This study has no description. Please update the study."></i>
+                                    <span class="label label-default" ng-if="study.description">{{study.description}}</span>
                                 </h3>
                             </accordion-heading>
-                            <div class="col-sm-6 col-md-4">
+                            <div class="col-sm-6 col-md-4" ng-repeat="item in y = (study.todos|filter:searchTodo)">
                                 <div class="thumbnail" style="background-color: #f3f3f3;">
+                                    <div class="float-top-left-corner"><span class="label label-danger" ng-show="item.pastDueDays > 0">Past Due</span></div>
                                     <div class="caption text-center">
-                                        <h3>Patient Name LastName</h3>
+                                        <h3>{{item.subjectFirstName}} {{item.subjectLastName}}</h3> <i class="fa fa-info-circle fa-lg text-info" tooltip="{{item.subject}}"></i>
                                         <p>
                                             Perform the following Observations
                                         </p>
                                         <ul class="list-group">
-                                            <li class="list-group-item">
-                                                Observation Code Info 1
-                                            </li>
-                                            <li class="list-group-item">
-                                                Observation Code Info 2
-                                            </li>
-                                            <li class="list-group-item">
-                                                Observation Code Info 3
+                                            <li class="list-group-item" ng-repeat="code in study.observationCodesObj">
+                                                {{getObservationName(code)}}
                                             </li>
                                         </ul>
                                         <p>
@@ -266,55 +301,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail" style="background-color: #f3f3f3;">
-                                    <div class="caption text-center">
-                                        <h3>Patient Name LastName</h3>
-                                        <p>
-                                            Perform the following Observations
-                                        </p>
-                                        <ul class="list-group">
-                                            <li class="list-group-item">
-                                                Observation Code Info 1
-                                            </li>
-                                            <li class="list-group-item">
-                                                Observation Code Info 2
-                                            </li>
-                                            <li class="list-group-item">
-                                                Observation Code Info 3
-                                            </li>
-                                        </ul>
-                                        <p>
-                                            <a href="#" class="btn btn-warning" role="button">Create Observation</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-6 col-md-4">
-                                <div class="thumbnail" style="background-color: #f3f3f3;">
-                                    <div class="caption text-center">
-                                        <h3>Patient Name LastName</h3>
-                                        <p>
-                                            Perform the following Observations
-                                        </p>
-                                        <ul class="list-group">
-                                            <li class="list-group-item">
-                                                Observation Code Info 1
-                                            </li>
-                                            <li class="list-group-item">
-                                                Observation Code Info 2
-                                            </li>
-                                            <li class="list-group-item">
-                                                Observation Code Info 3
-                                            </li>
-                                        </ul>
-                                        <p>
-                                            <a href="#" class="btn btn-warning" role="button">Create Observation</a>
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
                         </accordion-group>
                     </accordion>
                 </div>
