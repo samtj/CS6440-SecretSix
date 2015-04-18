@@ -72,8 +72,15 @@
                 controller: 'ModalInstanceCtrl',
                 size: 'lg',
                 resolve: {
-                    items: function () {
+                    localObservations: function () {
                         return dashboardService.getLocalObservationByPatientID(patientId).
+                            then(function(result){
+                                console.log(result.data);
+                                return result.data;
+                            });
+                    },
+                    remoteObservations: function () {
+                        return dashboardService.getObservationByPatientID(patientId).
                             then(function(result){
                                 console.log(result.data);
                                 return result.data;
@@ -173,7 +180,7 @@
 //Get All Available Condition Codes and Count
 
         function action(){
-            toastr.success('Hello world!', 'Toastr fun!');
+
             loadPatients();
             patientCount();
             loadStudies();
@@ -202,12 +209,20 @@
 
         function createNewPatient(patientData){
             console.log("creating new patient");
-            return dashboardService.createPatient({'patientId':patientData.identifier[0].value,'firstName':patientData.name[0].given[0],'lastName':patientData.name[0].family[0],'type':1})
+            return dashboardService.createPatient({
+                'patientId':patientData.identifier[0].value,
+                'firstName':patientData.name[0].given[0],
+                'lastName':patientData.name[0].family[0],
+                'type':1,
+                'status': 0,
+                'studyDescription': 'nostudy',
+                'studyId': 0})
                 .then(function(result){
                     if(result.data.content){
+                        toastr.success('was successfully added to Secret Six database.', patientData.name[0].given[0] + ' ' + patientData.name[0].family[0]);
                         patientCount();
                     }else{
-                        //not successful toast
+                        toastr.error('Patient ' + patientData.name[0].given[0] + ' ' + patientData.name[0].family[0] + ' already exists in our database','Failure to add');
                     }
 
 
