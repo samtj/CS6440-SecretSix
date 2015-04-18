@@ -21,6 +21,7 @@ public class StudyRepository {
             SsSqLiteHelper.COLUMN_FREQUENCY,
             SsSqLiteHelper.COLUMN_ACTIVE,
             SsSqLiteHelper.COLUMN_STATUS,
+            SsSqLiteHelper.COLUMN_NOTE,
     };
     Connection connection = null;
 
@@ -79,17 +80,19 @@ public class StudyRepository {
             sql += SsSqLiteHelper.COLUMN_OBSERVATIONCODES + " = ?, ";
             sql += SsSqLiteHelper.COLUMN_FREQUENCY + " = ?, ";
             sql += SsSqLiteHelper.COLUMN_ACTIVE + " = ?, ";
-            sql += SsSqLiteHelper.COLUMN_STATUS + " = ? ";
+            sql += SsSqLiteHelper.COLUMN_STATUS + " = ?, ";
+            sql += SsSqLiteHelper.COLUMN_NOTE + " = ? ";
             sql += " where " + SsSqLiteHelper.COLUMN_STUDYID + " = ?";
 
             preparedStmt = connection.prepareStatement(sql);
-            preparedStmt.setString (1, study.getDescription());
+            preparedStmt.setString(1, study.getDescription());
             preparedStmt.setInt(2, study.getAssignedTo());
             preparedStmt.setString(3, study.getObservationCodes());
             preparedStmt.setInt(4, study.getFrequency());
             preparedStmt.setInt(5, study.getActive());
             preparedStmt.setInt(6, study.getStatus());
-            preparedStmt.setInt(7, study.getStudyId());
+            preparedStmt.setString(7, study.getNote());
+            preparedStmt.setInt(8, study.getStudyId());
 
             preparedStmt.executeUpdate();
             connection.commit();
@@ -138,8 +141,9 @@ public class StudyRepository {
                     + "," + SsSqLiteHelper.COLUMN_FREQUENCY
                     + "," + SsSqLiteHelper.COLUMN_ACTIVE
                     + "," + SsSqLiteHelper.COLUMN_STATUS
+                    + "," + SsSqLiteHelper.COLUMN_NOTE
                     + ")"
-                    + " values (?, ?, ?, ?, ?, ?, ?)";
+                    + " values (?, ?, ?, ?, ?, ?, ?, ?)";
 
             preparedStmt = connection.prepareStatement(sql);
             preparedStmt.setInt(1, newId);
@@ -149,6 +153,7 @@ public class StudyRepository {
             preparedStmt.setInt(5, study.getFrequency());
             preparedStmt.setInt(6, study.getActive());
             preparedStmt.setInt(7, study.getStatus());
+            preparedStmt.setString(8, study.getNote());
 
             preparedStmt.execute();
             connection.commit();
@@ -243,6 +248,7 @@ public class StudyRepository {
         study.setFrequency(rs.getInt(5));
         study.setActive(rs.getInt(6));
         study.setStatus(rs.getInt(7));
+        study.setNote(rs.getString(8));
         return study;
     }
 }

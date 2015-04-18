@@ -3,7 +3,7 @@ package model;
 import javax.persistence.*;
 
 /**
- * Created by Samuel_Tjokrosoesilo on 4/13/2015.
+ * Created by Samuel_Tjokrosoesilo on 4/17/2015.
  */
 @Entity
 @Table(name = "Study", schema = "", catalog = "")
@@ -15,6 +15,7 @@ public class StudyEntity {
     private Integer frequency;
     private Integer active;
     private Integer status;
+    private String note;
 
     @Id
     @Column(name = "StudyId", nullable = true, insertable = true, updatable = true)
@@ -86,6 +87,16 @@ public class StudyEntity {
         this.status = status;
     }
 
+    @Basic
+    @Column(name = "Note", nullable = true, insertable = true, updatable = true, length = 2000000000)
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -97,6 +108,7 @@ public class StudyEntity {
         if (assignedTo != null ? !assignedTo.equals(that.assignedTo) : that.assignedTo != null) return false;
         if (description != null ? !description.equals(that.description) : that.description != null) return false;
         if (frequency != null ? !frequency.equals(that.frequency) : that.frequency != null) return false;
+        if (note != null ? !note.equals(that.note) : that.note != null) return false;
         if (observationCodes != null ? !observationCodes.equals(that.observationCodes) : that.observationCodes != null)
             return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
@@ -114,6 +126,7 @@ public class StudyEntity {
         result = 31 * result + (frequency != null ? frequency.hashCode() : 0);
         result = 31 * result + (active != null ? active.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (note != null ? note.hashCode() : 0);
         return result;
     }
 }
