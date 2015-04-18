@@ -33,7 +33,7 @@ public class PatientRepository {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-            ResultSet rs = statement.executeQuery("select * from " + TABLE_Patient );
+            ResultSet rs = statement.executeQuery("select PATIENT.*, STUDY.Description from " + TABLE_Patient + " LEFT OUTER JOIN STUDY ON STUDY.StudyId = PATIENT.StudyId " );
 
             while(rs.next()) {
                 patient = resultToPatient(rs);
@@ -76,7 +76,7 @@ public class PatientRepository {
             Statement statement = connection.createStatement();
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-            ResultSet rs = statement.executeQuery("select * from " + TABLE_Patient + " where " + SsSqLiteHelper.COLUMN_PATIENTID + " = '" + patientId + "'");
+            ResultSet rs = statement.executeQuery("select PATIENT.*, STUDY.Description from " + TABLE_Patient + " LEFT OUTER JOIN STUDY ON STUDY.StudyId = PATIENT.StudyId where " + SsSqLiteHelper.COLUMN_PATIENTID + " = '" + patientId + "'");
             patient = resultToPatient(rs);
         }
         catch(SQLException e)
@@ -219,6 +219,7 @@ public class PatientRepository {
         patient.setType(rs.getInt(4));
         patient.setStudyId(rs.getInt(5));
         patient.setStatus(rs.getInt(6));
+        patient.setStudyDescription(rs.getString(7));
         return patient;
     }
 }

@@ -26,7 +26,7 @@ POST        /user                         controllers.UserController.CreateUser
 GET         /observation/:id              controllers.ObservationController.GetObservation(id: String)
 POST        /observation                  controllers.ObservationController.CreateObservation
 PUT         /observation/:id              controllers.ObservationController.UpdateObservation(id: String)
-GET         /observation/all              controllers.ObservationController.GetAllObservations()
+GET         /observationsByPatientId/:id      controllers.ObservationController.GetObservationsByPatientId(id: String)
 
 GET         /study/:id                    controllers.StudyController.GetStudy(id: Int)
 POST        /study                        controllers.StudyController.CreateStudy

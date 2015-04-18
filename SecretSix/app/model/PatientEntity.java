@@ -14,6 +14,7 @@ public class PatientEntity {
     private Integer type;
     private Integer studyId;
     private Integer status;
+    private String studyDescription;
 
     @Id
     @Column(name = "PatientId", nullable = true, insertable = true, updatable = true, length = 2000000000)
@@ -73,6 +74,14 @@ public class PatientEntity {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getStudyDescription() {
+        return studyDescription;
+    }
+
+    public void setStudyDescription(String studyDescription) {
+        this.studyDescription = studyDescription;
     }
 
     @Override

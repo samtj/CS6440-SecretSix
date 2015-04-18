@@ -1,9 +1,14 @@
 package repositories;
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import model.ObservationEntity;
 import model.PatientEntity;
+import model.StudyEntity;
+import play.libs.Json;
+import play.mvc.Result;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 /**
  * Created by Samuel_Tjokrosoesilo on 3/23/2015.
@@ -193,6 +198,47 @@ public class ObservationRepository {
         return true;
     }
 
+    public ArrayList<ObservationEntity> GetObservationsByPatientId(String patientId)
+    {
+        ObservationEntity observation = null;
+        ArrayList<ObservationEntity> observations = new ArrayList<ObservationEntity>();
+        Connection connection = null;
+        try
+        {
+            // create a database connection
+            connection = DriverManager.getConnection("jdbc:sqlite:" + SsSqLiteHelper.DB_LOCATION);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+            ResultSet rs = statement.executeQuery("select * from " + TABLE_Observation + " where " + SsSqLiteHelper.COLUMN_SUBJECT + " = '" + patientId + "'");
+
+            while(rs.next()) {
+                observation = resultToObservation(rs);
+                observations.add(observation);
+            }
+        }
+        catch(SQLException e)
+        {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
+        return observations;
+    }
+
     private ObservationEntity resultToObservation(ResultSet rs) throws SQLException {
         ObservationEntity obs = new ObservationEntity();
 
@@ -209,4 +255,5 @@ public class ObservationRepository {
         obs.setStatus(rs.getInt(11));
         return obs;
     }
+
 }
