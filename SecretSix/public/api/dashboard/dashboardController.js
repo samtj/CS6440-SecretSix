@@ -3,14 +3,33 @@
  */
 (function(){
     'use strict';
-    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, items) {
+        //we get items in here. use that for graphs
+        $timeout(function () {
+            var temp = Morris.Line({
+                element: 'chart',
+                data: [
+                    {y: '2006', a: 100, b: 90},
+                    {y: '2007', a: 75, b: 65},
+                    {y: '2008', a: 50, b: 40},
+                    {y: '2009', a: 75, b: 65},
+                    {y: '2010', a: 50, b: 40},
+                    {y: '2011', a: 75, b: 65},
+                    {y: '2012', a: 100, b: 90}
+                ],
+                xkey: 'y',
+                ykeys: ['a', 'b'],
+                labels: ['Series A', 'Series B']
+            });
 
+        }, 500);
         $scope.items = items;
         $scope.selected = {
             item: $scope.items[0]
         };
 
         $scope.ok = function () {
+
             $modalInstance.close($scope.selected.item);
         };
 
@@ -21,6 +40,9 @@
 
     angular.module('app').controller('dashboardController',['$scope','$modal','$log','dashboardService', 'toastr', dashboardController]);
     function dashboardController($scope,$modal,$log,dashboardService,toastr){
+
+
+
 
         $scope.items = ['item1', 'item2', 'item3'];
         $scope.open = function (size) {
@@ -42,6 +64,31 @@
                 $log.info('Modal dismissed at: ' + new Date());
             });
         };
+
+        $scope.openPatientObservations = function (patientId) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'patientObservationModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: 'lg',
+                resolve: {
+                    items: function () {
+                        return dashboardService.getLocalObservationByPatientID(patientId).
+                            then(function(result){
+                                console.log(result.data);
+                                return result.data;
+                            });
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
 
         $scope.test = "testing to see this";
         $scope.loadSamplejsonWP = loadSamplejsonWP;

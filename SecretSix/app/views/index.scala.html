@@ -18,9 +18,31 @@
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
     </script>
+    <script type="text/ng-template" id="patientObservationModalContent.html">
+    <div class="modal-header">
+    <h3 class="modal-title">Patient Observation {{items}}</h3>
+    </div>
+    <div class="modal-body">
+    <div id="chart"></div>
+    <ul>
+    <li ng-repeat="item in items">
+    <a ng-click="selected.item = item">{{ item }}</a>
+    </li>
+    </ul>
+    Selected: <b>{{ selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+    </div>
+
+
+
+    </script>
 
 
     <div ng-controller="dashboardController">
+
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -258,7 +280,7 @@
                             </div>
                             <div class="price-foot">
                                 <button type="button" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> Edit</button>
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-search"></i> Observations</button>
+                                <button type="button" class="btn btn-default btn-sm" ng-click="openPatientObservations(item.patientId)"><i class="fa fa-search"></i> Observations</button>
                             </div>
                         </div>
                     </div>

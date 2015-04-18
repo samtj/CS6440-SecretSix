@@ -27,7 +27,8 @@
             getAllStudies:getAllStudies,
             addStudy:addStudy,
             getTodos:getTodos,
-            getAllTodos:getAllTodos
+            getAllTodos:getAllTodos,
+            getLocalObservationByPatientID:getLocalObservationByPatientID
         };
         return service;
         function getData(){
@@ -75,6 +76,9 @@
         }
         function getObservationByPatientID(id){
             return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?subject:Patient="+id)
+        }
+        function getLocalObservationByPatientID(id){
+            return $http.get('observationsByPatientId/'+id)
         }
         function getAllConditions(){
             return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?_count=200');
