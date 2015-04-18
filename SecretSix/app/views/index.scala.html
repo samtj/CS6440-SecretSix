@@ -1,30 +1,25 @@
 @(message: String)
 
 @main("Secret Six Dashboard") {
-    @*<div ng-controller="ModalDemoCtrl">*@
-        @*<script type="text/ng-template" id="myModalContent.html">*@
-        @*<div class="modal-header">*@
-        @*<h3 class="modal-title">I'm a modal!</h3>*@
-        @*</div>*@
-        @*<div class="modal-body">*@
-        @*<ul>*@
-        @*<li ng-repeat="item in items">*@
-        @*<a ng-click="selected.item = item">{{ item }}</a>*@
-        @*</li>*@
-        @*</ul>*@
-        @*Selected: <b>{{ selected.item }}</b>*@
-        @*</div>*@
-        @*<div class="modal-footer">*@
-        @*<button class="btn btn-primary" ng-click="ok()">OK</button>*@
-        @*<button class="btn btn-warning" ng-click="cancel()">Cancel</button>*@
-        @*</div>*@
-        @*</script>*@
+    <script type="text/ng-template" id="observationModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">I'm a modal!</h3>
+        </div>
+        <div class="modal-body">
+            <ul>
+                <li ng-repeat="item in items">
+                    <a ng-click="selected.item = item">{{ item }}</a>
+                </li>
+            </ul>
+            Selected: <b>{{ selected.item }}</b>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    </script>
 
-        @*<button class="btn btn-default" ng-click="open()">Open me!</button>*@
-        @*<button class="btn btn-default" ng-click="open('lg')">Large modal</button>*@
-        @*<button class="btn btn-default" ng-click="open('sm')">Small modal</button>*@
-        @*<div ng-show="selected">Selection from a modal: {{ selected }}</div>*@
-        @*</div>*@
+
     <div ng-controller="dashboardController">
     <nav class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
@@ -35,7 +30,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Secret<i class="fa fa-connectdevelop fa-lg"></i>Six </a>
+                <a class="navbar-brand" href="#">Secret<i class="fa fa-connectdevelop fa-lg fa-spin"></i>Six </a>
             </div>
             <div class="collapse navbar-collapse" collapse="!navbarCollapsed">
                 <ul class="nav navbar-nav">
@@ -57,6 +52,11 @@
         </div>
     </nav>
 
+
+        <button class="btn btn-default" ng-click="open()">Open me!</button>
+        <button class="btn btn-default" ng-click="open('lg')">Large modal</button>
+        <button class="btn btn-default" ng-click="open('sm')">Small modal</button>
+        <div ng-show="selected">Selection from a modal: {{ selected }}</div>
     <div class="container" role="main">
         <div class="row" collapse="loggedin">
             <div class="col-md-4 col-md-offset-4">
@@ -226,29 +226,39 @@
 
             <div class="row" ng-hide="!showList.studyPatients">
                 <div class="col-lg-12">
-                    <div class="well well-sm">This is where my filters will go</div>
+                    <div class="well well-sm">
+                        <form class="form-inline">
+                            <div class="form-group"> <label>Search:</label>
+                                <div class="input-group">
+                                    <input type="text" ng-model="searchStudyPatients"
+                                    class="form-control" placeholder="Enter text to search">
+                                    <div class="input-group-addon" ng-click="searchStudyPatients=''" style="cursor: pointer;"><span class="fa fa-close"></span></div>
+                                </div>
+                            </div>
+                            <button class="btn btn-danger" ng-click="searchStudyPatients = 'Inactive'">Inactive Patients</button>
+                            <button class="btn btn-info" ng-click="searchStudyPatients = 'Open'">New Patients</button>
+                            <span class="badge badge-primary pull-right">{{x.length}}</span>
+                        </form>
+
+                    </div>
                 </div>
-                <div class="col-lg-2 col-md-3 col-sm-4 animate-repeat" ng-repeat="item in allStudyPatients">
+                <div class="col-lg-2 col-md-3 col-sm-4 animate-repeat" ng-repeat="item in x = (allStudyPatients|filter:searchStudyPatients)">
                     <div class="pricing">
-                        <div class="float-top-left-corner">
-                            <span class="label label-default">{{item.firstName}} {{item.lastName}}</span>
-                        </div>
-                        <div class="unit price-success ">
-                            <div class="price-title">
-                                <h3><i class="fa fa-user fa-2x"></i></h3>
-                                <p>Active</p>
+                        <label class="label label-info float-top-left-corner">{{item.firstName}} {{item.lastName}}</label>
+                        <div ng-class="item.status == 'Active' ? 'unit price-success' : (item.status == 'Inactive' ? 'unit price-warning' : 'unit price-primary')" >
+                            <div class="price-title text-right">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-user fa-stack-1x fa-2x"></i>
+                                    <i class="fa fa-ban fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'"></i>
+                                </span>
                             </div>
                             <div class="price-body">
-                                <h5>Current Study</h5>
-                                <p>Not Assigned</p>
-                                <ul>
-                                    <li>Some data</li>
-                                    <li>More data</li>
-                                    <li>123 Data</li>
-                                </ul>
+                                <h5>{{item.studyDescription}}</h5>
+                                <p>{{item.status}}</p>
                             </div>
                             <div class="price-foot">
-                                <button type="button" class="btn btn-success">Do Something</button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> Edit</button>
+                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-search"></i> Observations</button>
                             </div>
                         </div>
                     </div>

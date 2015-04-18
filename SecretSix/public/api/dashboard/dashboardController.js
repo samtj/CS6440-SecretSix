@@ -3,45 +3,45 @@
  */
 (function(){
     'use strict';
-    //angular.module('app').controller('ModalDemoCtrl', function ($scope, $modal, $log) {
-    //
-    //    $scope.items = ['item1', 'item2', 'item3'];
-    //
-    //    $scope.open = function (size) {
-    //
-    //        var modalInstance = $modal.open({
-    //            templateUrl: 'myModalContent.html',
-    //            controller: 'dashboardController',
-    //            size: size,
-    //            resolve: {
-    //                items: function () {
-    //                    return $scope.items;
-    //                }
-    //            }
-    //        });
-    //
-    //        modalInstance.result.then(function (selectedItem) {
-    //            $scope.selected = selectedItem;
-    //        }, function () {
-    //            $log.info('Modal dismissed at: ' + new Date());
-    //        });
-    //    };
-    //});
+    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
-    angular.module('app').controller('dashboardController',['$scope','$log','dashboardService', 'toastr', dashboardController]);
-    function dashboardController($scope,$log,dashboardService,toastr){
-        //$scope.items = items;
-        //$scope.selected = {
-        //    item: $scope.items[0]
-        //};
-        //
-        //$scope.ok = function () {
-        //    $modalInstance.close($scope.selected.item);
-        //};
-        //
-        //$scope.cancel = function () {
-        //    $modalInstance.dismiss('cancel');
-        //};
+        $scope.items = items;
+        $scope.selected = {
+            item: $scope.items[0]
+        };
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.selected.item);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
+
+    angular.module('app').controller('dashboardController',['$scope','$modal','$log','dashboardService', 'toastr', dashboardController]);
+    function dashboardController($scope,$modal,$log,dashboardService,toastr){
+
+        $scope.items = ['item1', 'item2', 'item3'];
+        $scope.open = function (size) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'observationModalContent.html',
+                controller: 'ModalInstanceCtrl',
+                size: size,
+                resolve: {
+                    items: function () {
+                        return $scope.items;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
 
         $scope.test = "testing to see this";
         $scope.loadSamplejsonWP = loadSamplejsonWP;
@@ -96,6 +96,11 @@
             '8302-2':'Body Height',
             '8310-5':'Body Temperature'
         };
+        $scope.patientStatusEnum = {
+            '0':'Open',
+            '1':'Active',
+            '2':'Inactive'
+        };
         $scope.setShowListDefault = function(incoming){
             $scope.showList = {
                 'availablePatients':false,
@@ -115,6 +120,8 @@
             else
                 return code;
         }
+
+
 
 //Get All Available Condition Codes and Count
 
@@ -260,6 +267,9 @@
                 then(function(result){
                     $scope.allStudyPatients = result.data;
                     console.log("allStudyPatients: ", $scope.allStudyPatients);
+                    angular.forEach($scope.allStudyPatients, function(patient,key){
+                        $scope.allStudyPatients[key].status = $scope.patientStatusEnum[$scope.allStudyPatients[key].status];
+                    });
 
                 });
         }
