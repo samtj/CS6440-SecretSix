@@ -135,6 +135,60 @@
 
     </script>
 
+    <script type="text/ng-template" id="addStudyModal.html">
+        <div class="modal-header">
+            <h4 class="modal-title">
+                New Study
+            </h4>
+        </div>
+        <div class="modal-body">
+            <div class="col-md-12" collapse="false">
+                <div class="alert alert-success">
+                    <form class="form" name="myForm">
+                        <div class="form-group">
+                            <label>Description:</label>
+                            <div class="input-group">
+                                <input type="text" name="desc" ng-model="descAdd" class="form-control" placeholder="Description" required/>
+                                <div class="input-group-addon" ng-show="myForm.desc.$error.required ">
+                                    <span class="text-danger">Required</span>
+                                </div>
+                            </div>
+
+                            <label>Frequency:</label>
+                            <div class="input-group">
+                                <input type="number" name="frequency" ng-model="frequencyAdd" class="form-control" placeholder="Frequency" required/>
+                                <div class="input-group-addon" ng-show="myForm.frequency.$error.required || myForm.frequency.$error.number">
+                                    <span class="text-danger">Required</span>
+                                </div>
+                            </div>
+
+                            <label>Notes:</label>
+                            <div class="input-group">
+                                <input type="text" name="notes" ng-model="notesAdd" class="form-control" placeholder="Notes" required/>
+                                <div class="input-group-addon" ng-show="myForm.notes.$error.required">
+                                    <span class="text-danger">Required</span>
+                                </div>
+                            </div>
+
+                            <label>Observations:</label>
+                                <div class="input-group">
+                                <input type="text" name="observations" ng-model="observationsAdd" class="form-control" placeholder="Observations" required/>
+                                <div class="input-group-addon" ng-show="myForm.observations.$error.required">
+                                    <span class="text-danger">Required</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-success" ng-click="ok()" ng-disabled="myForm.desc.$error.required || myForm.frequency.$error.required || myForm.notes.$error.required || myForm.observations.$error.required">Add</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </div>
+    </script>
 
     <div ng-controller="dashboardController">
 
@@ -448,7 +502,7 @@
                             </ul>
                         </div>
                         <div class="panel-footer">
-                            <button type="button" class="btn btn-success" ng-click="testAddStudy()">Add</button>
+                            <button type="button" class="btn btn-success" ng-click="openAddStudyModal()">New Study</button>
                         </div>
                     </div>
                 </div>

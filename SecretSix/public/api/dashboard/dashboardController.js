@@ -64,6 +64,38 @@
             });
         };
 
+        $scope.openAddStudyModal = function (patientId) {
+
+            var modalInstance = $modal.open({
+                templateUrl: 'addStudyModal.html',
+                controller: 'ModalInstanceCtrl',
+                size: 'lg',
+                resolve: {
+                    localObservations: function () {
+                        return dashboardService.getLocalObservationByPatientID(patientId).
+                            then(function(result){
+                                console.log(result.data);
+                                return result.data;
+                            });
+                    },
+                    remoteObservations: function () {
+                        return dashboardService.getObservationByPatientID(patientId).
+                            then(function(result){
+                                console.log('anything? ',result.data);
+                                return result.data;
+                            });
+                    },
+                    observationCodesDictionary:function(){return $scope.observationCodesDictionary;}
+                }
+            });
+
+            modalInstance.result.then(function (selectedItem) {
+                $scope.selected = selectedItem;
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
         $scope.openPatientObservations = function (patientId) {
 
             var modalInstance = $modal.open({
