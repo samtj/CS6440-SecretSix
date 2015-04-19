@@ -119,6 +119,7 @@
         $scope.allAvailableConditions = [];
         $scope.allAvailableConditionCodes = [];
         $scope.allAvailableobservationCodes = [];
+        $scope.allAvailableTodos = [];
         $scope.objectOfConditionswithPatientData = {};
         $scope.objectOfobservationswithPatientData = {};
         $scope.patientObservations=[];
@@ -187,6 +188,7 @@
             patientCount();
             loadStudies();
             loadObservations();
+            loadTodos();
         }
 
 //post/put data
