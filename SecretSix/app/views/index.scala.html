@@ -20,11 +20,72 @@
     </script>
     <script type="text/ng-template" id="patientObservationModalContent.html">
     <div class="modal-header">
-    <h4 class="modal-title">Patient Observations</h4>
+    <h4 class="modal-title">Patient Observations <span class="badge badge-primary" ng-click="isCollapsed = !isCollapsed" style="cursor: pointer;">Create New Observation</span></h4>
     </div>
+
+
+
     <div class="modal-body">
-        <div class="col-md-12">
-        <div class="well well-sm">
+    <div class="col-md-12" collapse="!isCollapsed">
+    <div class="alert alert-success">
+    <form class="form" name="myForm">
+    <div class="form-group">
+    <label>Observation:</label>
+    <div class="input-group">
+    <select name="obsdpdn" class="form-control" ng-model="observationAdd" ng-options="k as v for (k, v) in viewObservations.obsOptions" required></select>
+    <div class="input-group-addon" ng-show="myForm.obsdpdn.$error.required "><span class="text-danger">Required</span></div>
+    </div>
+
+    <label>Quantity/Value:</label>
+    <div class="input-group">
+        <input type="number" name="quantity" ng-model="quantityAdd"
+        class="form-control" placeholder="Quantity/Value" required>
+    <div class="input-group-addon" ng-show="myForm.quantity.$error.required || myForm.quantity.$error.number"><span class="text-danger">Required</span></div>
+    </div>
+
+    <label>Unit:</label>
+    <div class="input-group">
+    <input type="text" name="unit" ng-model="unitAdd"
+    class="form-control" placeholder="Unit" required>
+    <div class="input-group-addon" ng-show="myForm.unit.$error.required"><span class="text-danger">Required</span></div>
+    </div>
+
+    <label>Comment:</label>
+    <div class="input-group">
+    <input type="text" name="comment" ng-model="commentAdd"
+    class="form-control" placeholder="Write your observation notes" required>
+    <div class="input-group-addon" ng-show="myForm.comment.$error.required"><span class="text-danger">Required</span></div>
+    </div>
+
+    <label>Date Observed:</label>
+    <div class="input-group">
+    <input type="date"  name="date" ng-model="dateAdd" class="form-control"
+    placeholder="yyyy-MM-dd" min="2011-01-01" max="2019-12-31" required />
+    <div class="input-group-addon" ng-show="myForm.date.$error.required"><span class="text-danger">Required</span></div>
+    </div>
+
+
+    </div>
+
+    </form>
+    <button class="btn btn-default btn-sm" ng-click="ok()"
+    ng-disabled="myForm.unit.$error.required ||
+    myForm.obsdpdn.$error.required ||
+    myForm.quantity.$error.required ||
+    myForm.quantity.$error.number ||
+    myForm.comment.$error.required ||
+    myForm.date.$error.required">Add</button>
+    </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="col-md-12">
+        <div class="alert alert-info">
         <form class="form-inline">
         <div class="form-group"> <label>Search:</label>
         <div class="input-group">
@@ -40,7 +101,7 @@
         </div>
         <div class="col-md-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">The Study Observations</div>
+                <div class="panel-heading">Study Observations</div>
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr><th>Obs.</th><th>Result</th><th>Date</th></tr>
@@ -53,7 +114,7 @@
         </div>
         <div class="col-md-6">
             <div class="panel panel-primary">
-                <div class="panel-heading">All Past Observations</div>
+                <div class="panel-heading">Past Observations</div>
                 <table class="table table-bordered table-hover table-striped">
                     <thead>
                         <tr><th>Obs.</th><th>Result</th><th>Date</th></tr>
@@ -66,8 +127,8 @@
         </div>
     </div>
     <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+
+    <button class="btn btn-warning" ng-click="cancel()">Close</button>
     </div>
 
 

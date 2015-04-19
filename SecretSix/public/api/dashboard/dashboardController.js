@@ -3,7 +3,7 @@
  */
 (function(){
     'use strict';
-    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations) {
+    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary) {
         //we get items in here. use that for graphs
         //$timeout(function () {
         //    var temp = Morris.Line({
@@ -22,7 +22,7 @@
         //        labels: ['Series A', 'Series B']
         //    });
         //}, 500);
-        $scope.viewObservations = {'local':localObservations,'remote':remoteObservations};
+        $scope.viewObservations = {'local':localObservations,'remote':remoteObservations, 'obsOptions':observationCodesDictionary};
         console.log('testing',$scope.viewObservations);
 
         //$scope.items = items;
@@ -84,7 +84,8 @@
                                 console.log('anything? ',result.data);
                                 return result.data;
                             });
-                    }
+                    },
+                    observationCodesDictionary:function(){return $scope.observationCodesDictionary;}
                 }
             });
 
@@ -104,6 +105,7 @@
         $scope.loadObservations = loadObservations;
         $scope.loadConditions = loadConditions;
         $scope.createNewPatient = createNewPatient;
+        $scope.createNewObservation = createNewObservation;
         $scope.loadStudyPatients = loadStudyPatients;
         $scope.testAddStudy = testAddStudy;
         $scope.loadTodos = loadTodos;
@@ -208,6 +210,29 @@
 
 
         function createNewPatient(patientData){
+            console.log("creating new patient");
+            return dashboardService.createPatient({
+                'patientId':patientData.identifier[0].value,
+                'firstName':patientData.name[0].given[0],
+                'lastName':patientData.name[0].family[0],
+                'type':1,
+                'status': 0,
+                'studyDescription': 'nostudy',
+                'studyId': 0})
+                .then(function(result){
+                    if(result.data.content){
+                        toastr.success('was successfully added to Secret Six database.', patientData.name[0].given[0] + ' ' + patientData.name[0].family[0]);
+                        patientCount();
+                    }else{
+                        toastr.error('Patient ' + patientData.name[0].given[0] + ' ' + patientData.name[0].family[0] + ' already exists in our database','Failure to add');
+                    }
+
+
+                    //
+                });
+        }
+
+        function createNewObservation(data){
             console.log("creating new patient");
             return dashboardService.createPatient({
                 'patientId':patientData.identifier[0].value,
