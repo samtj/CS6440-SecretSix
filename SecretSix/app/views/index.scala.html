@@ -20,16 +20,50 @@
     </script>
     <script type="text/ng-template" id="patientObservationModalContent.html">
     <div class="modal-header">
-    <h3 class="modal-title">Patient Observation {{items}}</h3>
+    <h4 class="modal-title">Patient Observations</h4>
     </div>
     <div class="modal-body">
-    <div id="chart"></div>
-    <ul>
-    <li ng-repeat="item in items">
-    <a ng-click="selected.item = item">{{ item }}</a>
-    </li>
-    </ul>
-    Selected: <b>{{ selected.item }}</b>
+        <div class="col-md-12">
+        <div class="well well-sm">
+        <form class="form-inline">
+        <div class="form-group"> <label>Search:</label>
+        <div class="input-group">
+        <input type="text" ng-model="searchObsMod"
+        class="form-control" placeholder="Enter text to search">
+        <div class="input-group-addon" ng-click="searchObsMod=''" style="cursor: pointer;"><span class="fa fa-close"></span></div>
+        </div>
+        </div>
+        <span class="small text-info">i.e. Try searching for the text: weight</span>
+        </form>
+
+        </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">The Study Observations</div>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr><th>Obs.</th><th>Result</th><th>Date</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in viewObservations.local|filter:searchObsMod"><td>{{x.display}}</td><td>{{x.quantity}} {{x.unit}}</td><td>{{x.dateObserved|date:"MM/dd/yyyy"}}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">All Past Observations</div>
+                <table class="table table-bordered table-hover table-striped">
+                    <thead>
+                        <tr><th>Obs.</th><th>Result</th><th>Date</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in viewObservations.remote.entry|filter:searchObsMod"><td>{{x.content.name.coding[0].display}}</td><td>{{x.content.valueQuantity.value}} {{x.content.valueQuantity.unit}}</td><td>{{x.content.appliesDateTime|date:"MM/dd/yyyy"}}</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
     <button class="btn btn-primary" ng-click="ok()">OK</button>

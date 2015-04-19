@@ -3,30 +3,32 @@
  */
 (function(){
     'use strict';
-    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, items) {
+    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations) {
         //we get items in here. use that for graphs
-        $timeout(function () {
-            var temp = Morris.Line({
-                element: 'chart',
-                data: [
-                    {y: '2006', a: 100, b: 90},
-                    {y: '2007', a: 75, b: 65},
-                    {y: '2008', a: 50, b: 40},
-                    {y: '2009', a: 75, b: 65},
-                    {y: '2010', a: 50, b: 40},
-                    {y: '2011', a: 75, b: 65},
-                    {y: '2012', a: 100, b: 90}
-                ],
-                xkey: 'y',
-                ykeys: ['a', 'b'],
-                labels: ['Series A', 'Series B']
-            });
+        //$timeout(function () {
+        //    var temp = Morris.Line({
+        //        element: 'chart',
+        //        data: [
+        //            {y: '2006', a: 100, b: 90},
+        //            {y: '2007', a: 75, b: 65},
+        //            {y: '2008', a: 50, b: 40},
+        //            {y: '2009', a: 75, b: 65},
+        //            {y: '2010', a: 50, b: 40},
+        //            {y: '2011', a: 75, b: 65},
+        //            {y: '2012', a: 100, b: 90}
+        //        ],
+        //        xkey: 'y',
+        //        ykeys: ['a', 'b'],
+        //        labels: ['Series A', 'Series B']
+        //    });
+        //}, 500);
+        $scope.viewObservations = {'local':localObservations,'remote':remoteObservations};
+        console.log('testing',$scope.viewObservations);
 
-        }, 500);
-        $scope.items = items;
-        $scope.selected = {
-            item: $scope.items[0]
-        };
+        //$scope.items = items;
+        //$scope.selected = {
+        //    item: $scope.items[0]
+        //};
 
         $scope.ok = function () {
 
@@ -40,9 +42,6 @@
 
     angular.module('app').controller('dashboardController',['$scope','$modal','$log','dashboardService', 'toastr', dashboardController]);
     function dashboardController($scope,$modal,$log,dashboardService,toastr){
-
-
-
 
         $scope.items = ['item1', 'item2', 'item3'];
         $scope.open = function (size) {
@@ -82,7 +81,7 @@
                     remoteObservations: function () {
                         return dashboardService.getObservationByPatientID(patientId).
                             then(function(result){
-                                console.log(result.data);
+                                console.log('anything? ',result.data);
                                 return result.data;
                             });
                     }
@@ -109,6 +108,7 @@
         $scope.testAddStudy = testAddStudy;
         $scope.loadTodos = loadTodos;
 
+        $scope.viewObservations = {};
         $scope.action = action;
         $scope.allAvailablePatients = [];
         $scope.allStudies = [];
