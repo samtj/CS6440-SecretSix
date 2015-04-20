@@ -138,7 +138,7 @@
     <script type="text/ng-template" id="addStudyModal.html">
         <div class="modal-header">
             <h4 class="modal-title">
-                New Study
+                Study
             </h4>
         </div>
         <div class="modal-body">
@@ -171,8 +171,8 @@
                             </div>
 
                             <label>Observations:</label>
-                                <div class="input-group">
-                                <input type="text" name="observations" ng-model="newStudy.observationCodes" class="form-control" placeholder="Observations" required/>
+                            <div class="input-group">
+                                <select name="observations" class="form-control" ng-model="newStudy.observationCodes" ng-options="k as v for (k, v) in obsOptions" required></select>
                                 <div class="input-group-addon" ng-show="myForm.observations.$error.required">
                                     <span class="text-danger">Required</span>
                                 </div>
@@ -184,7 +184,7 @@
             </div>
 
             <div class="modal-footer">
-                <button class="btn btn-success" ng-click="ok()" ng-disabled="myForm.desc.$error.required || myForm.frequency.$error.required || myForm.notes.$error.required || myForm.observations.$error.required">Add</button>
+                <button class="btn btn-success" ng-click="ok()" ng-disabled="myForm.desc.$error.required || myForm.frequency.$error.required || myForm.notes.$error.required || myForm.observations.$error.required">Ok</button>
                 <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
             </div>
         </div>

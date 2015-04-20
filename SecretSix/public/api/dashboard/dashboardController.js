@@ -3,8 +3,9 @@
  */
 (function(){
     'use strict';
-    angular.module('app').controller('ModalStudy', function ($scope, $modalInstance, study) {
+    angular.module('app').controller('ModalStudy', function ($scope, $modalInstance, study, observationCodesDictionary) {
         $scope.newStudy = study;
+        $scope.obsOptions = observationCodesDictionary;
 
         $scope.ok = function () {
             $modalInstance.close($scope.newStudy);
@@ -88,6 +89,9 @@
                 resolve: {
                     study: function(){
                         return studyCopy;
+                    },
+                    observationCodesDictionary: function(){
+                        return $scope.observationCodesDictionary;
                     }
                 }
             });
@@ -116,6 +120,9 @@
                 resolve: {
                     study: function() {
                         return newStudy;
+                    },
+                    observationCodesDictionary: function(){
+                        return $scope.observationCodesDictionary;
                     }
                 }
             });
