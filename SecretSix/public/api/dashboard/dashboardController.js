@@ -3,6 +3,18 @@
  */
 (function(){
     'use strict';
+    angular.module('app').controller('ModalStudy', function ($scope, $modalInstance, study) {
+        $scope.newStudy = study;
+
+        $scope.ok = function () {
+            $modalInstance.close($scope.newStudy);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    });
+
     angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary) {
         //we get items in here. use that for graphs
         //$timeout(function () {
@@ -64,33 +76,54 @@
             });
         };
 
-        $scope.openAddStudyModal = function (patientId) {
+        $scope.openEditStudyModal = function(study){
+            var studyCopy = {};
+
+            for(var k in study) studyCopy[k]=study[k];
 
             var modalInstance = $modal.open({
                 templateUrl: 'addStudyModal.html',
-                controller: 'ModalInstanceCtrl',
+                controller: 'ModalStudy',
                 size: 'lg',
                 resolve: {
-                    localObservations: function () {
-                        return dashboardService.getLocalObservationByPatientID(patientId).
-                            then(function(result){
-                                console.log(result.data);
-                                return result.data;
-                            });
-                    },
-                    remoteObservations: function () {
-                        return dashboardService.getObservationByPatientID(patientId).
-                            then(function(result){
-                                console.log('anything? ',result.data);
-                                return result.data;
-                            });
-                    },
-                    observationCodesDictionary:function(){return $scope.observationCodesDictionary;}
+                    study: function(){
+                        return studyCopy;
+                    }
                 }
             });
 
-            modalInstance.result.then(function (selectedItem) {
-                $scope.selected = selectedItem;
+            modalInstance.result.then(function (study) {
+                console.dir(study);
+                dashboardService.updateStudy(study).then(function(){
+                    loadStudies();
+                });
+            }, function () {
+                $log.info('Modal dismissed at: ' + new Date());
+            });
+        };
+
+        $scope.openAddStudyModal = function () {
+            var newStudy = {
+                'assignedTo': 1,
+                'active': 1,
+                'status': 0
+            };
+
+            var modalInstance = $modal.open({
+                templateUrl: 'addStudyModal.html',
+                controller: 'ModalStudy',
+                size: 'lg',
+                resolve: {
+                    study: function() {
+                        return newStudy;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (study) {
+                dashboardService.addStudy(study).then(function(){
+                    loadStudies();
+                });
             }, function () {
                 $log.info('Modal dismissed at: ' + new Date());
             });
@@ -140,6 +173,7 @@
         $scope.createNewObservation = createNewObservation;
         $scope.loadStudyPatients = loadStudyPatients;
         $scope.testAddStudy = testAddStudy;
+        $scope.testUpdateStudy = testUpdateStudy;
         $scope.loadTodos = loadTodos;
 
         $scope.viewObservations = {};
@@ -205,10 +239,10 @@
         };
         $scope.getObservationName = function(code){
             if($scope.observationCodesDictionary[code])
-                return $scope.observationCodesDictionary[code]
+                return $scope.observationCodesDictionary[code];
             else
                 return code;
-        }
+        };
 
 
 
@@ -227,16 +261,35 @@
         function testAddStudy()
         {
             var newStudy = {
-                'studyId': 3,
                 'description': "Test Add Study",
                 'assignedTo': 1,
                 'observationCodes': "123ABC",
                 'frequency': 30,
                 'active': 1,
-                'status': 0
+                'status': 0,
+                'note': "Test Notes"
             };
 
             return dashboardService.addStudy(newStudy).then(function(result){
+                console.log(result);
+                loadStudies();
+            });
+        }
+
+        function testUpdateStudy()
+        {
+            var updatedStudy = {
+                'studyId': 1,
+                'description': "Test Updated Study",
+                'assignedTo': 1,
+                'observationCodes': "123ABC",
+                'frequency': 30,
+                'active': 1,
+                'status': 0,
+                'note': "Test Notes"
+            };
+
+            return dashboardService.updateStudy(updatedStudy).then(function(result){
                 console.log(result);
                 loadStudies();
             });

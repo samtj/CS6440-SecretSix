@@ -148,7 +148,7 @@
                         <div class="form-group">
                             <label>Description:</label>
                             <div class="input-group">
-                                <input type="text" name="desc" ng-model="descAdd" class="form-control" placeholder="Description" required/>
+                                <input type="text" name="desc" ng-model="newStudy.description" class="form-control" placeholder="Description" required/>
                                 <div class="input-group-addon" ng-show="myForm.desc.$error.required ">
                                     <span class="text-danger">Required</span>
                                 </div>
@@ -156,7 +156,7 @@
 
                             <label>Frequency:</label>
                             <div class="input-group">
-                                <input type="number" name="frequency" ng-model="frequencyAdd" class="form-control" placeholder="Frequency" required/>
+                                <input type="number" name="frequency" ng-model="newStudy.frequency" class="form-control" placeholder="Frequency" required/>
                                 <div class="input-group-addon" ng-show="myForm.frequency.$error.required || myForm.frequency.$error.number">
                                     <span class="text-danger">Required</span>
                                 </div>
@@ -164,7 +164,7 @@
 
                             <label>Notes:</label>
                             <div class="input-group">
-                                <input type="text" name="notes" ng-model="notesAdd" class="form-control" placeholder="Notes" required/>
+                                <input type="text" name="notes" ng-model="newStudy.note" class="form-control" placeholder="Notes" required/>
                                 <div class="input-group-addon" ng-show="myForm.notes.$error.required">
                                     <span class="text-danger">Required</span>
                                 </div>
@@ -172,7 +172,7 @@
 
                             <label>Observations:</label>
                                 <div class="input-group">
-                                <input type="text" name="observations" ng-model="observationsAdd" class="form-control" placeholder="Observations" required/>
+                                <input type="text" name="observations" ng-model="newStudy.observationCodes" class="form-control" placeholder="Observations" required/>
                                 <div class="input-group-addon" ng-show="myForm.observations.$error.required">
                                     <span class="text-danger">Required</span>
                                 </div>
@@ -496,13 +496,15 @@
                             <ul class="list-group">
                                 <li class="list-group-item" ng-repeat="item in allStudies">
                                     <span class="badge badge-info">{{item.observationCodes}}</span>
-                                    <button type="button" class="btn btn-danger btn-xs" ng-click="">Select</button>
+                                    <button type="button" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
                                     {{item.description}}
                                 </li>
                             </ul>
                         </div>
                         <div class="panel-footer">
                             <button type="button" class="btn btn-success" ng-click="openAddStudyModal()">New Study</button>
+                            @*<button type="button" class="btn btn-success" ng-click="testAddStudy()">Test Post Study</button>*@
+                            @*<button type="button" class="btn btn-success" ng-click="testUpdateStudy()">Test Put Study</button>*@
                         </div>
                     </div>
                 </div>

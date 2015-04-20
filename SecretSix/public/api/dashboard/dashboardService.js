@@ -26,6 +26,7 @@
             getCount:getCount,
             getAllStudies:getAllStudies,
             addStudy:addStudy,
+            updateStudy: updateStudy,
             getTodos:getTodos,
             getAllTodos:getAllTodos,
             getLocalObservationByPatientID:getLocalObservationByPatientID
@@ -51,6 +52,9 @@
         }
         function addStudy(studyJson){
             return $http.post('study', studyJson);
+        }
+        function updateStudy(studyJson){
+            return $http.put('study/' + studyJson.studyId, studyJson);
         }
 
         function getAllStudyPatients(){
