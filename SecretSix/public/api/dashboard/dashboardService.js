@@ -11,6 +11,7 @@
         var service = {
             getData: getData,
             getDataWithInput: getDataWithInput,
+            getPatient:getPatient,
             getAllPatients:getAllPatients,
             getAllStudyPatients:getAllStudyPatients,
             getPatientDetail:getPatientDetail,
@@ -24,6 +25,7 @@
             getMedicationByPatientID:getMedicationByPatientID,
             createPatient:createPatient,
             getCount:getCount,
+            getStudy:getStudy,
             getAllStudies:getAllStudies,
             addStudy:addStudy,
             updateStudy: updateStudy,
@@ -44,11 +46,18 @@
         function createPatient(patientJson){
             return $http.post('patient',patientJson);
         }
+        function getPatient(id){
+            return $http.get('patient/' + id);
+        }
+
         function getAllPatients(){
             return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_count=50');
         }
         function getAllStudies(){
             return $http.get('study');
+        }
+        function getStudy(id){
+            return $http.get('study/'+id);
         }
         function addStudy(studyJson){
             return $http.post('study', studyJson);

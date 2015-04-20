@@ -32,7 +32,7 @@
     <div class="form-group">
     <label>Observation:</label>
     <div class="input-group">
-    <select name="obsdpdn" class="form-control" ng-model="observationAdd" ng-options="k as v for (k, v) in viewObservations.obsOptions" required></select>
+    <select name="obsdpdn" class="form-control" ng-model="observationAdd" disabled ng-options="k as v for (k, v) in viewObservations.obsOptions" required></select>
     <div class="input-group-addon" ng-show="myForm.obsdpdn.$error.required "><span class="text-danger">Required</span></div>
     </div>
 

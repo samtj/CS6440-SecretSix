@@ -16,7 +16,7 @@
         };
     });
 
-    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary) {
+    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary, study) {
         //we get items in here. use that for graphs
         //$timeout(function () {
         //    var temp = Morris.Line({
@@ -35,6 +35,9 @@
         //        labels: ['Series A', 'Series B']
         //    });
         //}, 500);
+
+        $scope.observationAdd = study.observationCodes;
+
         $scope.viewObservations = {'local':localObservations,'remote':remoteObservations, 'obsOptions':observationCodesDictionary};
         console.log('testing',$scope.viewObservations);
 
@@ -157,7 +160,16 @@
                                 return result.data;
                             });
                     },
-                    observationCodesDictionary:function(){return $scope.observationCodesDictionary;}
+                    observationCodesDictionary:function() {
+                        return $scope.observationCodesDictionary;
+                    },
+                    study: function () {
+                        return dashboardService.getPatient(patientId).then(function(patient){
+                            return dashboardService.getStudy(patient.data.studyId)
+                        }).then(function(study){
+                            return study.data;
+                        })
+                    }
                 }
             });
 
