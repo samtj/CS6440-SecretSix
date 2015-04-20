@@ -181,6 +181,7 @@
         $scope.loadStudyPatients = loadStudyPatients;
         $scope.testAddStudy = testAddStudy;
         $scope.testUpdateStudy = testUpdateStudy;
+        $scope.markStudyComplete = markStudyComplete;
         $scope.loadTodos = loadTodos;
 
         $scope.viewObservations = {};
@@ -265,6 +266,14 @@
         }
 
 //post/put data
+        function markStudyComplete(study) {
+            study.status = 1;
+
+            return dashboardService.updateStudy(study).then(function(){
+                loadStudies();
+            });
+        }
+
         function testAddStudy()
         {
             var newStudy = {

@@ -496,7 +496,15 @@
                             <ul class="list-group">
                                 <li class="list-group-item" ng-repeat="item in allStudies">
                                     <span class="badge badge-info">{{item.observationCodes}}</span>
-                                    <button type="button" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
+                                    <div class="btn-group " dropdown>
+                                        <button type="button" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
+                                        <button type="button" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a href="#" ng-click="markStudyComplete(item)">Mark Complete</a></li>
+                                        </ul>
+                                    </div>
                                     {{item.description}}
                                 </li>
                             </ul>
@@ -510,19 +518,19 @@
                 </div>
                 <div class="col-md-6">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Add Study Observations
+                        <div class="panel-heading">Available Study Observations
                         </div>
                         <div style="min-height: 400px;max-height: 400px;overflow: auto">
                             <ul class="list-group">
                                 <li class="list-group-item" ng-repeat="item in objectOfobservationswithPatientData">
                                     <span class="badge badge-info">{{item.code}}</span>
-                                    <input type="checkbox" class="icheckbox_flat">
+                                    <input type="checkbox" class="icheckbox_flat"/>
                                     {{item.display}}
                                 </li>
                             </ul>
                         </div>
                         <div class="panel-footer">
-                            <button type="button" class="btn btn-success">Add</button>
+                            @*<button type="button" class="btn btn-success">Add</button>*@
                         </div>
                     </div>
                 </div>
