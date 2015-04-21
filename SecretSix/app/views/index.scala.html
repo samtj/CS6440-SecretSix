@@ -277,7 +277,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6" ng-hide="userInfo.type==1">
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
@@ -299,7 +299,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="col-lg-3 col-md-6 col-sm-6" ng-hide="userInfo.type==1">
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
                             <div class="row">
@@ -415,7 +415,7 @@
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-4 animate-repeat" ng-repeat="item in x = (allStudyPatients|filter:searchStudyPatients)">
                     <div class="pricing">
-                        <label class="label label-info float-top-left-corner">{{item.firstName}} {{item.lastName}}</label>
+                        <label class="label label-info float-top-left-corner" ng-hide="userInfo.type==1">{{item.firstName}} {{item.lastName}}</label>
                         <div ng-class="item.status == 'Active' ? 'unit price-success' : (item.status == 'Inactive' ? 'unit price-warning' : 'unit price-primary')" >
                             <div class="price-title text-right">
                                 <span class="fa-stack fa-lg">
@@ -426,8 +426,7 @@
                             <div class="price-body" data-ng-hide="editMode">
                                 <h5>{{item.studyDescription}}</h5>
                                 <p>{{item.status}}</p>
-                                    <!--<div><button type="button" class="btn btn-danger" ng-show="item.status == 'Active'" data-ng-click="editMode = true"><i class="fa fa-edit"></i> Deactivate</button></div>-->
-                                <button type="button" class="btn btn-info" ng-show="item.status == 'Open'"><i class="fa fa-edit"></i> Assign Study</button>
+
                             </div>
                             <div class="price-body" data-ng-show="editMode">
                                 <div>
@@ -437,7 +436,9 @@
                             <div class="price-foot">
                                     <!--<button type="button" class="btn btn-default btn-sm" data-ng-hide="editMode" data-ng-click="editMode = true"><i class="fa fa-edit"></i> Edit</button>-->
                                     <!--<button type="button" class="btn btn-default btn-sm" data-ng-show="editMode" data-ng-click="editMode = false"><i class="fa fa-edit"></i> Update</button>-->
-                                <button type="button" class="btn btn-default btn-sm" ng-click="openPatientObservations(item.patientId)"><i class="fa fa-search"></i> Observations</button>
+                                <button type="button" class="btn btn-default btn-xs" ng-click="openPatientObservations(item.patientId)"><i class="fa fa-search"></i> Observations</button>
+                                <button type="button" class="btn btn-danger btn-xs" ng-show="item.status == 'Active' && userInfo.type==0" data-ng-click="editMode = true"><i class="fa fa-times"></i> Deactivate</button>
+                                <button type="button" class="btn btn-info btn-xs" ng-show="item.status == 'Open' && userInfo.type==1" ><i class="fa fa-check"></i> Assign Study</button>
                             </div>
                         </div>
                     </div>
@@ -504,9 +505,9 @@
                             <ul class="list-group">
                                 <li class="list-group-item" ng-repeat="item in allStudies">
                                     <span class="badge badge-info">{{item.observationCodes}}</span>
-                                    <div class="btn-group " dropdown>
-                                        <button type="button" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
-                                        <button type="button" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
+                                    <div class="btn-group " dropdown >
+                                        <button type="button" ng-disabled="userInfo.type == 0" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
+                                        <button type="button" ng-disabled="userInfo.type == 0" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
@@ -518,7 +519,7 @@
                             </ul>
                         </div>
                         <div class="panel-footer">
-                            <button type="button" class="btn btn-success" ng-click="openAddStudyModal()">New Study</button>
+                            <button type="button" ng-disabled="userInfo.type == 0" class="btn btn-success" ng-click="openAddStudyModal()">New Study</button>
                             @*<button type="button" class="btn btn-success" ng-click="testAddStudy()">Test Post Study</button>*@
                             @*<button type="button" class="btn btn-success" ng-click="testUpdateStudy()">Test Put Study</button>*@
                         </div>

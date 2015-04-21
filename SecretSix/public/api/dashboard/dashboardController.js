@@ -286,10 +286,12 @@
                 return code;
         };
         $scope.getTypeEnum = function(typeCode){
-            if(typeCode == 1)
+            if(typeCode == 0)
                 return 'CRN';
-            else if(typeCode == 2)
+            else if(typeCode == 1)
                 return 'Sponsor';
+            else if(typeCode == 2)
+                return 'Admin';
             else(typeCode )
             {
                 $scope.loggedin = false
@@ -445,7 +447,7 @@
             return dashboardService.authenticationWithRole(user).
                 then(function(result){
                     $scope.userInfo = result.data;
-                    if($scope.userInfo.userId){
+                    if($scope.userInfo.userId && $scope.userInfo.active){
                         var temp = $scope.getTypeEnum($scope.userInfo.type);
                         if(temp!='Error') {
                             toastr.success('You are using the Secret Six application as a ' + temp, 'You have been authenticated successfully');
