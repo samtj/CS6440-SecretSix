@@ -192,6 +192,10 @@
 .fa-user:before {
   content: "\f007";
 }
+.fa-user:hover {
+    color: red;
+    cursor: pointer;
+}
 .fa-film:before {
   content: "\f008";
 }

@@ -197,6 +197,8 @@
         $scope.testUpdateStudy = testUpdateStudy;
         $scope.markStudyComplete = markStudyComplete;
         $scope.loadTodos = loadTodos;
+        $scope.testUpdateStudyPatient = testUpdateStudyPatient;
+        $scope.updateStudyPatient = updateStudyPatient;
 
         $scope.viewObservations = {};
         $scope.action = action;
@@ -322,6 +324,39 @@
             return dashboardService.updateStudy(updatedStudy).then(function(result){
                 console.log(result);
                 loadStudies();
+            });
+        }
+
+        function testUpdateStudyPatient()
+        {
+            var updatedStudyPatient = {
+                "patientId":"3.568001602-01",
+                "firstName":"John",
+                "lastName":"Tarr",
+                "type":1,
+                "studyId":1
+            };
+
+            return dashboardService.updateStudyPatient(updatedPatient).then(function(result){
+                console.log(result);
+                loadStudyPatients();
+            });
+        }
+
+        function updateStudyPatient(patient)
+        {
+            var patientJson = patient;
+
+            for(var name in $scope.patientStatusEnum) {
+                var value = $scope.patientStatusEnum[name];
+                if (patientJson.status == value) patientJson.status = name;
+            }
+            return dashboardService.updateStudyPatient(patientJson).then(function(result){
+                console.log(result);
+                for(var name in $scope.patientStatusEnum) {
+                    if (patientJson.status == name) patientJson.status = $scope.patientStatusEnum[name];
+                }
+                console.log(patientJson);
             });
         }
 
