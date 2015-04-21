@@ -423,12 +423,18 @@
                                     <i class="fa fa-ban fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'"></i>
                                 </span>
                             </div>
-                            <div class="price-body">
+                            <div class="price-body" data-ng-hide="editMode">
                                 <h5>{{item.studyDescription}}</h5>
                                 <p>{{item.status}}</p>
                             </div>
+                            <div class="price-body" data-ng-show="editMode">
+                                <div>
+                                <select name="observations" class="form-control" ng-options="k as v for (k, v) in $scope.obsOptions" required></select>
+                                </div>
+                            </div>
                             <div class="price-foot">
-                                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-edit"></i> Edit</button>
+                                <button type="button" class="btn btn-default btn-sm" data-ng-hide="editMode" data-ng-click="editMode = true"><i class="fa fa-edit"></i> Edit</button>
+                                <button type="button" class="btn btn-default btn-sm" data-ng-show="editMode" data-ng-click="editMode = false"><i class="fa fa-edit"></i> Update</button>
                                 <button type="button" class="btn btn-default btn-sm" ng-click="openPatientObservations(item.patientId)"><i class="fa fa-search"></i> Observations</button>
                             </div>
                         </div>

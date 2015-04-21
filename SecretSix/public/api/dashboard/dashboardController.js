@@ -58,7 +58,6 @@
 
     angular.module('app').controller('dashboardController',['$scope','$modal','$log','dashboardService', 'toastr', dashboardController]);
     function dashboardController($scope,$modal,$log,dashboardService,toastr){
-
         $scope.items = ['item1', 'item2', 'item3'];
         $scope.open = function (size) {
 
@@ -622,6 +621,13 @@
             $scope.observationByPatientID(id);
             $scope.medicationByPatientID(id);
 
+        };
+
+        function addEditMode(arrVal) {
+            var len = arrVal.length;
+            for(var i = 0; i < len; i++){
+                arrVal[i].editMode = false;
+            }
         };
     }
 })();
