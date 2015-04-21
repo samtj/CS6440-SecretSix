@@ -17,34 +17,37 @@
     });
 
     angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary, study) {
-        //we get items in here. use that for graphs
-        //$timeout(function () {
-        //    var temp = Morris.Line({
-        //        element: 'chart',
-        //        data: [
-        //            {y: '2006', a: 100, b: 90},
-        //            {y: '2007', a: 75, b: 65},
-        //            {y: '2008', a: 50, b: 40},
-        //            {y: '2009', a: 75, b: 65},
-        //            {y: '2010', a: 50, b: 40},
-        //            {y: '2011', a: 75, b: 65},
-        //            {y: '2012', a: 100, b: 90}
-        //        ],
-        //        xkey: 'y',
-        //        ykeys: ['a', 'b'],
-        //        labels: ['Series A', 'Series B']
-        //    });
-        //}, 500);
 
-        $scope.observationAdd = study.observationCodes;
+        function resetFields(){
+            $scope.observationAdd = study.observationCodes;
+            $scope.quantityAdd = null;
+            $scope.unitAdd = null;
+            $scope.commentAdd = null;
+            $scope.dateAdd = null;
+        }
+
+        resetFields();
 
         $scope.viewObservations = {'local':localObservations,'remote':remoteObservations, 'obsOptions':observationCodesDictionary};
-        console.log('testing',$scope.viewObservations);
+        console.log('testing',$scope.viewObservations.local[0]);
 
-        //$scope.items = items;
-        //$scope.selected = {
-        //    item: $scope.items[0]
-        //};
+        $scope.add = function(){
+            var newObs = {
+                code: $scope.observationAdd,
+                comment: $scope.commentAdd,
+                dateObserved: $scope.dateAdd,
+                display: $scope.viewObservations.obsOptions[$scope.observationAdd],
+                examId: 1,
+                observationId: "1.1-0-01a08d29-9f2b-4610-9287-504e6d89cc9a",
+                quantity: 90,
+                status: 0,
+                subject: "3.568001602-01",
+                system: "http://loinc.org",
+                unit: "kg"
+            };
+            $scope.viewObservations.local.push(newObs);
+            resetFields();
+        };
 
         $scope.ok = function () {
 
