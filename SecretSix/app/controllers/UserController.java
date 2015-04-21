@@ -30,6 +30,25 @@ public class UserController extends Controller {
         return ok(Json.toJson(user));
     }
 
+    public static Result AuthenticateUser() {
+        ObjectNode result = Json.newObject();
+
+        UserEntity user = Json.fromJson(request().body().asJson(), UserEntity.class);
+        UserRepository repository = new UserRepository();
+
+        UserEntity retrievedUser = repository.GetUserByUserName(user.getUserName());
+        if (retrievedUser != null && user.getPassword().equals(retrievedUser.getPassword()))
+            retrievedUser.setPassword("");
+        else
+            retrievedUser = null;
+
+        if (retrievedUser != null)
+            return ok(Json.toJson(retrievedUser));
+        else
+            result.put("content", "authentication failure");
+            return ok(result);
+    }
+
     public static Result CreateUser() {
         ObjectNode result = Json.newObject();
 

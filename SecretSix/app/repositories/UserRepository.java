@@ -65,6 +65,42 @@ public class UserRepository {
         return user;
     }
 
+    public UserEntity GetUserByUserName(String userName)
+    {
+        Connection connection = null;
+        UserEntity user = null;
+        try
+        {
+            // create a database connection
+            connection = DriverManager.getConnection("jdbc:sqlite:" + SsSqLiteHelper.DB_LOCATION);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+            ResultSet rs = statement.executeQuery("select * from " + TABLE_User + " where " + SsSqLiteHelper.COLUMN_USERNAME + " = '" + userName + "'");
+            user = resultToUser(rs);
+        }
+        catch(SQLException e)
+        {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
+        return user;
+    }
+
     public boolean CreateUser(UserEntity user)
     {
         Connection connection = null;
