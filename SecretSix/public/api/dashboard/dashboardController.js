@@ -17,7 +17,25 @@
     });
 
     angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary, study) {
-
+        //leave this code here for later reference
+        //we get items in here. use that for graphs
+        //$timeout(function () {
+        //    var temp = Morris.Line({
+        //        element: 'chart',
+        //        data: [
+        //            {y: '2006', a: 100, b: 90},
+        //            {y: '2007', a: 75, b: 65},
+        //            {y: '2008', a: 50, b: 40},
+        //            {y: '2009', a: 75, b: 65},
+        //            {y: '2010', a: 50, b: 40},
+        //            {y: '2011', a: 75, b: 65},
+        //            {y: '2012', a: 100, b: 90}
+        //        ],
+        //        xkey: 'y',
+        //        ykeys: ['a', 'b'],
+        //        labels: ['Series A', 'Series B']
+        //    });
+        //}, 500);
         function resetFields(){
             $scope.observationAdd = study.observationCodes;
             $scope.quantityAdd = null;
@@ -267,7 +285,18 @@
             else
                 return code;
         };
-
+        $scope.getTypeEnum = function(typeCode){
+            if(typeCode == 1)
+                return 'CRN';
+            else if(typeCode == 2)
+                return 'Sponsor';
+            else(typeCode )
+            {
+                $scope.loggedin = false
+                toastr.error('A role with code: '+typeCode+' does not exist. Please contact your system admin','Undefined Role.');
+                return 'Error';
+            }
+        }
 
 
 //Get All Available Condition Codes and Count
@@ -409,6 +438,29 @@
 //post/put data END
 
 //Loading Data
+        $scope.userAuthentication = function(username,password){
+            console.log("inputuser: ", username,password);
+            var user = {'userName':username,'password':password};
+
+            return dashboardService.authenticationWithRole(user).
+                then(function(result){
+                    $scope.userInfo = result.data;
+                    if($scope.userInfo.userId){
+                        var temp = $scope.getTypeEnum($scope.userInfo.type);
+                        if(temp!='Error') {
+                            toastr.success('You are using the Secret Six application as a ' + temp, 'You have been authenticated successfully');
+                            $scope.loggedin = true;
+                        }
+                    }
+                    else{
+                        toastr.error('This user is not authenticated. Please contact your admin','Username or Password is incorrect');
+                    }
+
+                    console.log("userType: ", $scope.userInfo);
+                });
+        };
+
+
         function patientCount(){
             return dashboardService.getCount('patientCount').then(function(result){
                 $scope.patientCount = result.data;

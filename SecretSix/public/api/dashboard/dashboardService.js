@@ -32,9 +32,16 @@
             updateStudyPatient: updateStudyPatient,
             getTodos:getTodos,
             getAllTodos:getAllTodos,
-            getLocalObservationByPatientID:getLocalObservationByPatientID
+            getLocalObservationByPatientID:getLocalObservationByPatientID,
+            getUser:getUser,
+            authenticationWithRole:authenticationWithRole
         };
         return service;
+
+        function authenticationWithRole(user){
+            return $http.post('authenticateUser', user);
+        }
+
         function getData(){
             return $http.get('/mysamplejson');
         }
@@ -79,6 +86,9 @@
         }
         function getAllTodos(){
             return $http.get('todoall');
+        }
+        function getUser(id){
+            return $http.get('user/'+id);
         }
         function getPatientDetail(idlink){
             return $http.get(idlink);
