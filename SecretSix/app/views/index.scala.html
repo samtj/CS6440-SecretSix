@@ -268,7 +268,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" ng-click="setShowListDefault('availableStudies');loadStudies();">
+                        <a href="#" ng-click="setShowListDefault('availableStudies');loadStudies();showChart();">
                             <div class="panel-footer">
                                 <span class="pull-left">View Studies</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -535,21 +535,48 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="col-md-6">
                     <div class="panel panel-primary">
-                        <div class="panel-heading">Available Study Observations
+                        <div class="panel-heading">Number of Patients Assigned per Study
                         </div>
-                        <div style="min-height: 400px;max-height: 400px;overflow: auto">
-                            <ul class="list-group">
-                                <li class="list-group-item" ng-repeat="item in objectOfobservationswithPatientData">
-                                    <span class="badge badge-info">{{item.code}}</span>
-                                    <input type="checkbox" class="icheckbox_flat"/>
-                                    {{item.display}}
-                                </li>
-                            </ul>
+                        <div id="mydonutchart"></div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="">
+
+                    <div class="col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Study Success Rate Report
+                            </div>
+                            <div id="chart" style="height:250px;"></div>
+
                         </div>
-                        <div class="panel-footer">
-                            @*<button type="button" class="btn btn-success">Add</button>*@
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Weight Study Real vs Placebo
+                            </div>
+                                <div id="chartplacebovsnonWeight" style="height:250px;"></div>
+
+
+                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Sleep Study Real vs Placebo
+                            </div>
+                                <div id="chartplacebovsnonSleeping" style="height:250px;"></div>
+
+                            </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Height Study Real vs Placebo
+                            </div>
+                            <div id="chartplacebovsnonHeight" style="height:250px;"></div>
+
                         </div>
                     </div>
                 </div>

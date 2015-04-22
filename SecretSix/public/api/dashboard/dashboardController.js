@@ -61,8 +61,8 @@
         }
     });
 
-    angular.module('app').controller('dashboardController',['$scope','$modal','$log','dashboardService', 'toastr', dashboardController]);
-    function dashboardController($scope,$modal,$log,dashboardService,toastr){
+    angular.module('app').controller('dashboardController',['$scope','$modal','$log','$timeout','dashboardService', 'toastr', dashboardController]);
+    function dashboardController($scope,$modal,$log,$timeout,dashboardService,toastr){
         $scope.items = ['item1', 'item2', 'item3'];
         $scope.open = function (size) {
 
@@ -741,5 +741,109 @@
                 arrVal[i].editMode = false;
             }
         };
+
+
+
+//Morrisjs section
+        //
+
+        $scope.myLineChart = Morris.Line({
+            element: 'chart',
+            data: [
+                {y: '2015-04-01', a: 100, b: 90, c: 95},
+                {y: '2015-04-07', a: 75, b: 90, c: 90},
+                {y: '2015-04-14', a: 50, b: 90, c: 75},
+                {y: '2015-04-21', a: 50, b: 80, c: 89},
+                {y: '2015-04-30', a: 50, b: 75, c: 76},
+                {y: '2015-05-06', a: 45, b: 75, c: 90},
+                {y: '2015-05-11', a: 31, b: 60, c: 90},
+                {y: '2015-05-14', a: 31, b: 60, c: 94},
+                {y: '2015-05-22', a: 31, b: 60, c: 98}
+            ],
+            goals: [100, 95],
+            goalLineColors:['#F00'],
+            xkey: 'y',
+            ykeys: ['a', 'b', 'c'],
+            labels: ['Weight Pill Study', 'Height Pill Study', 'Sleeping Pill Study']
+        });
+        $scope.myLineChartweight = Morris.Line({
+            element: 'chartplacebovsnonWeight',
+            data: [
+                {y: '2015-04-01', a: 290, b: 290},
+                {y: '2015-04-07', a: 290, b: 285},
+                {y: '2015-04-14', a: 285, b: 285},
+                {y: '2015-04-30', a: 290, b: 280},
+                {y: '2015-04-21', a: 280, b: 275},
+                {y: '2015-05-06', a: 285, b: 276},
+                {y: '2015-05-11', a: 290, b: 272},
+                {y: '2015-05-14', a: 290, b: 271},
+                {y: '2015-05-22', a: 285, b: 268}
+            ],
+            goals: [270, 250],
+            goalLineColors:['#F00'],
+            ymin:[245],
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['Placebo', 'Actual']
+        });
+        $scope.myLineChartsleeping = Morris.Line({
+            element: 'chartplacebovsnonSleeping',
+            data: [
+                {y: '2015-04-01', a: 2, b: 2},
+                {y: '2015-04-07', a: 2, b: 5},
+                {y: '2015-04-14', a: 2, b: 7},
+                {y: '2015-04-30', a: 3, b: 7},
+                {y: '2015-04-21', a: 5, b: 7},
+                {y: '2015-05-06', a: 3, b: 6},
+                {y: '2015-05-11', a: 3, b: 8},
+                {y: '2015-05-14', a: 3, b: 8},
+                {y: '2015-05-22', a: 4, b: 7}
+            ],
+            goals: [9.0, 7.0],
+            goalLineColors:['#F00'],
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['Placebo', 'Actual']
+        });
+        $scope.myLineChartheight = Morris.Line({
+            element: 'chartplacebovsnonHeight',
+            data: [
+                {y: '2015-04-01', a: 38, b: 38},
+                {y: '2015-05-07', a: 38, b: 39},
+                {y: '2015-06-14', a: 39, b: 39},
+                {y: '2015-07-30', a: 39, b: 40},
+                {y: '2015-08-21', a: 39, b: 40},
+                {y: '2015-09-06', a: 39, b: 41},
+                {y: '2015-10-11', a: 40, b: 42},
+                {y: '2015-11-14', a: 40, b: 43},
+                {y: '2015-12-22', a: 40, b: 43}
+            ],
+            goals: [47, 45],
+            goalLineColors:['#F00'],
+            xkey: 'y',
+            ykeys: ['a', 'b'],
+            labels: ['Placebo', 'Actual']
+        });
+        $scope.myDonutChart = Morris.Donut({
+            element: 'mydonutchart',
+            data: [
+                {label: "Weight Study", value: 13},
+                {label: "Sleeping Study", value: 30},
+                {label: "Height Study", value: 20}
+            ]
+        });
+
+
+        $scope.showChart = function() {
+            $timeout(function () {
+            $scope.myLineChart.redraw();
+                $scope.myLineChartweight.redraw();
+                $scope.myLineChartsleeping.redraw();
+                $scope.myDonutChart.redraw();
+                $scope.myLineChartheight.redraw();
+            }, 500);
+        };
+
+
     }
 })();
