@@ -420,19 +420,14 @@
                             <div class="price-title text-right">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-user fa-stack-1x fa-2x" ng-show="item.status == 'Active'" ng-click="item.status = 'Inactive'; updateStudyPatient(item);"></i>
-                                    <i class="fa fa-user-plus fa-stack-1x fa-2x" ng-show="item.status == 'Open'"></i>
+                                    <i class="fa fa-user-plus fa-stack-1x fa-2x" ng-show="item.status == 'Open'" ng-click="item.editMode = true"></i>
                                     <i class="fa fa-user-times fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'" ng-click="item.status = 'Active'; updateStudyPatient(item);"></i>
                                 </span>
                             </div>
-                            <div class="price-body" data-ng-hide="editMode">
+                            <div class="price-body">
                                 <h5>{{item.studyDescription}}</h5>
                                 <p>{{item.status}}</p>
-
-                            </div>
-                            <div class="price-body" data-ng-show="editMode">
-                                <div>
-                                    <select name="observations" class="form-control" ng-options="k as v for (k, v) in $scope.obsOptions" required></select>
-                                </div>
+                                <select name="studies" data-ng-show="item.editMode" class="form-control" ng-model="item.studyId" ng-options="x.studyId as x.description for x in allStudies" ng-change="item.editMode = false" required></select>
                             </div>
                             <div class="price-foot">
                                     <!--<button type="button" class="btn btn-default btn-sm" data-ng-hide="editMode" data-ng-click="editMode = true"><i class="fa fa-edit"></i> Edit</button>-->
