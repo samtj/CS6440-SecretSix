@@ -196,6 +196,13 @@
     color: red;
     cursor: pointer;
 }
+.fa-user-open:before {
+    content: "\f007";
+}
+.fa-user-open:hover {
+    color: green;
+    cursor: pointer;
+}
 .fa-film:before {
   content: "\f008";
 }
@@ -449,6 +456,10 @@
 }
 .fa-ban:before {
   content: "\f05e";
+}
+.fa-ban:hover {
+    color: green;
+    cursor: pointer;
 }
 .fa-arrow-left:before {
   content: "\f060";
