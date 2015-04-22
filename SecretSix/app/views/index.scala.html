@@ -424,12 +424,19 @@
                                     <i class="fa fa-user-times fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'" ng-click="item.status = 'Active'; updateStudyPatient(item);"></i>
                                 </span>
                             </div>
-                            <div class="price-body">
+                            <div class="price-body" data-ng-hide="item.editMode">
                                 <h5>{{item.studyDescription}}</h5>
                                 <p>{{item.status}}</p>
-                                <select name="studies" data-ng-show="item.editMode" class="form-control" ng-model="item.studyId" ng-options="x.studyId as x.description for x in allStudies" ng-change="item.editMode = false" required></select>
+                                <p></p>
                             </div>
-                            <div class="price-foot">
+                            <div class="price-body" data-ng-show="item.editMode">
+                                <h6>Select Study:</h6>
+                                <select name="studies" class="form-control" ng-model="item.studyId" ng-options="x.studyId as x.description for x in allStudies" ng-change="alert(item.studyId);" required></select>
+                                <h6><input type="checkbox" ng-model="item.type" ng-true-value="1"  ng-false-value="0"  ng-checked="item.type == 1"> Use Placebo</h6>
+                                <button type="button" class="btn btn-success btn-lg" ng-click="item.editMode = false; item.status = 'Active'; updateStudyPatient(item);">Confirm</button>
+                                <p></p>
+                            </div>
+                            <div class="price-foot" ng-show="item.status != 'Open'">
                                     <!--<button type="button" class="btn btn-default btn-sm" data-ng-hide="editMode" data-ng-click="editMode = true"><i class="fa fa-edit"></i> Edit</button>-->
                                     <!--<button type="button" class="btn btn-default btn-sm" data-ng-show="editMode" data-ng-click="editMode = false"><i class="fa fa-edit"></i> Update</button>-->
                                 <button type="button" class="btn btn-default btn-xs" ng-click="openPatientObservations(item.patientId)"><i class="fa fa-search"></i> Observations</button>

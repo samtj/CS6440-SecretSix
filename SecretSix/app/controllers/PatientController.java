@@ -50,8 +50,16 @@ public class PatientController extends Controller {
         PatientRepository repository = new PatientRepository();
         boolean isSaved = repository.SavePatient(patient);
 
-        result.put("content", isSaved);
-        return ok(result);
+        if (isSaved)
+        {
+            patient = repository.GetPatient(patient.getPatientId());
+            return ok(Json.toJson(patient));
+        }
+        else
+        {
+            result.put("content", isSaved);
+            return ok(result);
+        }
     }
 
     public static Result GetAllPatients() {

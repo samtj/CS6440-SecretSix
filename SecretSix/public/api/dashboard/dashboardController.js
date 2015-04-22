@@ -383,18 +383,23 @@
 
         function updateStudyPatient(patient)
         {
-            var patientJson = patient;
+            var patientJson = jQuery.extend(true, {}, patient);
 
             for(var name in $scope.patientStatusEnum) {
                 var value = $scope.patientStatusEnum[name];
                 if (patientJson.status == value) patientJson.status = name;
             }
+
+            patientJson.type = Number(patientJson.type);
+            delete patientJson['editMode'];
+
             return dashboardService.updateStudyPatient(patientJson).then(function(result){
                 console.log(result);
                 for(var name in $scope.patientStatusEnum) {
                     if (patientJson.status == name) patientJson.status = $scope.patientStatusEnum[name];
                 }
                 console.log(patientJson);
+                var patient = jQuery.extend(true, {}, patientJson);
             });
         }
 
