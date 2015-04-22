@@ -399,7 +399,8 @@
                     if (patientJson.status == name) patientJson.status = $scope.patientStatusEnum[name];
                 }
                 console.log(patientJson);
-                var patient = jQuery.extend(true, {}, patientJson);
+                patient.status = patientJson.status;
+                patient.studyDescription = result.data.studyDescription;
             });
         }
 
