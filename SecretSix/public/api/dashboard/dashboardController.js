@@ -185,6 +185,11 @@
                     },
                     study: function () {
                         return dashboardService.getPatient(patientId).then(function(patient){
+                            if(!patient.data.studyId) {
+                                toastr.error('Please assign study before adding observations','Cannot add observations');
+                                return null;
+                            }
+
                             return dashboardService.getStudy(patient.data.studyId)
                         }).then(function(study){
                             return study.data;
@@ -259,7 +264,9 @@
             '9279-1':'Respiration Rate',
             '2093-3':'Cholesterol',
             '8302-2':'Body Height',
-            '8310-5':'Body Temperature'
+            '8310-5':'Body Temperature',
+            '3141-9':'Body Weight'
+
         };
         $scope.patientStatusEnum = {
             '0':'Open',
