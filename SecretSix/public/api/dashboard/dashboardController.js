@@ -264,7 +264,9 @@
             '9279-1':'Respiration Rate',
             '2093-3':'Cholesterol',
             '8302-2':'Body Height',
-            '8310-5':'Body Temperature'
+            '8310-5':'Body Temperature',
+            '3141-9':'Body Weight'
+
         };
         $scope.patientStatusEnum = {
             '0':'Open',
