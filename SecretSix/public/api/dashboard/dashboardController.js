@@ -16,33 +16,7 @@
         };
     });
 
-    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary, study) {
-        //leave this code here for later reference
-        //we get items in here. use that for graphs
-        //$timeout(function () {
-        //    var temp = Morris.Line({
-        //        element: 'chart',
-        //        data: [
-        //            {y: '2006', a: 100, b: 90},
-        //            {y: '2007', a: 75, b: 65},
-        //            {y: '2008', a: 50, b: 40},
-        //            {y: '2009', a: 75, b: 65},
-        //            {y: '2010', a: 50, b: 40},
-        //            {y: '2011', a: 75, b: 65},
-        //            {y: '2012', a: 100, b: 90}
-        //        ],
-        //        xkey: 'y',
-        //        ykeys: ['a', 'b'],
-        //        labels: ['Series A', 'Series B']
-        //    });
-        //}, 500);
-        function resetFields(){
-            $scope.observationAdd = study.observationCodes;
-            $scope.quantityAdd = null;
-            $scope.unitAdd = null;
-            $scope.commentAdd = null;
-            $scope.dateAdd = new Date();
-        }
+    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary, study, service) {
 
         resetFields();
 
@@ -56,25 +30,35 @@
                 dateObserved: $scope.dateAdd,
                 display: $scope.viewObservations.obsOptions[$scope.observationAdd],
                 examId: 1,
-                observationId: "1.1-0-01a08d29-9f2b-4610-9287-504e6d89cc9a",
                 quantity: $scope.quantityAdd,
                 status: 0,
-                subject: "3.568001602-01",
+                subject: study.subject,
                 system: "http://loinc.org",
                 unit: $scope.unitAdd
             };
             $scope.viewObservations.local.push(newObs);
+
+            service.addObservation(newObs);
+
             resetFields();
+
         };
 
-        $scope.ok = function () {
-
+        $scope.ok = function(){
             $modalInstance.close($scope.selected.item);
         };
 
-        $scope.cancel = function () {
+        $scope.cancel = function(){
             $modalInstance.dismiss('cancel');
         };
+
+        function resetFields(){
+            $scope.observationAdd = study.observationCodes;
+            $scope.quantityAdd = null;
+            $scope.unitAdd = null;
+            $scope.commentAdd = null;
+            $scope.dateAdd = new Date();
+        }
     });
 
     angular.module('app').controller('dashboardController',['$scope','$modal','$log','dashboardService', 'toastr', dashboardController]);
@@ -169,14 +153,14 @@
                     localObservations: function () {
                         return dashboardService.getLocalObservationByPatientID(patientId).
                             then(function(result){
-                                console.log(result.data);
+                                //console.log(result.data);
                                 return result.data;
                             });
                     },
                     remoteObservations: function () {
                         return dashboardService.getObservationByPatientID(patientId).
                             then(function(result){
-                                console.log('anything? ',result.data);
+                                //console.log('anything? ',result.data);
                                 return result.data;
                             });
                     },
@@ -192,8 +176,12 @@
 
                             return dashboardService.getStudy(patient.data.studyId)
                         }).then(function(study){
+                            study.data.subject = patientId;
                             return study.data;
                         })
+                    },
+                    service: function () {
+                        return dashboardService;
                     }
                 }
             });
@@ -221,6 +209,7 @@
         $scope.markStudyComplete = markStudyComplete;
         $scope.loadTodos = loadTodos;
         $scope.testUpdateStudyPatient = testUpdateStudyPatient;
+        $scope.testAddObservation = testAddObservation;
         $scope.updateStudyPatient = updateStudyPatient;
 
         $scope.viewObservations = {};
@@ -344,6 +333,24 @@
                 console.log(result);
                 loadStudies();
             });
+        }
+
+        function testAddObservation()
+        {
+            var newObs = {
+                code: "Test Code",
+                comment: "Test Comment",
+                dateObserved: new Date(),
+                display: "Test Display",
+                examId: 1,
+                quantity: 12,
+                status: 0,
+                subject: "Test Subject",
+                system: "http://loinc.org",
+                unit: "kg"
+            };
+
+            return dashboardService.addObservation(newObs);
         }
 
         function testUpdateStudy()

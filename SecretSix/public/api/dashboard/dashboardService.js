@@ -34,7 +34,8 @@
             getAllTodos:getAllTodos,
             getLocalObservationByPatientID:getLocalObservationByPatientID,
             getUser:getUser,
-            authenticationWithRole:authenticationWithRole
+            authenticationWithRole:authenticationWithRole,
+            addObservation:addObservation
         };
         return service;
 
@@ -98,6 +99,9 @@
         }
         function getAllObservations(){
             return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?_count=50');
+        }
+        function addObservation(obsJson){
+            return $http.post('observation', obsJson);
         }
         function getObservationDetail(idlink){
             return $http.get(idlink);
