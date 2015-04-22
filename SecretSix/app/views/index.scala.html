@@ -420,8 +420,8 @@
                             <div class="price-title text-right">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-user fa-stack-1x fa-2x" ng-show="item.status == 'Active'" ng-click="item.status = 'Inactive'; updateStudyPatient(item);"></i>
-                                    <i class="fa fa-user-open fa-stack-1x fa-2x" ng-show="item.status == 'Open'"></i>
-                                    <i class="fa fa-ban fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'" ng-click="item.status = 'Active'; updateStudyPatient(item);"></i>
+                                    <i class="fa fa-user-plus fa-stack-1x fa-2x" ng-show="item.status == 'Open'"></i>
+                                    <i class="fa fa-user-times fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'" ng-click="item.status = 'Active'; updateStudyPatient(item);"></i>
                                 </span>
                             </div>
                             <div class="price-body" data-ng-hide="editMode">

@@ -457,10 +457,6 @@
 .fa-ban:before {
   content: "\f05e";
 }
-.fa-ban:hover {
-    color: green;
-    cursor: pointer;
-}
 .fa-arrow-left:before {
   content: "\f060";
 }
@@ -1795,8 +1791,16 @@
 .fa-user-plus:before {
   content: "\f234";
 }
+.fa-user-plus:hover {
+    color: green;
+    cursor: pointer;
+}
 .fa-user-times:before {
   content: "\f235";
+}
+.fa-user-times:hover {
+    color: green;
+    cursor: pointer;
 }
 .fa-hotel:before,
 .fa-bed:before {
