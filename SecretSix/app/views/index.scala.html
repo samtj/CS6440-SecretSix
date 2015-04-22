@@ -20,7 +20,7 @@
     </script>
     <script type="text/ng-template" id="patientObservationModalContent.html">
     <div class="modal-header">
-    <h4 class="modal-title">Patient Observations <span class="badge badge-primary" ng-click="isCollapsed = !isCollapsed" style="cursor: pointer;">Create New Observation</span></h4>
+    <h4 class="modal-title">Patient Observations <span class="badge badge-primary" ng-click="isCollapsed = !isCollapsed" style="cursor: pointer;" ng-hide="userInfo.type=1">Create New Observation</span></h4>
     </div>
 
 
