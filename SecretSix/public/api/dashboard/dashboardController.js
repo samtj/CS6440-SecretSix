@@ -41,7 +41,7 @@
             $scope.quantityAdd = null;
             $scope.unitAdd = null;
             $scope.commentAdd = null;
-            $scope.dateAdd = null;
+            $scope.dateAdd = new Date();
         }
 
         resetFields();
@@ -57,11 +57,11 @@
                 display: $scope.viewObservations.obsOptions[$scope.observationAdd],
                 examId: 1,
                 observationId: "1.1-0-01a08d29-9f2b-4610-9287-504e6d89cc9a",
-                quantity: 90,
+                quantity: $scope.quantityAdd,
                 status: 0,
                 subject: "3.568001602-01",
                 system: "http://loinc.org",
-                unit: "kg"
+                unit: $scope.unitAdd
             };
             $scope.viewObservations.local.push(newObs);
             resetFields();
