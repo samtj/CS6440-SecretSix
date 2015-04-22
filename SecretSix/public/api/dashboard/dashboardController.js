@@ -185,6 +185,11 @@
                     },
                     study: function () {
                         return dashboardService.getPatient(patientId).then(function(patient){
+                            if(!patient.data.studyId) {
+                                toastr.error('Please assign study before adding observations','Cannot add observations');
+                                return null;
+                            }
+
                             return dashboardService.getStudy(patient.data.studyId)
                         }).then(function(study){
                             return study.data;
