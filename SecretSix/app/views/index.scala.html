@@ -418,10 +418,17 @@
                         <label class="label label-info float-top-left-corner" ng-hide="userInfo.type==1">{{item.firstName}} {{item.lastName}}</label>
                         <div ng-class="item.status == 'Active' ? 'unit price-success' : (item.status == 'Inactive' ? 'unit price-warning' : 'unit price-primary')" >
                             <div class="price-title text-right">
-                                <span class="fa-stack fa-lg">
-                                    <i class="fa fa-user fa-stack-1x fa-2x" ng-show="item.status == 'Active'" ng-click="item.status = 'Inactive'; updateStudyPatient(item);"></i>
+                                <!-- CRC -->
+                                <span class="fa-stack fa-lg" data-ng-show="userInfo.type!=1">
+                                    <i class="fa fa-user-crc fa-stack-1x fa-2x" ng-show="item.status == 'Active'" ng-click="item.status = 'Inactive'; updateStudyPatient(item);"></i>
+                                    <i class="fa fa-user-times-crc fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'" ng-click="item.status = 'Active'; updateStudyPatient(item);"></i>
+                                    <i class="fa fa-user-plus-crc fa-stack-1x fa-2x" ng-show="item.status == 'Open'"></i>
+                                </span>
+                                <!-- Sponsor -->
+                                <span class="fa-stack fa-lg" data-ng-show="userInfo.type==1">
+                                    <i class="fa fa-user fa-stack-1x fa-2x" ng-show="item.status == 'Active'"></i>
+                                    <i class="fa fa-user-times fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'"></i>
                                     <i class="fa fa-user-plus fa-stack-1x fa-2x" ng-show="item.status == 'Open'" ng-click="item.editMode = true"></i>
-                                    <i class="fa fa-user-times fa-stack-1x fa-2x text-danger" ng-show="item.status == 'Inactive'" ng-click="item.status = 'Active'; updateStudyPatient(item);"></i>
                                 </span>
                             </div>
                             <div class="price-body" data-ng-hide="item.editMode">
