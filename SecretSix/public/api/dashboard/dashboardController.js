@@ -294,7 +294,7 @@
         };
         $scope.getTypeEnum = function(typeCode){
             if(typeCode == 0)
-                return 'CRN';
+                return 'CRC';
             else if(typeCode == 1)
                 return 'Sponsor';
             else if(typeCode == 2)
@@ -582,7 +582,7 @@
             return dashboardService.getAllStudies().
                 then(function(result){
                     $scope.allStudies = result.data;
-                    //console.log("allStudies: ", $scope.allStudies[0]);
+                    console.log("allStudies: ", $scope.allStudies);
             });
         }
 

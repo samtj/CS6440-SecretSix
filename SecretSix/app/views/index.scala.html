@@ -206,7 +206,7 @@
             <div class="collapse navbar-collapse" collapse="!navbarCollapsed">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Dashboard</a></li>
-                    <li><a href="#about">About</a></li>
+
 
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -496,7 +496,7 @@
                                             </li>
                                         </ul>
                                         <p>
-                                            <a href="#" class="btn btn-warning" role="button">Create Observation</a>
+                                            <a href="#" class="btn btn-warning" role="button" ng-click="openPatientObservations(item.patientId)">Create Observation</a>
                                         </p>
                                     </div>
                                 </div>
@@ -516,8 +516,8 @@
                                 <li class="list-group-item" ng-repeat="item in allStudies">
                                     <span class="badge badge-info">{{item.observationCodes}}</span>
                                     <div class="btn-group " dropdown >
-                                        <button type="button" ng-disabled="userInfo.type == 0" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
-                                        <button type="button" ng-disabled="userInfo.type == 0" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
+                                        <button type="button" ng-disabled="userInfo.type == 0 || item.status" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
+                                        <button type="button" ng-disabled="userInfo.type == 0 || item.status" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
