@@ -61,6 +61,7 @@ public class StudyController extends Controller {
 
             return ok(Json.toJson(studies));
         }
+
         public static Result GetCount() {
 
             ObjectNode result = Json.newObject();
@@ -69,6 +70,16 @@ public class StudyController extends Controller {
             ArrayList<StudyEntity> studies = repository.GetStudies();
 
             return ok(Json.toJson(studies.size()));
+        }
+
+        public static Result GetReportStudies() {
+
+            ObjectNode result = Json.newObject();
+
+            StudyRepository repository = new StudyRepository();
+            ArrayList<StudyEntity> studies = repository.GetReportStudies();
+
+            return ok(Json.toJson(studies));
         }
     }
 

@@ -16,6 +16,7 @@ public class StudyEntity {
     private Integer active;
     private Integer status;
     private String note;
+    private Integer patientCount;
 
     @Id
     @Column(name = "StudyId", nullable = true, insertable = true, updatable = true)
@@ -96,6 +97,15 @@ public class StudyEntity {
     public void setNote(String note) {
         this.note = note;
     }
+
+    public Integer getPatientCount() {
+        return patientCount;
+    }
+
+    public void setPatientCount(Integer patientCount) {
+        this.patientCount = patientCount;
+    }
+
 
     @Override
     public boolean equals(Object o) {
