@@ -222,6 +222,50 @@ public class StudyRepository {
         return studies;
     }
 
+    public ArrayList<StudyEntity> GetReportStudies()
+    {
+        StudyEntity study = null;
+        ArrayList<StudyEntity> studies = new ArrayList<StudyEntity>();
+        Connection connection = null;
+        try
+        {
+            // create a database connection
+            connection = DriverManager.getConnection("jdbc:sqlite:" + SsSqLiteHelper.DB_LOCATION);
+            Statement statement = connection.createStatement();
+            statement.setQueryTimeout(30);  // set timeout to 30 sec.
+
+            ResultSet rs = statement.executeQuery("SELECT s.studyId, s.Description, count(*) " +
+                    "FROM STUDY s " +
+                    "JOIN PATIENT p ON s.studyId = p.studyId " +
+                    "GROUP BY s.studyId ");
+
+            while(rs.next()) {
+                study = resultToStudyReport(rs);
+                studies.add(study);
+            }
+        }
+        catch(SQLException e)
+        {
+            // if the error message is "out of memory",
+            // it probably means no database file is found
+            System.err.println(e.getMessage());
+        }
+        finally
+        {
+            try
+            {
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e);
+            }
+        }
+        return studies;
+    }
+
     private int getNewIdentity(Connection connection) throws SQLException {
         int id = 0;
 
@@ -249,6 +293,15 @@ public class StudyRepository {
         study.setActive(rs.getInt(6));
         study.setStatus(rs.getInt(7));
         study.setNote(rs.getString(8));
+        return study;
+    }
+
+    private StudyEntity resultToStudyReport(ResultSet rs) throws SQLException {
+        StudyEntity study = new StudyEntity();
+
+        study.setStudyId(rs.getInt(1));
+        study.setDescription(rs.getString(2));
+        study.setPatientCount(rs.getInt(3));
         return study;
     }
 }

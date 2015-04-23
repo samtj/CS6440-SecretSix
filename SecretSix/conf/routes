@@ -34,6 +34,7 @@ POST        /study                        controllers.StudyController.CreateStud
 PUT         /study/:id                    controllers.StudyController.UpdateStudy(id: Int)
 GET         /study                        controllers.StudyController.GetAllStudies()
 GET         /studyCount                   controllers.StudyController.GetCount()
+GET         /studyReport                  controllers.StudyController.GetReportStudies()
 
 GET         /todo                         controllers.TodoController.GetTodos()
 GET         /todoall                      controllers.TodoController.GetAllTodos()
