@@ -42,8 +42,8 @@ public class TodoRepository {
 
             if (!includeAll)
             {
-                sql += "WHERE (((julianday('now') - julianday(obs.dateObserved)) - STUDY.frequency) IS NULL) ";
-                sql += "OR (NOT ((julianday('now') - julianday(obs.dateObserved)) < STUDY.frequency)) ";
+                sql += "WHERE PATIENT.Status = 1 AND ( (((julianday('now') - julianday(obs.dateObserved)) - STUDY.frequency) IS NULL) ";
+                sql += "OR (NOT ((julianday('now') - julianday(obs.dateObserved)) < STUDY.frequency)) ) ";
             }
 
             sql += "ORDER BY lastDateObserved ASC ";
