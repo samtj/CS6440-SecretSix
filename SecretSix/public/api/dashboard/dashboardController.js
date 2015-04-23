@@ -32,6 +32,7 @@
                 examId: 1,
                 quantity: $scope.quantityAdd,
                 status: 0,
+                observationId: guid(),
                 subject: study.subject,
                 system: "http://loinc.org",
                 unit: $scope.unitAdd
@@ -43,6 +44,16 @@
             resetFields();
 
         };
+
+        function guid() {
+            function s4() {
+                return Math.floor((1 + Math.random()) * 0x10000)
+                    .toString(16)
+                    .substring(1);
+            }
+            return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+                s4() + '-' + s4() + s4() + s4();
+        }
 
         $scope.ok = function(){
             $modalInstance.close($scope.selected.item);
