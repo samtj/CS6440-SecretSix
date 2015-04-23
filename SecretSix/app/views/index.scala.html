@@ -312,7 +312,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="#" ng-click="setShowListDefault('availablePatients');loadPatients();">
+                        <a href="#" ng-click="setShowListDefault('availablePatients');loadPatients(myDictionary.selfPatientsLink);">
                             <div class="panel-footer" >
                                 <span class="pull-left">Research Patients</span>
                                 <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -348,7 +348,7 @@
                 <div class="col-md-6">
                     <div class="panel panel-warning">
                         <div class="panel-heading">
-                            <h3 class="panel-title"><i class="fa fa-list"></i> {{allAvailablePatients.totalResults}} Available Patients</h3>
+                            <h3 class="panel-title"><i class="fa fa-list"></i> {{allAvailablePatients.totalResults}} Available Patients (Showing 50)<span class="fa fa-backward" ng-click="loadPatients(allAvailablePatients.link[allAvailablePatients.link.length-3].href)" ng-hide="allAvailablePatients.link.length<4"></span> <span class="fa fa-forward" ng-click="loadPatients(allAvailablePatients.link[allAvailablePatients.link.length-2].href)"></span></h3>
                         </div>
                         <table class="table table-striped">
                             <thead><tr><th>Action</th><th>Patient ID</th><th>First Name</th><th>Last Name</th></tr></thead>

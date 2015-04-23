@@ -58,9 +58,10 @@
         function getPatient(id){
             return $http.get('patient/' + id);
         }
+        //'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_count=50'
+        function getAllPatients(link){
+            return $http.get(link);
 
-        function getAllPatients(){
-            return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_count=50');
         }
         function getAllStudies(){
             return $http.get('study');

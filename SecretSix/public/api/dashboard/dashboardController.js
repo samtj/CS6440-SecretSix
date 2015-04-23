@@ -207,49 +207,15 @@
             });
         };
 
-
-        $scope.test = "testing to see this";
-        $scope.loadSamplejsonWP = loadSamplejsonWP;
-        $scope.loadSamplejson = loadSamplejson;
-        $scope.loadPatients = loadPatients;
-        $scope.loadStudies = loadStudies;
-        $scope.loadObservations = loadObservations;
-        $scope.loadConditions = loadConditions;
-        $scope.createNewPatient = createNewPatient;
-        $scope.createNewObservation = createNewObservation;
-        $scope.loadStudyPatients = loadStudyPatients;
-        $scope.testAddStudy = testAddStudy;
-        $scope.testUpdateStudy = testUpdateStudy;
-        $scope.markStudyComplete = markStudyComplete;
-        $scope.loadTodos = loadTodos;
-        $scope.testUpdateStudyPatient = testUpdateStudyPatient;
-        $scope.testAddObservation = testAddObservation;
-        $scope.updateStudyPatient = updateStudyPatient;
-
-        $scope.viewObservations = {};
-        $scope.action = action;
-        $scope.allAvailablePatients = [];
-        $scope.allStudies = [];
-        $scope.allStudyPatients = [];
-        $scope.allAvailableObservations = [];
-        $scope.allAvailableConditions = [];
-        $scope.allAvailableConditionCodes = [];
-        $scope.allAvailableobservationCodes = [];
-        $scope.allAvailableTodos = [];
-        $scope.objectOfConditionswithPatientData = {};
-        $scope.objectOfobservationswithPatientData = {};
-        $scope.patientObservations=[];
-        $scope.patientConditions=[];
-        $scope.patientCount;
-        $scope.loggedin = false;
-        action();
 //Dictionary
         $scope.myDictionary = {
             'ICD9System':'http://hl7.org/fhir/sid/icd-9',
             'LOINCSystem':'http://loinc.org',
             'PatientLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient',
             'ObservationLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation',
-            'ConditionLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition'
+            'ConditionLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition',
+            'selfPatientsLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_count=50'
+
         };
         $scope.showList = {
             'availablePatients':false,
@@ -311,11 +277,47 @@
         }
 
 
+        $scope.test = "testing to see this";
+        $scope.loadSamplejsonWP = loadSamplejsonWP;
+        $scope.loadSamplejson = loadSamplejson;
+        $scope.loadPatients = loadPatients;
+        $scope.loadStudies = loadStudies;
+        $scope.loadObservations = loadObservations;
+        $scope.loadConditions = loadConditions;
+        $scope.createNewPatient = createNewPatient;
+        $scope.createNewObservation = createNewObservation;
+        $scope.loadStudyPatients = loadStudyPatients;
+        $scope.testAddStudy = testAddStudy;
+        $scope.testUpdateStudy = testUpdateStudy;
+        $scope.markStudyComplete = markStudyComplete;
+        $scope.loadTodos = loadTodos;
+        $scope.testUpdateStudyPatient = testUpdateStudyPatient;
+        $scope.testAddObservation = testAddObservation;
+        $scope.updateStudyPatient = updateStudyPatient;
+
+        $scope.viewObservations = {};
+        $scope.action = action;
+        $scope.allAvailablePatients = [];
+        $scope.allStudies = [];
+        $scope.allStudyPatients = [];
+        $scope.allAvailableObservations = [];
+        $scope.allAvailableConditions = [];
+        $scope.allAvailableConditionCodes = [];
+        $scope.allAvailableobservationCodes = [];
+        $scope.allAvailableTodos = [];
+        $scope.objectOfConditionswithPatientData = {};
+        $scope.objectOfobservationswithPatientData = {};
+        $scope.patientObservations=[];
+        $scope.patientConditions=[];
+        $scope.patientCount;
+        $scope.loggedin = false;
+        action();
+
 //Get All Available Condition Codes and Count
 
         function action(){
 
-            loadPatients();
+            loadPatients($scope.myDictionary.selfPatientsLink);
             patientCount();
             loadStudies();
             loadObservations();
@@ -572,13 +574,15 @@
             }
         }
 
-        function loadPatients(){
-            return dashboardService.getAllPatients().
-                then(function(result){
+        function loadPatients(link){
+
+            return dashboardService.getAllPatients(link).
+                then(function (result) {
                     $scope.allAvailablePatients = result.data;
                     console.log("allAvailablePatients: ", $scope.allAvailablePatients);
 
                 });
+
         }
 
         function loadStudies(){
