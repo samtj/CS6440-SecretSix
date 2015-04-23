@@ -582,7 +582,7 @@
             return dashboardService.getAllStudies().
                 then(function(result){
                     $scope.allStudies = result.data;
-                    //console.log("allStudies: ", $scope.allStudies[0]);
+                    console.log("allStudies: ", $scope.allStudies);
             });
         }
 

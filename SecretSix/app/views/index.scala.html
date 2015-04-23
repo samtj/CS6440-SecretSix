@@ -516,8 +516,8 @@
                                 <li class="list-group-item" ng-repeat="item in allStudies">
                                     <span class="badge badge-info">{{item.observationCodes}}</span>
                                     <div class="btn-group " dropdown >
-                                        <button type="button" ng-disabled="userInfo.type == 0 || item.Status" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
-                                        <button type="button" ng-disabled="userInfo.type == 0 || item.Status" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
+                                        <button type="button" ng-disabled="userInfo.type == 0 || item.status" class="btn btn-danger btn-xs" ng-click="openEditStudyModal(item)">Edit</button>
+                                        <button type="button" ng-disabled="userInfo.type == 0 || item.status" class="btn btn-danger btn-xs dropdown-toggle" dropdown-toggle>
                                             <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
