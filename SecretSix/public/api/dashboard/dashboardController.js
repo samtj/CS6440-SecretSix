@@ -294,7 +294,7 @@
         };
         $scope.getTypeEnum = function(typeCode){
             if(typeCode == 0)
-                return 'CRN';
+                return 'CRC';
             else if(typeCode == 1)
                 return 'Sponsor';
             else if(typeCode == 2)
