@@ -16,12 +16,12 @@
         };
     });
 
-    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary, study, service) {
+    angular.module('app').controller('ModalInstanceCtrl', function ($scope, $modalInstance,$timeout, localObservations,remoteObservations,observationCodesDictionary, userInfo, study, service) {
 
         resetFields();
 
-        $scope.viewObservations = {'local':localObservations,'remote':remoteObservations, 'obsOptions':observationCodesDictionary};
-        console.log('testing',$scope.viewObservations.local[0]);
+        $scope.viewObservations = {'local':localObservations,'remote':remoteObservations, 'obsOptions':observationCodesDictionary, 'userInfo':userInfo};
+        console.log('testing',userInfo);
 
         $scope.add = function(){
             var newObs = {
@@ -177,6 +177,9 @@
                     },
                     observationCodesDictionary:function() {
                         return $scope.observationCodesDictionary;
+                    },
+                    userInfo: function(){
+                        return $scope.userInfo;
                     },
                     study: function () {
                         return dashboardService.getPatient(patientId).then(function(patient){
