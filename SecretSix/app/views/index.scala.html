@@ -478,7 +478,7 @@
                             <accordion-heading >
                                 <h3 class="panel-title">
                                     <span class="badge badge-default">{{y.length}}</span> Pending Items for Study:
-                                    <span class="label label-default" ng-if="!study.description">ID: {{study.studyId}}</span> <i class="fa fa-warning fa-lg text-warning" tooltip="This study has no description. Please update the study."></i>
+                                    <span class="label label-default" ng-show="study.description===''">ID: {{study.studyId}}</span> <i ng-show="study.description===''" class="fa fa-warning fa-lg text-warning" tooltip="This study has no description. Please update the study."></i>
                                     <span class="label label-default" ng-if="study.description">{{study.description}}</span>
                                 </h3>
                             </accordion-heading>
