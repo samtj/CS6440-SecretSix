@@ -29,7 +29,7 @@ public class TodoRepository {
             statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
             String sql;
-            sql = "SELECT DISTINCT STUDY.studyid, PATIENT.patientid, PATIENT.FirstName, PATIENT.lastName, STUDY.ObservationCodes, obs.dateobserved as lastDateObserved "
+            sql = "SELECT DISTINCT STUDY.studyid, STUDY.Description, PATIENT.patientid, PATIENT.FirstName, PATIENT.lastName, STUDY.ObservationCodes, obs.dateobserved as lastDateObserved "
                     + ", CAST (((julianday('now') - julianday(obs.dateObserved)) - STUDY.frequency) AS INTEGER) "
                     + ", CASE WHEN ((julianday('now') - julianday(obs.dateObserved)) - STUDY.frequency) IS NULL THEN 1 "
                     + "       WHEN ((julianday('now') - julianday(obs.dateObserved)) - STUDY.frequency) > 0 THEN 1 "
@@ -80,13 +80,14 @@ public class TodoRepository {
         TodoEntity todo = new TodoEntity();
 
         todo.setStudyId(rs.getInt(1));
-        todo.setSubject(rs.getString(2));
-        todo.setSubjectFirstName(rs.getString(3));
-        todo.setSubjectLastName(rs.getString(4));
-        todo.setObservationCodes(rs.getString(5));
-        todo.setLastDateObserved(rs.getString(6));
-        todo.setPastDueDays(rs.getInt(7));
-        todo.setIsPast(rs.getInt(8));
+        todo.setDescription(rs.getString(2));
+        todo.setSubject(rs.getString(3));
+        todo.setSubjectFirstName(rs.getString(4));
+        todo.setSubjectLastName(rs.getString(5));
+        todo.setObservationCodes(rs.getString(6));
+        todo.setLastDateObserved(rs.getString(7));
+        todo.setPastDueDays(rs.getInt(8));
+        todo.setIsPast(rs.getInt(9));
 
         return todo;
     }

@@ -35,7 +35,12 @@ public class StudyEntity {
     }
 
     public void setDescription(String description) {
-        this.description = description;
+        if (description != null && !description.isEmpty()) {
+            this.description = description;
+        }
+        else {
+            this.description = "";
+        }
     }
 
     @Basic
