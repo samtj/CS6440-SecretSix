@@ -74,6 +74,7 @@
 
     angular.module('app').controller('dashboardController',['$scope','$modal','$log','$timeout','dashboardService', 'toastr', dashboardController]);
     function dashboardController($scope,$modal,$log,$timeout,dashboardService,toastr){
+
         $scope.items = ['item1', 'item2', 'item3'];
         $scope.open = function (size) {
 
