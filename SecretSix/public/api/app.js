@@ -12,4 +12,10 @@ angular.module('app',[
     'toastr'
 
 ]);
+    // define additional triggers on Tooltip and Popover
+    app.config(['$tooltipProvider', function($tooltipProvider){
+        $tooltipProvider.setTriggers({
+            'show': 'hide'
+        });
+    }]);
 })();
