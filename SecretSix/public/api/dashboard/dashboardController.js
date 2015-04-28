@@ -212,10 +212,10 @@
         $scope.myDictionary = {
             'ICD9System':'http://hl7.org/fhir/sid/icd-9',
             'LOINCSystem':'http://loinc.org',
-            'PatientLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient',
-            'ObservationLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation',
-            'ConditionLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition',
-            'selfPatientsLink':'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_count=50'
+            'PatientLink':'https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Patient',
+            'ObservationLink':'https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Observation',
+            'ConditionLink':'https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Condition',
+            'selfPatientsLink':'https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Patient?_count=50'
 
         };
         $scope.showList = {

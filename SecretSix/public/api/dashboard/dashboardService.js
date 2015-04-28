@@ -58,7 +58,7 @@
         function getPatient(id){
             return $http.get('patient/' + id);
         }
-        //'https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Patient?_count=50'
+        //'https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Patient?_count=50'
         function getAllPatients(link){
             return $http.get(link);
 
@@ -99,7 +99,7 @@
             return $http.get(countLink);
         }
         function getAllObservations(){
-            return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?_count=50');
+            return $http.get('https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Observation?_count=50');
         }
         function addObservation(obsJson){
             return $http.post('observation', obsJson);
@@ -108,26 +108,26 @@
             return $http.get(idlink);
         }
         function getObservationByPatientID(id){
-            return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Observation?subject:Patient="+id)
+            return $http.get("https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Observation?subject:Patient="+id)
         }
         function getLocalObservationByPatientID(id){
             return $http.get('observationsByPatientId/'+id)
         }
         function getAllConditions(){
-            return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?_count=200');
+            return $http.get('https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Condition?_count=200');
         }
         function getConditionDetail(idlink){
             return $http.get(idlink);
         }
-        //https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?code=http://hl7.org/fhir/sid/icd-9|590.80
+        //https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Condition?code=http://hl7.org/fhir/sid/icd-9|590.80
         function getAllConditionsByCode(system,code){
-            return $http.get('https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?code='+system+'|'+code);
+            return $http.get('https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Condition?code='+system+'|'+code);
         }
         function getConditionsByPatientID(id) {
-            return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/Condition?subject:Patient=" + id);
+            return $http.get("https://healthport.i3l.gatech.edu:8443/dstu1/fhir/Condition?subject:Patient=" + id);
         }
         function getMedicationByPatientID(id){
-            return $http.get("https://taurus.i3l.gatech.edu:8443/HealthPort/fhir/MedicationPrescription?subject:Patient=" + id);
+            return $http.get("https://healthport.i3l.gatech.edu:8443/dstu1/fhir/MedicationPrescription?subject:Patient=" + id);
         }
     }
 })();
