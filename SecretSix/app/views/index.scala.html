@@ -27,7 +27,7 @@
 
     <div class="modal-body">
     <div class="col-md-12" collapse="!isCollapsed">
-    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+    <button popover-placement="right" popover="Add new study observation for patient." class="btn btn-default btn-xs" style="position:absolute;">?</button>
     <div class="alert alert-success">
     <form class="form" name="myForm">
     <div class="form-group">
@@ -102,7 +102,7 @@
         </div>
         </div>
         <div class="col-md-6">
-        <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+        <button popover-placement="right" popover="Patient Observations related to the current study." class="btn btn-default btn-xs" style="position:absolute;">?</button>
             <div class="panel panel-primary">
                 <div class="panel-heading">Study Observations</div>
                 <table class="table table-bordered table-hover table-striped">
@@ -116,7 +116,7 @@
             </div>
         </div>
         <div class="col-md-6">
-        <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+        <button popover-placement="right" popover="All Observations for selected patient." class="btn btn-default btn-xs" style="position:absolute;">?</button>
             <div class="panel panel-primary">
                 <div class="panel-heading">Past Observations</div>
                 <table class="table table-bordered table-hover table-striped">
@@ -147,7 +147,7 @@
         </div>
         <div class="modal-body">
             <div class="col-md-12" collapse="false">
-            <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+            <button popover-placement="right" popover="Update existing studies, add new studies. Only sponsors can perform this role." class="btn btn-default btn-xs" style="position:absolute;">?</button>
                 <div class="alert alert-success">
                     <form class="form" name="myForm">
                         <div class="form-group">
@@ -284,7 +284,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6" ng-hide="userInfo.type==1">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="View pending task for each study" class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="panel panel-green">
                         <div class="panel-heading">
                             <div class="row">
@@ -307,7 +307,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6" ng-hide="userInfo.type==1">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="Select patients to add to studies." class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="panel panel-yellow">
                         <div class="panel-heading">
                             <div class="row">
@@ -330,7 +330,7 @@
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="View all patients selected for studies. Add observations to patients" class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="panel panel-red">
                         <div class="panel-heading">
                             <div class="row">
@@ -355,7 +355,7 @@
             </div>
             <div class="row" ng-hide="!showList.availablePatients">
                 <div class="col-md-6">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="View patient observations, view conditions, add patients to a study." class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="panel panel-warning">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-list"></i> {{allAvailablePatients.totalResults}} Available Patients (Showing 50)<span class="fa fa-backward" ng-click="loadPatients(allAvailablePatients.link[allAvailablePatients.link.length-3].href)" ng-hide="allAvailablePatients.link.length<4"></span> <span class="fa fa-forward" ng-click="loadPatients(allAvailablePatients.link[allAvailablePatients.link.length-2].href)"></span></h3>
@@ -387,7 +387,7 @@
                     </div>
                 </div>
                 <div class="col-md-6" ng-hide="!(showList.availablePatientsObservations || showList.availablePatientsConditions || showList.availablePatientsMedications)">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="View patient observations, view conditions, view medications." class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="panel panel-warning">
                         <div class="panel-heading">
                             <h3 class="panel-title"><i class="fa fa-list"></i>
@@ -408,7 +408,7 @@
 
             <div class="row" ng-hide="!showList.studyPatients">
                 <div class="col-lg-12">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="Filter results. Try filtering by study or patient name" class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="well well-sm">
                         <form class="form-inline">
                             <div class="form-group"> <label>Search:</label>
@@ -470,7 +470,7 @@
             <div class="row" ng-hide="!showList.availableTodos">
 
                 <div class="col-lg-12">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="Filter results. Try filtering by study or patient name" class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="well well-sm">
                         <form class="form-inline">
                             <div class="form-group"> <label>Search:</label>
@@ -521,7 +521,7 @@
             </div>
             <div class="row" ng-hide="!showList.availableStudies">
                 <div class="col-md-6">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
+                    <button popover-placement="right" popover="Update existing studies, add new studies. Only sponsors can perform this role." class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="panel panel-primary">
                         <div class="panel-heading">All Studies
                         </div>
@@ -551,7 +551,6 @@
                 </div>
 
                 <div class="col-md-6">
-                    <button popover-placement="right" popover="Chase" class="btn btn-default btn-xs" style="position:absolute;">?</button>
                     <div class="panel panel-primary">
                         <div class="panel-heading">Number of Patients Assigned per Study
                         </div>
